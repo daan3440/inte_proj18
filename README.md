@@ -1,5 +1,4 @@
 # inte_proj
-Prog2 Valuables
 
 ## Uppgiften
 Årets uppgift är att utveckla ett klassbibliotek som skulle kunna användas för att utveckla ett så kallat ”rougelike”-spel. Det finns mycket information om dessa på nätet, tex https://en.wikipedia.org/wiki/Roguelike, men i grund och botten handlar det om en ensam spelare som utforskar en slumpad karta, vanligen en grotta full av monster, skatter och magisk utrustning som förändrar spelarens egenskaper.
