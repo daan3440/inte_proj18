@@ -1,9 +1,11 @@
 package inte_proj18.game;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static inte_proj18.game.TempConverter.celsiusToFarenheit;
 
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Många verktyg kräver att saker och ting är döpta på rätt sätt. 
@@ -20,4 +22,5 @@ public class TempConverterTest{
 		assertEquals(212, celsiusToFarenheit(100), 0.01);
 	}
 
+	
 }
