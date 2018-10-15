@@ -23,5 +23,4 @@ public class GameMapTest {
 		assertEquals(gamemap.getHeight(), 64);
 
 	}
-
 }
