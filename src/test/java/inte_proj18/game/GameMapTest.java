@@ -1,8 +1,5 @@
 package inte_proj18.game;
 
-<<<<<<< HEAD
-public class GameMapTest {
-=======
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +23,4 @@ public class GameMapTest {
 		assertEquals(gamemap.getHeight(), 64);
 
 	}
->>>>>>> origin/grupp_branch
-
 }
