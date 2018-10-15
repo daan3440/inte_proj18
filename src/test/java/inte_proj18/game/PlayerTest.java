@@ -7,9 +7,13 @@ import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
 	Player player;
+	Position pos;
+	GameMap gamemap;
 
 	@BeforeEach
-	void createPlayer() {
+	void setUp() {
+		Position pos = new Position(32, 32);
+		GameMap gamemap = new GameMap(64, 64);
 		player = new Player("stina");
 	}
 
@@ -25,12 +29,20 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void enteredGameMapTest() {
-		Position pos = Position (32, 32);
-		GameMap gamemap = GameMap(64, 64);
+	public void enteredGameMapWithPositionTest() {
 		player.enterMap(pos, gamemap);
+		assertEquals(player.getPosition(), pos);	
 		
+	}
+	@Test
+	public void enteredGameMapWithGameMapTest() {
+		player.enterMap(pos, gamemap);
+		assertEquals(player.getGameMap(), gamemap);
 		
+	}
+	@Test
+	public void playerMoveUpTest() {
+		assertEquals(player.getName(), "stina");
 		
 	}
 
