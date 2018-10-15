@@ -12,8 +12,8 @@ public class PlayerTest {
 
 	@BeforeEach
 	void setUp() {
-		Position pos = new Position(32, 32);
-		GameMap gamemap = new GameMap(64, 64);
+		pos = new Position(32, 32);
+		gamemap = new GameMap(64, 64);
 		player = new Player("stina");
 	}
 
@@ -42,7 +42,10 @@ public class PlayerTest {
 	}
 	@Test
 	public void playerMoveUpTest() {
-		assertEquals(player.getName(), "stina");
+		player.enterMap(pos, gamemap);
+		player.moveUp();
+		Position posUp = new Position(32, 33);
+		assertEquals(player.getPosition(), posUp);
 		
 	}
 

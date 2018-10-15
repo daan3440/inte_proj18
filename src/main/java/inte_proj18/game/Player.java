@@ -25,5 +25,11 @@ public class Player {
 	public GameMap getGameMap() {
 		return gameMap;
 	}
+	public void moveUp() {
+		int  newY = pos.getY()+1;
+		Position newPos = new Position(pos.getX(), newY);
+		pos = newPos;
+		
+	}
 
 }
