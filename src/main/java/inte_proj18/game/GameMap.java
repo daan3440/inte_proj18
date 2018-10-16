@@ -32,7 +32,5 @@ public class GameMap {
 	public boolean checkPosition() {
 		return true;
 
-	public Map getGameMapObjects() {
-		return mapObjects;
-
+	}
 }
