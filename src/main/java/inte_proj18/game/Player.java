@@ -31,33 +31,40 @@ public class Player {
 		return gameMap;
 	}
 
+	//TODO Beautify
 	public void moveUp() {
-		if (gameMap.checkPosition()) {
-			int newY = pos.getY() + 1;
-			Position newPos = new Position(pos.getX(), newY);
-			pos = newPos;
-		}
-	}
-
-	public void moveDown() {
-		if (gameMap.checkPosition()) {
-			Position newPos = new Position(pos.getX(), pos.getY() - 1);
-			pos = newPos;
-		}
+		int newY = pos.getY() + 1;
+		Position newPos = new Position(pos.getX(), newY);
+		executeMove(newPos);
 	}
 	
-	public void moveRight() {
-		if(gameMap.checkPosition()) {
-			Position newPos = new Position(pos.getX()+1, pos.getY());
+	private void executeMove(Position newPos) {
+		if (gameMap.checkPosition(newPos)) {
+			gameMap.makeMove(pos, newPos);
 			pos = newPos;
 		}
+		
 	}
-	public void moveLeft() {
-		if(gameMap.checkPosition()) {
-			Position newPos = new Position(pos.getX()-1, pos.getY());
-			pos = newPos;
-		}
-	}
+
+//	public void moveDown() {
+//		if (gameMap.checkPosition()) {
+//			Position newPos = new Position(pos.getX(), pos.getY() - 1);
+//			pos = newPos;
+//		}
+//	}
+//	
+//	public void moveRight() {
+//		if(gameMap.checkPosition()) {
+//			Position newPos = new Position(pos.getX()+1, pos.getY());
+//			pos = newPos;
+//		}
+//	}
+//	public void moveLeft() {
+//		if(gameMap.checkPosition()) {
+//			Position newPos = new Position(pos.getX()-1, pos.getY());
+//			pos = newPos;
+//		}
+//	}
 
 	public int getHP() {
 		return hp;

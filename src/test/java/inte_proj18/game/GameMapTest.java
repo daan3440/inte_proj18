@@ -8,10 +8,12 @@ import org.junit.jupiter.api.Test;
 
 public class GameMapTest {
 	GameMap gamemap;
+	Player player;
 	
 	@BeforeEach
 	void createGameMap(){
-		gamemap = new GameMap(64,64);}
+		player = new Player("Stina II");
+		gamemap = new GameMap(64,64, player);}
 	
 	@Test
 	public void createGameMapCheckWidth(){
@@ -26,7 +28,7 @@ public class GameMapTest {
 	
 	@Test
 	public void isHashMapEmptyTest() {
-		assertTrue(!gamemap.getGameMapObjects().isEmpty());
+		assertFalse(gamemap.getGameMapObjects().isEmpty());
 	}
 	
 	@Test
@@ -35,7 +37,20 @@ public class GameMapTest {
 	}
 	
 	@Test
-	public void playerOnMapTest() {
-		
+	public void changePositionTest() {
+		Position old = new Position(11,11);
+		Position newpos = new Position(11,old.getY()+1);
+		gamemap.makeMove(old,newpos);
+		assertFalse(gamemap.getGameMapObjects().containsKey(old));
 	}
+	
+	
+	
+	@Test
+	public void changePositionViaPlayerTest() {
+		Position pos = player.getPosition();
+		player.moveUp();
+		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition())&&!player.getPosition().equals(pos));
+	}
+	
 }

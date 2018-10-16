@@ -9,11 +9,13 @@ public class GameMap {
 	private int height;
 	private Map<Position, Object> mapObjects;
 
-	public GameMap(int width, int height) {
+	public GameMap(int width, int height, Player p) {
 		this.width = width;
 		this.height = height;
+		Position playerpos = new Position(20,20);
 		mapObjects = new HashMap();
-//		mapObjects.put(key, value)
+		p.enterMap(playerpos, this);
+		mapObjects.put(playerpos, p);
 	}
 
 	public int getWidth() {
@@ -29,8 +31,14 @@ public class GameMap {
 	}
 
 	// Stub för move i player.
-	public boolean checkPosition() {
-		return true;
-
+	public boolean checkPosition(Position pos) {
+		return !mapObjects.containsKey(pos);
 	}
+	
+	public void makeMove(Position oldpos, Position newPos) {
+		Object o = mapObjects.get(oldpos);
+		mapObjects.remove(oldpos);
+		mapObjects.put(newPos, o);
+	}
+	
 }
