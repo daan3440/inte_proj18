@@ -7,15 +7,17 @@ import java.util.Map;
 public class GameMap {
 	private int width;
 	private int height;
-	private Map<Position, Object> mapObjects;
+	private Map<Position, Object> mapObjects = new HashMap<Position,Object>();
+	private Position entrypoint;
 
-	public GameMap(int width, int height, Player p) {
+	public GameMap(int width, int height) {
 		this.width = width;
 		this.height = height;
-		Position playerpos = new Position(20,20);
-		mapObjects = new HashMap();
-		p.enterMap(playerpos, this);
-		mapObjects.put(playerpos, p);
+		entrypoint = new Position(20,20);
+	}
+	
+	public Position getEntryPoint() {
+		return entrypoint;
 	}
 
 	public int getWidth() {
@@ -32,13 +34,18 @@ public class GameMap {
 
 	// Stub för move i player.
 	public boolean checkPosition(Position pos) {
-		return !mapObjects.containsKey(pos);
+//		return !mapObjects.containsKey(pos);
+		return true;
 	}
 	
 	public void makeMove(Position oldpos, Position newPos) {
 		Object o = mapObjects.get(oldpos);
 		mapObjects.remove(oldpos);
 		mapObjects.put(newPos, o);
+	}
+	
+	public void placePlayer(Player p) {
+		mapObjects.put(p.getPosition(),p);
 	}
 	
 }

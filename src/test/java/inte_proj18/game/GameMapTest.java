@@ -12,8 +12,9 @@ public class GameMapTest {
 	
 	@BeforeEach
 	void createGameMap(){
-		player = new Player("Stina II");
-		gamemap = new GameMap(64,64, player);}
+		gamemap = new GameMap(64,64);
+		player = new Player("Stina III");
+		}
 	
 	@Test
 	public void createGameMapCheckWidth(){
@@ -28,12 +29,35 @@ public class GameMapTest {
 	
 	@Test
 	public void isHashMapEmptyTest() {
-		assertFalse(gamemap.getGameMapObjects().isEmpty());
+		assertTrue(gamemap.getGameMapObjects().isEmpty());
+	}
+	
+	@Test
+	public void placePlayerTest(){
+		player.enterMap(gamemap);
+		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition()));
+		
+		
 	}
 	
 	@Test
 	public void fillMapTest() {
 		
+	}
+
+	@Test
+	public void removeOldPositionTest() {
+		player.enterMap(gamemap);
+		Position pos = player.getPosition();
+		player.moveUp();
+		assertFalse(gamemap.getGameMapObjects().containsKey(pos));
+	}// Ekvivalensklasser tillämpades här
+
+	@Test
+	public void changePlayerPositionTest() {
+		player.enterMap(gamemap);
+		player.moveUp();
+		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition()));
 	}
 	
 	@Test
@@ -42,15 +66,6 @@ public class GameMapTest {
 		Position newpos = new Position(11,old.getY()+1);
 		gamemap.makeMove(old,newpos);
 		assertFalse(gamemap.getGameMapObjects().containsKey(old));
-	}
-	
-	
-	
-	@Test
-	public void changePositionViaPlayerTest() {
-		Position pos = player.getPosition();
-		player.moveUp();
-		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition())&&!player.getPosition().equals(pos));
 	}
 	
 }
