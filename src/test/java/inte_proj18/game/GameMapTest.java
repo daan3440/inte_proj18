@@ -41,6 +41,14 @@ public class GameMapTest {
 	}
 	
 	@Test
+	public void frameOfGameMapTest() {
+		//implementera så att chekcPosition är falsk så händer inget.
+		gamemap.drawWallFrame();
+		Position pos = new Position(gamemap.getWidth(),gamemap.getHeight());
+		assertTrue(gamemap.getGameMapObjects().containsKey(pos));
+	}
+	
+	@Test
 	public void fillMapTest() {
 		
 	}

@@ -48,4 +48,18 @@ public class GameMap {
 		mapObjects.put(p.getPosition(),p);
 	}
 	
+	public void drawWallFrame() {
+		Object o = new Object();
+		for(int x= 0; x<=width; x++) {
+			mapObjects.put(new Position(x, 0), o);
+			mapObjects.put(new Position(x, height), o);
+
+		}
+		for(int x= 0; x<=width; x++) {
+			mapObjects.put(new Position(0, x), o);
+			mapObjects.put(new Position(width, x), o);
+			
+		}
+	}
+	
 }
