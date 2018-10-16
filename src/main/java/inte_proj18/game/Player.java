@@ -6,7 +6,7 @@ public class Player {
 	private Position pos;
 	private GameMap gameMap;
 	private int hp;
-	private int maxHP;
+	private int maxHP; //currentMaxHP?
 
 	public Player(String name) {
 		this.name = name;
@@ -39,9 +39,9 @@ public class Player {
 		return hp;
 	}
 	
-	public void takeDmg(int hit) {
+	public void takeDmg(int hitPoints) {
 		//TODO lägg till defense
-		hp-=hit;
+		hp-=hitPoints;
 		if (hp<=0) {
 			hp = 0;
 			//TODO lägg till för död
