@@ -13,9 +13,17 @@ public class InventoryTest {
 	}
 	
 	@Test
-	public void itemsExistTest() {
+	public void itemArrayExistTest() {
 		Inventory inventory = new Inventory();
-		assertNotNull(inventory.items);
+		assertNotNull(inventory.getItemsArray());
+	}
+	
+	@Test
+	public void addAndGetItemFromArrayTest() {
+		Inventory inventory = new Inventory();
+		Item item = new Item("Excalibur");
+		inventory.addItem(item);
+		assertEquals(inventory.getItem(item.getName()).getName(), "Excalibur");
 	}
 	
 }
