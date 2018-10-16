@@ -58,7 +58,6 @@ public class PlayerTest {
 	
 	@Test
 	public void takeMoreThanHPDamageTest() {
-		int oldhp = player.getHP();
 		int dmg = 110;
 		player.takeDmg(dmg);
 		assertEquals(player.getHP(), 0);
@@ -74,7 +73,6 @@ public class PlayerTest {
 	}
 	@Test
 	public void overMaxHPHeal() {
-		int oldHP = player.getHP();
 		int heal = 10;
 		player.heal(heal);
 		assertEquals(player.getHP(), player.getMaxHP());
