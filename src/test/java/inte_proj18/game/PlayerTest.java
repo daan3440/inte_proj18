@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class PlayerTest {
 	Player player;
 	Position pos;
-	GameMap gamemap;
+	GameMap gamemap;	
 
 	@BeforeEach
 	void setUp() {
@@ -48,5 +48,35 @@ public class PlayerTest {
 		assertEquals(player.getPosition(), posUp);
 		
 	}
+	@Test
+	public void takeDamageTest() {
+		int oldhp = player.getHP();
+		int dmg = 10;
+		player.takeDmg(dmg);
+		assertEquals(player.getHP(), oldhp-dmg);
+	}
+	
+	@Test
+	public void takeMoreThanHPDamageTest() {
+		int oldhp = player.getHP();
+		int dmg = 110;
+		player.takeDmg(dmg);
+		assertEquals(player.getHP(), 0);
+	}
 
+	@Test
+	public void upHpTest() {
+		player.takeDmg(10);
+		int oldhp = player.getHP();
+		int heal = 10;
+		player.heal(heal);
+		assertEquals(player.getHP(), oldhp+heal);
+	}
+	@Test
+	public void overMaxHPHeal() {
+		int oldHP = player.getHP();
+		int heal = 10;
+		player.heal(heal);
+		assertEquals(player.getHP(), player.getMaxHP());
+	}
 }
