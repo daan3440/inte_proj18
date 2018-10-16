@@ -79,4 +79,17 @@ public class PlayerTest {
 		player.heal(heal);
 		assertEquals(player.getHP(), player.getMaxHP());
 	}
+	
+//	@Test
+//	public void increaseMaxHPTest() {
+//		int oldMaxHP = player.getMaxHP();
+//		player.enterMap(pos, gamemap);
+//		int newMaxHP = (int) (oldMaxHP*1.1);
+//		assertEquals(player.getMaxHP(), newMaxHP );
+//	}
 }
+
+
+
+
+

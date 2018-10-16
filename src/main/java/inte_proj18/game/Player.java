@@ -20,6 +20,7 @@ public class Player {
 	public void enterMap(Position pos, GameMap gameMap) {
 		this.pos = pos;
 		this.gameMap = gameMap;
+		increaseMaxHP();
 	}
 
 	public Position getPosition() {
@@ -55,6 +56,10 @@ public class Player {
 	
 	public int getMaxHP() {
 		return maxHP;
+	}
+	
+	private void increaseMaxHP() {
+		maxHP= (maxHP/10)*11;
 	}
 
 }
