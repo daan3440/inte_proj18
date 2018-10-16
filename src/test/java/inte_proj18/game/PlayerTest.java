@@ -56,6 +56,21 @@ public class PlayerTest {
 		Position posDown = new Position(pos.getX(),pos.getY()-1);
 		assertEquals(player.getPosition(), posDown);
 	}
+	@Test
+	public void playerMoveRigtTest() {
+		player.enterMap(pos, gamemap);
+		player.moveRight();
+		Position posRight = new Position(pos.getX() +1,pos.getY());
+		assertEquals(player.getPosition(), posRight);
+	}
+	
+	@Test
+	public void playerMoveLeftTest() {
+		player.enterMap(pos, gamemap);
+		player.moveLeft();
+		Position posLeft = new Position(pos.getX()-1,pos.getY());
+		assertEquals(player.getPosition(), posLeft);
+	}
 	
 	@Test
 	public void takeDamageTest() {

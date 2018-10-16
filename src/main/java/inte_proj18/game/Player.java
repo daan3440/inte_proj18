@@ -45,6 +45,19 @@ public class Player {
 			pos = newPos;
 		}
 	}
+	
+	public void moveRight() {
+		if(gameMap.checkPosition()) {
+			Position newPos = new Position(pos.getX()+1, pos.getY());
+			pos = newPos;
+		}
+	}
+	public void moveLeft() {
+		if(gameMap.checkPosition()) {
+			Position newPos = new Position(pos.getX()-1, pos.getY());
+			pos = newPos;
+		}
+	}
 
 	public int getHP() {
 		return hp;
