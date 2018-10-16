@@ -8,27 +8,30 @@ public class GameMap {
 	private int width;
 	private int height;
 	private Map<Position, Object> mapObjects;
-	
+
 	public GameMap(int width, int height) {
-		this.width=width;
-		this.height=height;
+		this.width = width;
+		this.height = height;
 		mapObjects = new HashMap();
 //		mapObjects.put(key, value)
 	}
-	
-	public int getWidth(){
+
+	public int getWidth() {
 		return width;
 	}
-	public int getHeight(){
+
+	public int getHeight() {
 		return height;
 	}
-	
+
 	public Map getGameMapObjects() {
 		return mapObjects;
 	}
-	//Stub för move i player.
+
+	// Stub för move i player.
 	public boolean checkPosition() {
 		return true;
+
 	public Map getGameMapObjects() {
 		return mapObjects;
 
