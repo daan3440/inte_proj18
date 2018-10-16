@@ -14,5 +14,10 @@ public class GameMap {
 	public int getHeight(){
 		return height;
 	}
+	
+	//Stub för move i player.
+	public boolean checkPosition() {
+		return true;
+	}
 
 }

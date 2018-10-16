@@ -6,7 +6,7 @@ public class Player {
 	private Position pos;
 	private GameMap gameMap;
 	private int hp;
-	private int maxHP; //currentMaxHP?
+	private int maxHP; // currentMaxHP?
 
 	public Player(String name) {
 		this.name = name;
@@ -30,34 +30,46 @@ public class Player {
 	public GameMap getGameMap() {
 		return gameMap;
 	}
+
 	public void moveUp() {
-		int  newY = pos.getY()+1;
-		Position newPos = new Position(pos.getX(), newY);
-		pos = newPos;
+		if (gameMap.checkPosition()) {
+			int newY = pos.getY() + 1;
+			Position newPos = new Position(pos.getX(), newY);
+			pos = newPos;
+		}
 	}
+
+	public void moveDown() {
+		if (gameMap.checkPosition()) {
+			Position newPos = new Position(pos.getX(), pos.getY() - 1);
+			pos = newPos;
+		}
+	}
+
 	public int getHP() {
 		return hp;
 	}
-	
+
 	public void takeDmg(int hitPoints) {
-		//TODO lägg till defense
-		hp-=hitPoints;
-		if (hp<=0) {
+		// TODO lägg till defense
+		hp -= hitPoints;
+		if (hp <= 0) {
 			hp = 0;
-			//TODO lägg till för död
+			// TODO lägg till för död
 		}
 	}
+
 	public void heal(int heal) {
-		hp+=heal;
-		if(hp>maxHP) {
-			hp=maxHP;
+		hp += heal;
+		if (hp > maxHP) {
+			hp = maxHP;
 		}
 	}
-	
+
 	public int getMaxHP() {
 		return maxHP;
 	}
-	
+
 //	private void increaseMaxHP() {
 //		maxHP= (maxHP/10)*11;
 //	}
