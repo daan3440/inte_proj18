@@ -23,5 +23,19 @@ public class GameMapTest {
 		assertEquals(gamemap.getHeight(), 64);
 
 	}
-
+	
+	@Test
+	public void isHashMapEmptyTest() {
+		assertTrue(!gamemap.getGameMapObjects().isEmpty());
+	}
+	
+	@Test
+	public void fillMapTest() {
+		
+	}
+	
+	@Test
+	public void playerOnMapTest() {
+		
+	}
 }
