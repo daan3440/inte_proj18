@@ -20,7 +20,7 @@ public class Player {
 	public void enterMap(Position pos, GameMap gameMap) {
 		this.pos = pos;
 		this.gameMap = gameMap;
-		increaseMaxHP();
+		// increaseMaxHP(); bör ta ett värde för vilken nivå man är på.
 	}
 
 	public Position getPosition() {
@@ -58,8 +58,8 @@ public class Player {
 		return maxHP;
 	}
 	
-	private void increaseMaxHP() {
-		maxHP= (maxHP/10)*11;
-	}
+//	private void increaseMaxHP() {
+//		maxHP= (maxHP/10)*11;
+//	}
 
 }
