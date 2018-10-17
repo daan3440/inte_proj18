@@ -17,22 +17,22 @@ public class EnemyTest {
 	
 	@Test
 	void hitTest() {
-		enemy.hit(10);
+		enemy.takeDamage(10);
 		assertEquals(enemy.getHP(), 90);
 	}
 	
 	@Test
 	void hitMoreThanHPTest() {
-		enemy.hit(INITIAL_HP+1);
+		enemy.takeDamage(INITIAL_HP+1);
 		assertEquals(enemy.getHP(),0);
 	}
 	
 	@Test
 	void hitCeckInputTest() {
 		//enemy.hit(10) behövs för att inte setHPs kolla av indata ska kasta undantag.
-		enemy.hit(10); 
+		enemy.takeDamage(10); 
 		assertThrows(IllegalArgumentException.class, () -> {
-			enemy.hit(-1);
+			enemy.takeDamage(-1);
 
 		});
 	}

@@ -37,5 +37,18 @@ public class MovableObject extends GameObject {
 		// ska får sin startposition från gameMap alternativ Game.
 
 	}
+	
+	private void checkHitPoints(int hitPoints) {
+		if(hitPoints<=0) 
+			throw new IllegalArgumentException();
+	}
+
+	public void takeDamage(int hitPoints){
+		checkHitPoints(hitPoints);
+		
+		HP -= hitPoints;
+		if(HP<=0) 
+			HP=0;
+	}
 
 }

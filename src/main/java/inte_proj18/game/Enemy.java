@@ -11,7 +11,7 @@ public class Enemy extends MovableObject {
 			throw new IllegalArgumentException();
 	}
 
-	public void hit(int hitPoints){
+	public void takeDamage(int hitPoints){
 		checkHitPoints(hitPoints);
 		
 		int HP = this.getHP() - hitPoints;

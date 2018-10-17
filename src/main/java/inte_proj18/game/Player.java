@@ -1,20 +1,14 @@
 package inte_proj18.game;
 
-public class Player {
+public class Player extends MovableObject{
 	public static final int INITIALHP = 100;
-	private String name;
 	private Position pos;
 	private GameMap gameMap;
-	private int hp;
 	private int maxHP; // currentMaxHP?
 
 	public Player(String name) {
-		this.name = name;
-		hp = maxHP = INITIALHP;
-	}
-
-	public String getName() {
-		return name;
+		super(name, INITIALHP);
+		maxHP = INITIALHP;
 	}
 
 	public void enterMap(GameMap gameMap) {
@@ -66,24 +60,12 @@ public class Player {
 
 	}
 
-	public int getHP() {
-		return hp;
-	}
-
-	public void takeDmg(int hitPoints) {
-		// TODO lägg till defense
-		hp -= hitPoints;
-		if (hp <= 0) {
-			hp = 0;
-			// TODO lägg till för död
-		}
-	}
-
 	public void heal(int heal) {
-		hp += heal;
-		if (hp > maxHP) {
-			hp = maxHP;
-		}
+		int hp = this.getHP() + heal;
+		if (hp > maxHP)
+			this.setHP(maxHP);
+		else 
+			this.setHP(hp);
 	}
 
 	public int getMaxHP() {

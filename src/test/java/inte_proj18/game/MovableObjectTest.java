@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 public class MovableObjectTest {
 	public static final String VALID_NAME = "ValidName";
+	public static final int INITIAL_HP = 100;
+	
 	private MovableObject movableObject;
 	private Position pos;
 
@@ -46,6 +48,28 @@ public class MovableObjectTest {
 	void enterMapTest() {
 		movableObject.enterMap(new GameMap(100, 100));
 		assertEquals(movableObject.getPosition(), pos);
+	}
+	
+	@Test
+	void hitTest() {
+		movableObject.takeDamage(10);
+		assertEquals(movableObject.getHP(), 90);
+	}
+	
+	@Test
+	void hitMoreThanHPTest() {
+		movableObject.takeDamage(INITIAL_HP+1);
+		assertEquals(movableObject.getHP(),0);
+	}
+	
+	@Test
+	void hitCeckInputTest() {
+		//enemy.hit(10) behövs för att inte setHPs kolla av indata ska kasta undantag.
+		movableObject.takeDamage(10); 
+		assertThrows(IllegalArgumentException.class, () -> {
+			movableObject.takeDamage(-1);
+
+		});
 	}
 
 }

@@ -74,20 +74,20 @@ public class PlayerTest {
 	public void takeDamageTest() {
 		int oldhp = player.getHP();
 		int dmg = 10;
-		player.takeDmg(dmg);
+		player.takeDamage(dmg);
 		assertEquals(player.getHP(), oldhp - dmg);
 	}
 
 	@Test
 	public void takeMoreThanHPDamageTest() {
 		int dmg = 110;
-		player.takeDmg(dmg);
+		player.takeDamage(dmg);
 		assertEquals(player.getHP(), 0);
 	}
 
 	@Test
 	public void upHpTest() {
-		player.takeDmg(10);
+		player.takeDamage(10);
 		int oldhp = player.getHP();
 		int heal = 10;
 		player.heal(heal);
