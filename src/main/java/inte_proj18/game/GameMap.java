@@ -5,12 +5,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameMap {
+	private static final int MIN_WIDTH = 64;
+	private static final int MIN_HEIGHT = 64;
+	private static final int MAX_WIDTH = 256;
+	private static final int MAX_HEIGHT = 256;
+	
+	
 	private int width;
 	private int height;
 	private Map<Position, Object> mapObjects = new HashMap<Position, Object>();
 	private Position entrypoint;
 
 	public GameMap(int width, int height) {
+		if(width < MIN_WIDTH || width > MAX_WIDTH|| height<MIN_HEIGHT||height>MAX_HEIGHT) {
+			throw new IllegalArgumentException("Map size invalid");
+		}
 		this.width = width;
 		this.height = height;
 		entrypoint = new Position(20, 20);

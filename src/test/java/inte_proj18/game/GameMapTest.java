@@ -20,7 +20,28 @@ public class GameMapTest {
 		assertEquals(gamemap.getWidth(), 64);
 
 	}
+	
+	@Test
+	public void underMinWidthTest() {
+		assertThrows(IllegalArgumentException.class,() -> {gamemap = new GameMap(50,78);});
+	}
 
+	@Test
+	public void underMinHeightTest() {
+		assertThrows(IllegalArgumentException.class,() -> {gamemap = new GameMap(64,2);});
+		
+	}
+	
+	@Test
+	public void overMaxWidthTest() {
+		assertThrows(IllegalArgumentException.class,() -> {gamemap = new GameMap(789,230);});
+	}
+	
+	@Test
+	public void overMaxHeightTest() {
+		assertThrows(IllegalArgumentException.class,() -> {gamemap = new GameMap(230,789);});
+	}
+	
 	@Test
 	public void createGameMapCheckHeight() {
 		assertEquals(gamemap.getHeight(), 64);
