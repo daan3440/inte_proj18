@@ -33,6 +33,13 @@ public class GameMapTest {
 	}
 	
 	@Test
+	public void makePathPoints(){
+		gamemap.getPathPoints().clear();
+		gamemap.generatePathPoints();
+		assertFalse(gamemap.getPathPoint().isEmpty());
+	}
+	
+	@Test
 	public void mapObjectNotInEmptySpotTest() {
 		Set<Position> keysList = gamemap.getGameMapObjects().keySet();
 		boolean mapObjectInEmptySpot = false;
