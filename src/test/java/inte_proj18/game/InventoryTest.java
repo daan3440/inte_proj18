@@ -28,6 +28,7 @@ public class InventoryTest {
 		assertEquals(inventory.getItem(item.getName()).getName(), "Excalibur");
 	}
 
+
 	@Test
 	public void removeItemTest() {
 		Inventory inventory = new Inventory();
