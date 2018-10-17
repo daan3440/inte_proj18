@@ -37,18 +37,27 @@ public class MovableObject extends GameObject {
 		// ska får sin startposition från gameMap alternativ Game.
 
 	}
-	
+
+//	public void enterMap(GameMap gameMap) {
+//		this.gameMap = gameMap;
+//		pos = getEntryPoint();
+//		gameMap.placePlayer(this);
+//	}
+
+//	private abstract Position getEntryPoint();
+//  TODO bör vara i ha separata entryPoint metoder i gameMap för fiende och spelare.
+
 	private void checkHitPoints(int hitPoints) {
-		if(hitPoints<=0) 
+		if (hitPoints <= 0)
 			throw new IllegalArgumentException();
 	}
 
-	public void takeDamage(int hitPoints){
+	public void takeDamage(int hitPoints) {
 		checkHitPoints(hitPoints);
-		
+
 		HP -= hitPoints;
-		if(HP<=0) 
-			HP=0;
+		if (HP <= 0)
+			HP = 0;
 	}
 
 }
