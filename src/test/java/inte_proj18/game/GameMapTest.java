@@ -2,6 +2,10 @@ package inte_proj18.game;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +24,27 @@ public class GameMapTest {
 		assertEquals(gamemap.getWidth(), 64);
 
 	}
+	
+	@Test
+	public void mapObjectNotInEmptySpotTest() {
+		Set<Position> keysList = gamemap.getGameMapObjects().keySet();
+		boolean mapObjectInEmptySpot = false;
+		for(Position pos: keysList) {
+			mapObjectInEmptySpot = gamemap.getEmptySpots().contains(pos);
+		}
+		assertFalse(mapObjectInEmptySpot);
+	
+	}
+
+//	@Test
+//	public void generateEntryAndExitTest() {
+//		Position exit = gamemap.getExitPoint();
+//		Position entry = gamemap.getEntryPoint();
+//		int distance = Math.abs(exit.getX()+exit.getY()) - (entry.getX()+entry.getY());
+//		assertEquals()
+//		
+//		//ekvivalensklass
+//	}
 	
 	@Test
 	public void underMinWidthTest() {
@@ -49,8 +74,8 @@ public class GameMapTest {
 	}
 
 	@Test
-	public void isHashMapEmptyTest() {
-		assertTrue(gamemap.getGameMapObjects().isEmpty());
+	public void isHashMapNotEmptyTest() {
+		assertFalse(gamemap.getGameMapObjects().isEmpty());
 	}
 
 	@Test
@@ -63,7 +88,6 @@ public class GameMapTest {
 	@Test
 	public void frameOfGameMapTest() {
 		// implementera så att chekcPosition är falsk så händer inget.
-		gamemap.drawWallFrame();
 		Position pos = new Position(gamemap.getWidth(), gamemap.getHeight());
 		assertTrue(gamemap.getGameMapObjects().containsKey(pos));
 	}

@@ -1,8 +1,11 @@
 ﻿
 package inte_proj18.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 
 public class GameMap {
 	private static final int MIN_WIDTH = 64;
@@ -10,11 +13,12 @@ public class GameMap {
 	private static final int MAX_WIDTH = 256;
 	private static final int MAX_HEIGHT = 256;
 	
-	
 	private int width;
 	private int height;
 	private Map<Position, Object> mapObjects = new HashMap<Position, Object>();
 	private Position entrypoint;
+	private Position exitpoint;
+	private ArrayList<Position> emptySpots = new ArrayList<Position>();//kommer inte att motsvara tomma spots efter att saker har börjat röra på sig.
 
 	public GameMap(int width, int height) {
 		if(width < MIN_WIDTH || width > MAX_WIDTH|| height<MIN_HEIGHT||height>MAX_HEIGHT) {
@@ -22,11 +26,30 @@ public class GameMap {
 		}
 		this.width = width;
 		this.height = height;
-		entrypoint = new Position(20, 20);
+		
+		
+		drawWallFrame();
+		entrypoint = new Position(width/2+1, height-1);
+		exitpoint = new Position(width/2-1,0+1);
+		
+		generateMapContent();
+	}
+	
+	public void generateMapContent() {
+		Random rnd = new Random();
+		
 	}
 
 	public Position getEntryPoint() {
 		return entrypoint;
+	}
+	
+	public Position getExitPoint() {
+		return exitpoint;
+	}
+	
+	public ArrayList<Position> getEmptySpots(){
+		return emptySpots;
 	}
 
 	public int getWidth() {
@@ -40,6 +63,8 @@ public class GameMap {
 	public Map getGameMapObjects() {
 		return mapObjects;
 	}
+	
+	
 
 	// Stub för move i player.
 	public boolean checkPosition(Position pos) {
