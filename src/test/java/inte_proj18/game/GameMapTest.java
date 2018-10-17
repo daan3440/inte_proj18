@@ -36,7 +36,6 @@ public class GameMapTest {
 	public void placePlayerTest() {
 		player.enterMap(gamemap);
 		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition()));
-
 	}
 
 	@Test

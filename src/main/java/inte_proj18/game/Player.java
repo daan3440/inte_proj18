@@ -2,7 +2,6 @@ package inte_proj18.game;
 
 public class Player extends MovableObject{
 	public static final int INITIALHP = 100;
-	private Position pos;
 	private GameMap gameMap;
 	private int maxHP; // currentMaxHP?
 
@@ -14,13 +13,10 @@ public class Player extends MovableObject{
 	public void enterMap(GameMap gameMap) {
 
 		this.gameMap = gameMap;
-		pos = gameMap.getEntryPoint();
-		gameMap.placePlayer(this);
+		super.setPosition(gameMap.placePlayer(this));
+		//pos = gameMap.getEntryPoint();
+		//gameMap.placePlayer(this);
 		// increaseMaxHP(); bör ta ett värde för vilken nivå man är på.
-	}
-
-	public Position getPosition() {
-		return pos;
 	}
 
 	public GameMap getGameMap() {
@@ -29,33 +25,33 @@ public class Player extends MovableObject{
 
 	// TODO Beautify
 	public void moveUp() {
-		int newY = pos.getY() - 1;
-		Position newPos = new Position(pos.getX(), newY);
+		int newY = getPosition().getY() - 1;
+		Position newPos = new Position(getPosition().getX(), newY);
 		executeMove(newPos);
 	}
 
 	public void moveDown() {
-		int newY = pos.getY() + 1;
-		Position newPos = new Position(pos.getX(), newY);
+		int newY = getPosition().getY() + 1;
+		Position newPos = new Position(getPosition().getX(), newY);
 		executeMove(newPos);
 	}
 
 	public void moveLeft() {
-		int newX = pos.getX() -1;
-		Position newPos = new Position(newX,pos.getY());
+		int newX = getPosition().getX() -1;
+		Position newPos = new Position(newX,getPosition().getY());
 		executeMove(newPos);
 	}
 
 	public void moveRight() {
-		int newX = pos.getX() + 1;
-		Position newPos = new Position(newX,pos.getY());
+		int newX = getPosition().getX() + 1;
+		Position newPos = new Position(newX,getPosition().getY());
 		executeMove(newPos);
 	}
 
 	private void executeMove(Position newPos) {
 		if (gameMap.checkPosition(newPos)) {
-			gameMap.makeMove(pos, newPos);
-			pos = newPos;
+			gameMap.makeMove(getPosition(), newPos);
+			setPosition(newPos);
 		}
 
 	}

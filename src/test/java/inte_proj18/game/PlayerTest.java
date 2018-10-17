@@ -19,6 +19,7 @@ public class PlayerTest {
 	}
 
 	@Test
+	
 	public void createPlayerCheckNullTest() {
 		assertNotNull(player);
 	}

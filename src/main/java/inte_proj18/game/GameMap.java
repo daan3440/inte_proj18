@@ -44,9 +44,17 @@ public class GameMap {
 		mapObjects.put(newPos, o);
 	}
 
-	public void placePlayer(Player p) {
-		mapObjects.put(p.getPosition(), p);
+	public Position placePlayer(Player p) {
+		mapObjects.put(entrypoint, p);
+		return entrypoint;
 	}
+	//Stub för placeObject metod för enterMap GameObject
+	public Position placeObject(GameObject gameObject) {
+		return new Position(21, 21); 
+	}
+	
+	//Stub för att fixa enterMap för olika gameObjects
+	
 
 	public void drawWallFrame() {
 		Object o = new Object();

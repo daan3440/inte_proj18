@@ -1,7 +1,6 @@
 package inte_proj18.game;
 
 public class MovableObject extends GameObject {
-	private Position pos;
 	private int maxHP;
 	private int HP;
 	private GameMap gameMap;
@@ -23,13 +22,9 @@ public class MovableObject extends GameObject {
 		HP = newHP;
 	}
 
-	public Position getPosition() {
-		return pos;
-	}
-
 	public void enterMap(GameMap gameMap) {
 		this.gameMap = gameMap;
-		pos = new Position(10, 10); // ska tas från gameMap, där det finns något som tilldelar enemy sina
+		setPosition(new Position(10,10)); // ska tas från gameMap, där det finns något som tilldelar enemy sina
 									// startpositioner.
 		// kallar på en placeEnemy/Object i gamemap för att komma in i hashMap
 		// TODO enterMap bör vara abstrakt här men olika i enemy respektive Player på
