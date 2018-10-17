@@ -6,8 +6,8 @@
   <version>0.0.1-SNAPSHOT</version>
   
   <properties>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
@@ -39,7 +39,8 @@
                 <version>2.9</version>
                  <configuration>
         </configuration>
-            </plugin>           
+            </plugin>
+            
         </plugins>    
     </reporting>
 </project>
