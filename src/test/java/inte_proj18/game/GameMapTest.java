@@ -32,12 +32,12 @@ public class GameMapTest {
 		assertEquals(emptySpotsSize,gamemap.getHeight()*gamemap.getWidth());
 	}
 	
-	@Test
-	public void makePathPoints(){
-		gamemap.getPathPoints().clear();
-		gamemap.generatePathPoints();
-		assertFalse(gamemap.getPathPoint().isEmpty());
-	}
+//	@Test
+//	public void makePathPoints(){
+//		gamemap.getPathPoints().clear();
+//		gamemap.generatePathPoints();
+//		assertFalse(gamemap.getPathPoint().isEmpty());
+//	}
 	
 	@Test
 	public void mapObjectNotInEmptySpotTest() {
