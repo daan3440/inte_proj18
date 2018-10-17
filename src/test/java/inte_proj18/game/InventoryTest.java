@@ -34,20 +34,29 @@ public class InventoryTest {
 		Inventory inventory = new Inventory();
 		Item item = new Item(itemName);
 		inventory.addItem(item);
-		assertEquals(inventory.removeItem(itemName), true);
+		assertEquals(inventory.removeItem(itemName), item);
 	}
 
 	@Test
 	public void removeNonExistingItemTest() {
 		Inventory inventory = new Inventory();
 		inventory.removeItem(itemName);
-		assertEquals(inventory.removeItem(itemName), false);
+		assertEquals(inventory.removeItem(itemName), null);
 	}
 
 	@Test
 	public void getNonExistingItemTest() {
 		Inventory inventory = new Inventory();
 		assertNull(inventory.getItem(itemName));
+	}
+	
+	@Test
+	public void addToManyItemsTest() {
+		Inventory inventory = new Inventory();
+		for (int i = 0; i < 10; i++) {
+			inventory.addItem(new Item());
+		}
+		assertFalse(inventory.addItem(new Item()));
 	}
 
 }

@@ -33,14 +33,15 @@ public class Inventory {
 		return false;
 	}
 
-	public boolean removeItem(String itemName) {
+	public Item removeItem(String itemName) {
 		for (int i = 0; i < ArraySize; i++) {
 			if (items[i] != null && items[i].getName().equals(itemName)) {
+				Item temp = items[i];
 				items[i] = null;
-				return true;
+				return temp;
 			}
 		}
-		return false;
+		return null;
 	}
 
 }
