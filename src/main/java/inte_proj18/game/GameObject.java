@@ -2,7 +2,7 @@ package inte_proj18.game;
 
 public class GameObject {
 	private String name;
-	private Position pos = new Position(19, 19);
+	private Position pos;
 
 	public GameObject(String name) {
 		this.name = name;
