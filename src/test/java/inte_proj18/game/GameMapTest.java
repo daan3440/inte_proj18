@@ -22,7 +22,14 @@ public class GameMapTest {
 	@Test
 	public void createGameMapCheckWidth() {
 		assertEquals(gamemap.getWidth(), 64);
-
+	}
+	
+	@Test
+	public void fillEmptySpotsArrayList() {
+		gamemap.getEmptySpots().clear();
+		gamemap.fillEmptySpots();
+		int emptySpotsSize = gamemap.getEmptySpots().size();
+		assertEquals(emptySpotsSize,gamemap.getHeight()*gamemap.getWidth());
 	}
 	
 	@Test
@@ -87,11 +94,12 @@ public class GameMapTest {
 
 	@Test
 	public void frameOfGameMapTest() {
-		// implementera så att chekcPosition är falsk så händer inget.
+		// implementera så att checkPosition är falsk så händer inget.
 		Position pos = new Position(gamemap.getWidth(), gamemap.getHeight());
 		assertTrue(gamemap.getGameMapObjects().containsKey(pos));
 	}
 
+	
 	@Test
 	public void fillMapTest() {
 

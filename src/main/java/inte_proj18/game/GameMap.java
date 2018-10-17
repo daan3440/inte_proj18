@@ -27,16 +27,21 @@ public class GameMap {
 		this.width = width;
 		this.height = height;
 		
-		
+		fillEmptySpots();
 		drawWallFrame();
-		entrypoint = new Position(width/2+1, height-1);
-		exitpoint = new Position(width/2-1,0+1);
+		entrypoint = new Position(width/2, height-1);
+		exitpoint = new Position(width/2,1+1);
 		
 		generateMapContent();
 	}
 	
 	public void generateMapContent() {
 		Random rnd = new Random();
+		
+	}
+	
+	public void fillEmptySpots() {
+		
 		
 	}
 
@@ -84,12 +89,12 @@ public class GameMap {
 
 	public void drawWallFrame() {
 		Object o = new Object();
-		for (int x = 0; x <= width; x++) {
-			mapObjects.put(new Position(x, 0), o);
+		for (int x = 1; x <= width; x++) {
+			mapObjects.put(new Position(x, 1), o);
 			mapObjects.put(new Position(x, height), o);
 		}
-		for (int x = 0; x <= width; x++) {
-			mapObjects.put(new Position(0, x), o);
+		for (int x = 1; x <= width; x++) {
+			mapObjects.put(new Position(1, x), o);
 			mapObjects.put(new Position(width, x), o);
 
 		}
