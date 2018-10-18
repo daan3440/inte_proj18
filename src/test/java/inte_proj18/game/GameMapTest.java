@@ -13,11 +13,13 @@ import org.junit.jupiter.api.Test;
 public class GameMapTest {
 	GameMap gamemap;
 	Player player;
+	Wallet wallet;
+	Inventory inventory;
 
 	@BeforeEach
 	void createGameMapTest() {
 		gamemap = new GameMap(64, 64);
-		player = new Player("Stina III");
+		player = new Player("Stina III", wallet, inventory);
 	}
 
 	@Test
