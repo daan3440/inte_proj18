@@ -39,4 +39,10 @@ class GameObjectTest {
 		gameObject.enterMap(gameMap);
 		assertEquals(gameObject.getPosition(), pos);
 	}
+	
+	@Test
+	void getGameMapTest() {
+		gameObject.enterMap(gameMap);
+		assertEquals(gameObject.getGameMap(), gameMap);
+	}
 }
