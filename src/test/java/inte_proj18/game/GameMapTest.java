@@ -23,31 +23,31 @@ public class GameMapTest {
 	public void createGameMapCheckWidth() {
 		assertEquals(gamemap.getWidth(), 64);
 	}
-	
+
 	@Test
 	public void fillEmptySpotsArrayList() {
 		gamemap.getEmptySpots().clear();
 		gamemap.fillEmptySpots();
 		int emptySpotsSize = gamemap.getEmptySpots().size();
-		assertEquals(emptySpotsSize,gamemap.getHeight()*gamemap.getWidth());
+		assertEquals(emptySpotsSize, gamemap.getHeight() * gamemap.getWidth());
 	}
-	
+
 //	@Test
 //	public void makePathPoints(){
 //		gamemap.getPathPoints().clear();
 //		gamemap.generatePathPoints();
 //		assertFalse(gamemap.getPathPoint().isEmpty());
 //	}
-	
+
 	@Test
 	public void mapObjectNotInEmptySpotTest() {
 		Set<Position> keysList = gamemap.getGameMapObjects().keySet();
 		boolean mapObjectInEmptySpot = false;
-		for(Position pos: keysList) {
+		for (Position pos : keysList) {
 			mapObjectInEmptySpot = gamemap.getEmptySpots().contains(pos);
 		}
 		assertFalse(mapObjectInEmptySpot);
-	
+
 	}
 
 //	@Test
@@ -59,28 +59,36 @@ public class GameMapTest {
 //		
 //		//ekvivalensklass
 //	}
-	
+
 	@Test
 	public void underMinWidthTest() {
-		assertThrows(IllegalArgumentException.class,() -> {gamemap = new GameMap(50,78);});
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(50, 78);
+		});
 	}
 
 	@Test
 	public void underMinHeightTest() {
-		assertThrows(IllegalArgumentException.class,() -> {gamemap = new GameMap(64,2);});
-		
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(64, 2);
+		});
+
 	}
-	
+
 	@Test
 	public void overMaxWidthTest() {
-		assertThrows(IllegalArgumentException.class,() -> {gamemap = new GameMap(789,230);});
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(789, 230);
+		});
 	}
-	
+
 	@Test
 	public void overMaxHeightTest() {
-		assertThrows(IllegalArgumentException.class,() -> {gamemap = new GameMap(230,789);});
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789);
+		});
 	}
-	
+
 	@Test
 	public void createGameMapCheckHeight() {
 		assertEquals(gamemap.getHeight(), 64);
@@ -106,7 +114,6 @@ public class GameMapTest {
 		assertTrue(gamemap.getGameMapObjects().containsKey(pos));
 	}
 
-	
 	@Test
 	public void fillMapTest() {
 
