@@ -8,7 +8,7 @@ public class WalletTest {
 
 	@Test
 	public void getAndSetMoneyTest() {
-		Wallet wallet = new Wallet();
+		Wallet wallet = new Wallet(0);
 		wallet.setMoney(100);
 		assertEquals(wallet.getMoney(), 100);
 	}

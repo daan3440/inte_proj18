@@ -6,14 +6,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ShopTest {
-/*
-Item item;
+
+/*Item item;
 Inventory inventory;
+Player player;
+Wallet wallet;
 
 	@BeforeEach
 	void makeSale() {
 		item = new Item();
-		inventory = new Inventory();
+		player = new Player("Eva", wallet, inventory);
 	}
 
 	@Test
@@ -23,6 +25,7 @@ Inventory inventory;
 	
 	@Test
 	public void moneyReducedTest() {
+		
 		
 	}*/
 

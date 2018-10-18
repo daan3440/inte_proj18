@@ -4,8 +4,8 @@ public class Wallet {
 
 	private double money;
 
-	public Wallet() {
-		money = 0;
+	public Wallet(double money) {
+		this.money = money;
 	}
 
 	public double getMoney() {
