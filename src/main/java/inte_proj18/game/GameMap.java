@@ -27,6 +27,7 @@ public class GameMap {
 		}
 		this.width = width;
 		this.height = height;
+		
 
 		fillEmptySpots();
 		drawWallFrame();
@@ -35,10 +36,31 @@ public class GameMap {
 		emptySpots.remove(entrypoint);
 		emptySpots.remove(exitpoint);
 		removeMapObjectsFromEmptySpots();
-
-		generatePathPoints();
+		
+		createPathWay();
 
 		generateMapContent();
+	}
+	
+	public void createPathWay() {
+//		pathPoints
+		Position start = entrypoint;
+		
+		for (int i = 0; i<pathPoints.size();i++ ) {
+		generatePath(start,pathPoints.get(i));
+		start = pathPoints.get(i);
+		}
+		generatePath(start,exitpoint);
+		
+		
+	}
+	
+	public void setEntryPoint(Position pos) {
+		this.entrypoint = pos;
+	}
+	
+	public void setExitPoint(Position pos) {
+		this.exitpoint = pos;
 	}
 
 	private void removeMapObjectsFromEmptySpots() {
@@ -100,7 +122,7 @@ public class GameMap {
 	}
 
 	public void generateMapContent() {
-
+//TODO TLC
 	}
 
 	public void fillEmptySpots() {
