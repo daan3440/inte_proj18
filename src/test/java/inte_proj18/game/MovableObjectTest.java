@@ -10,12 +10,10 @@ public class MovableObjectTest {
 	public static final int INITIAL_HP = 100;
 	
 	private MovableObject movableObject;
-	private Position pos;
-
+	
 	@BeforeEach
 	void setUp() {
 		movableObject = new MovableObject(VALID_NAME, 100);
-		pos = new Position(10, 10);
 	}
 
 	@Test
@@ -42,12 +40,6 @@ public class MovableObjectTest {
 			movableObject.setHP(-10);
 
 		});
-	}
-	
-	@Test
-	void enterMapTest() {
-		movableObject.enterMap(new GameMap(100, 100));
-		assertEquals(movableObject.getPosition(), pos);
 	}
 	
 	@Test
