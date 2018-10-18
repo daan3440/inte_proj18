@@ -6,15 +6,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 class CombatTest {
-	Combat combat=new Combat();
-	
+	Combat combat;
+
 	@BeforeEach
 	void setUp() {
 		combat = new Combat();
 	}
+
 	@Test
 	void calculateDamagetest() {
 		assertEquals(combat.calculateDamage(10), 10);
 	}
-	
+
 }

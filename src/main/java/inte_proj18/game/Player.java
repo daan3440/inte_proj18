@@ -3,10 +3,14 @@ package inte_proj18.game;
 public class Player extends MovableObject{
 	public static final int INITIALHP = 100;
 	private int maxHP; // currentMaxHP?
+	private Wallet wallet;
+	private Inventory inventory;
 
-	public Player(String name) {
+	public Player(String name, Wallet wallet, Inventory inventory) {
 		super(name, INITIALHP);
 		maxHP = INITIALHP;
+		this.wallet = wallet;
+		this.inventory = inventory;
 	}
 
 	public void enterMap(GameMap gameMap) {
@@ -60,6 +64,14 @@ public class Player extends MovableObject{
 
 	public int getMaxHP() {
 		return maxHP;
+	}
+	
+	public Wallet getWallet() {
+		return wallet;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
 
 //	private void increaseMaxHP() {

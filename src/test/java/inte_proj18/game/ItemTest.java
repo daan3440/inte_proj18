@@ -17,5 +17,11 @@ public class ItemTest {
 		Item item = new Item("Excalibur");
 		assertEquals(item.getName(), "Excalibur");
 	}
+	
+	@Test
+	public void itemValueExistTest() {
+		Item item = new Item("Excalibur", 100);
+		assertEquals(item.getValue(), 100);
+	}
 
 }

@@ -6,13 +6,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
+
 	private Player player;
 	private Position pos;
 	private GameMap gamemap;
 
+	Wallet wallet;
+	Inventory inventory;
+
 	@BeforeEach
 	void setUp() {
-		player = new Player("stina");
+		player = new Player("stina", wallet, inventory);
 		gamemap = new GameMap(64, 64);
 		player.enterMap(gamemap);
 		pos = player.getPosition();
@@ -28,6 +32,16 @@ public class PlayerTest {
 	public void playerNameTest() {
 		assertEquals(player.getName(), "stina");
 
+	}
+	
+	@Test
+	public void playerWalletTest() {
+		assertEquals(player.getWallet(), wallet);
+	}
+	
+	@Test
+	public void playerInventoryTest() {
+		assertEquals(player.getInventory(), inventory);
 	}
 
 	@Test

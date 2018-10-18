@@ -17,6 +17,9 @@ public class Position {
 	public int getY() {
 		return y;
 	}
+	public int getDifference(Position pos) {
+		return Math.abs((this.x-pos.x))+ Math.abs((this.y-pos.y));
+	}
 	
 	public int hashCode() {
 		return x*7867+y;
