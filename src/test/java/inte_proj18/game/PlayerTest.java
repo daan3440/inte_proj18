@@ -12,10 +12,10 @@ public class PlayerTest {
 
 	@BeforeEach
 	void setUp() {
-		pos = new Position(20, 20);
 		player = new Player("stina");
 		gamemap = new GameMap(64, 64);
 		player.enterMap(gamemap);
+		pos = player.getPosition();
 	}
 
 	@Test
@@ -49,12 +49,20 @@ public class PlayerTest {
 		assertEquals(player.getPosition(), posUp);
 
 	}
-
 	@Test
 	public void playerMoveDownTest() {
+		player.moveLeft();
+		player.moveUp();
+		player.moveDown();
+		Position posLeftUpDown = new Position(pos.getX()-1, pos.getY());
+		assertEquals(player.getPosition(), posLeftUpDown);
+	}
+
+	@Test
+	public void playerCollisionDetectionTest() {
 		player.moveDown();
 		Position posDown = new Position(pos.getX(), pos.getY() + 1);
-		assertEquals(player.getPosition(), posDown);
+		assertNotEquals(player.getPosition(), posDown);
 	}
 
 	@Test

@@ -2,6 +2,10 @@ package inte_proj18.game;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +22,71 @@ public class GameMapTest {
 	@Test
 	public void createGameMapCheckWidth() {
 		assertEquals(gamemap.getWidth(), 64);
+	}
 
+	@Test
+	public void fillEmptySpotsArrayList() {
+		gamemap.getEmptySpots().clear();
+		gamemap.fillEmptySpots();
+		int emptySpotsSize = gamemap.getEmptySpots().size();
+		assertEquals(emptySpotsSize, gamemap.getHeight() * gamemap.getWidth());
+	}
+
+//	@Test
+//	public void makePathPoints(){
+//		gamemap.getPathPoints().clear();
+//		gamemap.generatePathPoints();
+//		assertFalse(gamemap.getPathPoint().isEmpty());
+//	}
+
+	@Test
+	public void mapObjectNotInEmptySpotTest() {
+		Set<Position> keysList = gamemap.getGameMapObjects().keySet();
+		boolean mapObjectInEmptySpot = false;
+		for (Position pos : keysList) {
+			mapObjectInEmptySpot = gamemap.getEmptySpots().contains(pos);
+		}
+		assertFalse(mapObjectInEmptySpot);
+
+	}
+
+//	@Test
+//	public void generateEntryAndExitTest() {
+//		Position exit = gamemap.getExitPoint();
+//		Position entry = gamemap.getEntryPoint();
+//		int distance = Math.abs(exit.getX()+exit.getY()) - (entry.getX()+entry.getY());
+//		assertEquals()
+//		
+//		//ekvivalensklass
+//	}
+
+	@Test
+	public void underMinWidthTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(50, 78);
+		});
+	}
+
+	@Test
+	public void underMinHeightTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(64, 2);
+		});
+
+	}
+
+	@Test
+	public void overMaxWidthTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(789, 230);
+		});
+	}
+
+	@Test
+	public void overMaxHeightTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789);
+		});
 	}
 
 	@Test
@@ -28,20 +96,20 @@ public class GameMapTest {
 	}
 
 	@Test
-	public void isHashMapEmptyTest() {
-		assertTrue(gamemap.getGameMapObjects().isEmpty());
+	public void isHashMapNotEmptyTest() {
+		assertFalse(gamemap.getGameMapObjects().isEmpty());
 	}
 
 	@Test
 	public void placePlayerTest() {
 		player.enterMap(gamemap);
 		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition()));
+
 	}
 
 	@Test
 	public void frameOfGameMapTest() {
-		// implementera så att chekcPosition är falsk så händer inget.
-		gamemap.drawWallFrame();
+		// implementera så att checkPosition är falsk så händer inget.
 		Position pos = new Position(gamemap.getWidth(), gamemap.getHeight());
 		assertTrue(gamemap.getGameMapObjects().containsKey(pos));
 	}

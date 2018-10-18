@@ -6,7 +6,7 @@ public class Inventory {
 	private Item[] items;
 
 	public Inventory() {
-		items = new Item[10];
+		items = new Item[ArraySize];
 	}
 
 	public Item[] getItemsArray() {
@@ -14,7 +14,7 @@ public class Inventory {
 	}
 
 	public Item getItem(String itemName) {
-		for (int i = 0; i < items.length; i++) {
+		for (int i = 0; i < ArraySize; i++) {
 			if (items[i] != null && items[i].getName().equals(itemName)) {
 				return items[i];
 			}
@@ -22,18 +22,26 @@ public class Inventory {
 		return null;
 	}
 
-	public void addItem(Item item) {
+	public boolean addItem(Item item) {
 		items[0] = item;
-	}
-
-	public boolean removeItem(String itemName) {
-		for (int i = 0; i < items.length; i++) {
-			if (items[i] != null && items[i].getName().equals(itemName)) {
-				items[i] = null;
+		for (int i = 0; i < ArraySize; i++) {
+			if (items[i] == null) {
+				items[i] = item;
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public Item removeItem(String itemName) {
+		for (int i = 0; i < ArraySize; i++) {
+			if (items[i] != null && items[i].getName().equals(itemName)) {
+				Item temp = items[i];
+				items[i] = null;
+				return temp;
+			}
+		}
+		return null;
 	}
 
 }
