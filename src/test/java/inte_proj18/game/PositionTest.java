@@ -10,5 +10,11 @@ public class PositionTest {
 		Position pos1 = new Position(1, 1);
 		assertNotNull(pos1);
 	}
+	@Test
+	void getDifferenceTest(){
+		Position pos = new Position(1,1);
+		Position posTwo = new Position(2,2);
+		assertEquals(pos.getDifference(posTwo), 2);
+	}
 
 }

@@ -3,6 +3,7 @@ package inte_proj18.game;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,12 +33,55 @@ public class GameMapTest {
 		assertEquals(emptySpotsSize, gamemap.getHeight() * gamemap.getWidth());
 	}
 
-//	@Test
-//	public void makePathPoints(){
-//		gamemap.getPathPoints().clear();
-//		gamemap.generatePathPoints();
-//		assertFalse(gamemap.getPathPoint().isEmpty());
-//	}
+	@Test
+	public void checkPathPointsInEmptySpots() {
+		boolean pathPointInEmptySpot = false;
+		for (Position pos : gamemap.getPathPoints()) {
+			pathPointInEmptySpot = gamemap.getEmptySpots().contains(pos);
+		}
+		assertFalse(pathPointInEmptySpot);
+	}
+
+	@Test
+	public void makePathPoints() {
+		gamemap.getPathPoints().clear();
+		gamemap.generatePathPoints();
+		assertFalse(gamemap.getPathPoints().isEmpty());
+	}
+
+	@Test
+	public void checkPointsWithLowestDifference() {
+		Position sevenFive = new Position(7, 5);
+		gamemap.getPathPoints().clear();
+		ArrayList<Position> testPositionDifference = new ArrayList<>(
+				Arrays.asList(new Position(1,1), new Position(8, 5), sevenFive, new Position(3, 3)));
+		gamemap.getPathPoints().addAll(testPositionDifference);
+		assertEquals(gamemap.checkNearestPoint(new Position(7,6)), sevenFive);
+	}
+	
+	@Test
+	public void checkPathRemovalFromEmptySpots() {
+		Position a = new Position(1,1);
+		Position b = new Position(8,7);
+		gamemap.getEmptySpots().clear();
+		gamemap.fillEmptySpots();
+		int epsize = gamemap.getEmptySpots().size();
+		gamemap.getEmptySpots().remove(a);
+		gamemap.getEmptySpots().remove(b);
+		gamemap.generatePath(a, b);
+		assertEquals(gamemap.getEmptySpots().size(),epsize-14);
+	}
+	@Test
+	public void checkCorrectPathPositionRemovedFromEmptySpots() {
+		Position a = new Position(1,1);
+		Position b = new Position(8,7);
+		gamemap.getEmptySpots().clear();
+		gamemap.fillEmptySpots();
+		gamemap.getEmptySpots().remove(a);
+		gamemap.getEmptySpots().remove(b);
+		gamemap.generatePath(a, b);
+		assertFalse(gamemap.getEmptySpots().contains(new Position(2,7)));
+	}
 
 	@Test
 	public void mapObjectNotInEmptySpotTest() {
