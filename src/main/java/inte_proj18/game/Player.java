@@ -2,7 +2,6 @@ package inte_proj18.game;
 
 public class Player extends MovableObject{
 	public static final int INITIALHP = 100;
-	private GameMap gameMap;
 	private int maxHP; // currentMaxHP?
 
 	public Player(String name) {
