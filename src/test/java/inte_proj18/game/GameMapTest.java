@@ -138,7 +138,13 @@ public class GameMapTest {
 		assertFalse(gamemap.getEmptySpots().contains(new Position(2,7)));
 	}
 
-	
+	@Test
+	public void checkCorrectAmountOfPlacedImmovableObjects() {
+		gamemap.getGameMapObjects().clear();
+		int oldSize = gamemap.getEmptySpots().size();
+		gamemap.generateMapContent();
+		assertEquals((int)(oldSize*0.4), gamemap.getEmptySpots().size());
+	}
 	@Test
 	public void mapObjectNotInEmptySpotTest() {
 		Set<Position> keysList = gamemap.getGameMapObjects().keySet();

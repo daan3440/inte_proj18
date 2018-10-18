@@ -11,6 +11,10 @@ public class GameMap {
 	private static final int MIN_HEIGHT = 64;
 	private static final int MAX_WIDTH = 256;
 	private static final int MAX_HEIGHT = 256;
+	private static final double PART_IMMOVABLEOBJECTS = 0.4;
+	private static final double PART_ITEMS = 0.2;
+	private static final double PART_ENEMIES = 0.2;
+	
 
 	private int width;
 	private int height;
@@ -122,9 +126,24 @@ public class GameMap {
 	}
 
 	public void generateMapContent() {
-//TODO TLC
+		generateImmovableObjects();
 	}
 
+	private void generateImmovableObjects() {
+		int x = (int) (emptySpots.size()*PART_IMMOVABLEOBJECTS);
+		for(int i=x; i>x; i--) {
+			Position pos = emptySpots.get(0);
+			mapObjects.put(pos, createImmovableObject(pos));
+			emptySpots.remove(0);
+		}
+	}
+	
+	private ImmovableObject createImmovableObject(Position pos) {
+		ImmovableObject io = new ImmovableObject();
+//		io.enterMap //Måste slutföra immovableobject
+		return io;
+	}
+	
 	public void fillEmptySpots() {
 		int x = 1;
 		while (x <= width) {
@@ -184,6 +203,7 @@ public class GameMap {
 
 	// Stub för placeObject metod för enterMap GameObject
 	public Position placeObject(GameObject gameObject) {
+		
 		return new Position(21, 21);
 	}
 
