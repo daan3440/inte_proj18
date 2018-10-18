@@ -19,4 +19,8 @@ public class GameObject {
 	public Position getPosition() {
 		return pos;
 	}
+	
+	public void enterMap(GameMap gameMap) {
+		pos = gameMap.placeObject(this);
+	}
 }
