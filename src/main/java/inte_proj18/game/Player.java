@@ -2,7 +2,6 @@ package inte_proj18.game;
 
 public class Player extends MovableObject{
 	public static final int INITIALHP = 100;
-	private GameMap gameMap;
 	private int maxHP; // currentMaxHP?
 	private Wallet wallet;
 	private Inventory inventory;
@@ -15,16 +14,11 @@ public class Player extends MovableObject{
 	}
 
 	public void enterMap(GameMap gameMap) {
-
-		this.gameMap = gameMap;
-		super.setPosition(gameMap.placePlayer(this));
+		setGameMap(gameMap);
+		setPosition(gameMap.placePlayer(this));
 		//pos = gameMap.getEntryPoint();
 		//gameMap.placePlayer(this);
 		// increaseMaxHP(); bör ta ett värde för vilken nivå man är på.
-	}
-
-	public GameMap getGameMap() {
-		return gameMap;
 	}
 
 	// TODO Beautify
@@ -53,8 +47,8 @@ public class Player extends MovableObject{
 	}
 
 	private void executeMove(Position newPos) {
-		if (gameMap.checkPosition(newPos)) {
-			gameMap.makeMove(getPosition(), newPos);
+		if (getGameMap().checkPosition(newPos)) {
+			getGameMap().makeMove(getPosition(), newPos);
 			setPosition(newPos);
 		}
 

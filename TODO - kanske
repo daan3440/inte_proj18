@@ -13,4 +13,13 @@ Game
 	Till profiling
 	Hash vs Matris
 	
+		
 Klass för BattleSystem
+
+GameObject
+	metodern get och set för både position och gameMap 
+	behöver göras för att bara kunna ändras av subclass. 
+	Bör inte vara public. Prioritet: medel, när de klasserna 
+	görs abstrakta.
+	
+	

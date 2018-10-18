@@ -6,11 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
-	Player player;
+
+	private Player player;
+	private Position pos;
+	private GameMap gamemap;
+
 	Wallet wallet;
 	Inventory inventory;
-	Position pos;
-	GameMap gamemap;
 
 	@BeforeEach
 	void setUp() {
