@@ -14,7 +14,7 @@ public class GameMap {
 
 	private int width;
 	private int height;
-	private Map<Position, Object> mapObjects = new HashMap<Position, Object>();
+	private Map<Position, GameObject> mapObjects = new HashMap<Position, GameObject>();
 	private Position entrypoint;
 	private Position exitpoint;
 	private ArrayList<Position> emptySpots = new ArrayList<Position>();// kommer inte att motsvara tomma spots efter att
@@ -172,9 +172,9 @@ public class GameMap {
 	}
 
 	public void makeMove(Position oldpos, Position newPos) {
-		Object o = mapObjects.get(oldpos);
+		GameObject go = mapObjects.get(oldpos);
 		mapObjects.remove(oldpos);
-		mapObjects.put(newPos, o);
+		mapObjects.put(newPos, go);
 	}
 
 	public Position placePlayer(Player p) {
@@ -190,14 +190,14 @@ public class GameMap {
 	// Stub för att fixa enterMap för olika gameObjects
 
 	public void drawWallFrame() {
-		Object o = new Object(); // TODO
+		ImmovableObject io = new ImmovableObject(); // TODO
 		for (int x = 1; x <= width; x++) {
-			mapObjects.put(new Position(x, 1), o);
-			mapObjects.put(new Position(x, height), o);
+			mapObjects.put(new Position(x, 1), io);
+			mapObjects.put(new Position(x, height), io);
 		}
 		for (int x = 1; x <= width; x++) {
-			mapObjects.put(new Position(1, x), o);
-			mapObjects.put(new Position(width, x), o);
+			mapObjects.put(new Position(1, x), io);
+			mapObjects.put(new Position(width, x), io);
 
 		}
 	}
