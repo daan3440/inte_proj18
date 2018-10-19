@@ -58,6 +58,7 @@ public class PlayerTest {
 
 	@Test
 	public void playerMoveUpTest() {
+		gamemap.getGameMapObjects().clear();
 		player.moveUp();
 		Position posUp = new Position(pos.getX(), pos.getY() - 1);
 		assertEquals(player.getPosition(), posUp);
@@ -65,22 +66,15 @@ public class PlayerTest {
 	}
 	@Test
 	public void playerMoveDownTest() {
-		player.moveLeft();
-		player.moveUp();
+		gamemap.getGameMapObjects().clear();
 		player.moveDown();
-		Position posLeftUpDown = new Position(pos.getX()-1, pos.getY());
-		assertEquals(player.getPosition(), posLeftUpDown);
+		Position posDown = new Position(pos.getX(), pos.getY()+1);
+		assertEquals(player.getPosition(), posDown);
 	}
 
 	@Test
-	public void playerCollisionDetectionTest() {
-		player.moveDown();
-		Position posDown = new Position(pos.getX(), pos.getY() + 1);
-		assertNotEquals(player.getPosition(), posDown);
-	}
-
-	@Test
-	public void playerMoveRigtTest() {
+	public void playerMoveRightTest() {
+		gamemap.getGameMapObjects().clear();
 		player.moveRight();
 		Position posRight = new Position(pos.getX() + 1, pos.getY());
 		assertEquals(player.getPosition(), posRight);
@@ -88,9 +82,17 @@ public class PlayerTest {
 
 	@Test
 	public void playerMoveLeftTest() {
+		gamemap.getGameMapObjects().clear();
 		player.moveLeft();
 		Position posLeft = new Position(pos.getX() - 1, pos.getY());
 		assertEquals(player.getPosition(), posLeft);
+	}
+	
+	@Test
+	public void playerCollisionDetectionTest() {
+		player.moveDown();
+		Position posDown = new Position(pos.getX(), pos.getY() + 1);
+		assertNotEquals(player.getPosition(), posDown);
 	}
 
 	@Test
