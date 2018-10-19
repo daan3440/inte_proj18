@@ -1,59 +1,27 @@
 package inte_proj18.game;
 
+import java.util.HashMap;
+
+
 public class Inventory {
 
-	private final int ArraySize = 10;
-	private Item[] items;
+	private HashMap<Item, Integer> itemsInInventory = new HashMap<Item, Integer>();
 
-	public Inventory() {
-		items = new Item[ArraySize];
+	
+	public Inventory(HashMap<Item, Integer> inventory) {
+		this.itemsInInventory = inventory;
+	}
+	
+	public HashMap<Item, Integer> getItemsInInventory() {
+		return itemsInInventory;
 	}
 
-	public Item[] getItemsArray() {
-		return items;
-	}
-
-	public Item getItem(String itemName) {
-		for (int i = 0; i < ArraySize; i++) {
-			if (items[i] != null && items[i].getName().equals(itemName)) {
-				return items[i];
-			}
+	public void addItemToInventory(Item item) {
+		int quantity = 1;
+		if(itemsInInventory.containsKey(item)) {
+			quantity += itemsInInventory.get(item);
 		}
-		return null;
+		itemsInInventory.put(item, quantity);
 	}
-
-	public boolean addItem(Item item) {
-		items[0] = item;
-		for (int i = 0; i < ArraySize; i++) {
-			if (items[i] == null) {
-				items[i] = item;
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public Item removeItem(String itemName) {
-		for (int i = 0; i < ArraySize; i++) {
-			if (items[i] != null && items[i].getName().equals(itemName)) {
-				Item temp = items[i];
-				items[i] = null;
-				return temp;
-			}
-		}
-		return null;
-	}
-
-//	public int getEmptyPlace() {
-//		int emptyPlace = 0;
-//
-//		for(int i = 0; i < ArraySize; i++) {
-//			if(items[i] == null){
-//				emptyPlace = i;
-//				break;
-//			}
-//		}
-//		return emptyPlace;
-//	}
-
+	
 }
