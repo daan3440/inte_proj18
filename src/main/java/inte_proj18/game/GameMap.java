@@ -23,7 +23,7 @@ public class GameMap {
 	private Position exitpoint;
 	private ArrayList<Position> emptySpots = new ArrayList<Position>();// kommer inte att motsvara tomma spots efter att
 	private Set<Position> pathWaySet = new HashSet<>();
-																		// saker har börjat röra på sig.
+	// saker har börjat röra på sig.
 	private ArrayList<Position> pathPoints = new ArrayList<Position>();
 
 	public GameMap(int width, int height) {
@@ -40,12 +40,19 @@ public class GameMap {
 		emptySpots.remove(entrypoint);
 		emptySpots.remove(exitpoint);
 		removeMapObjectsFromEmptySpots();
+		generatePathPoints();
 
 		createPathWay();
 
 		generateMapContent();
 	}
-	
+
+	public void generateMapContent() {
+		generateGameMapEnvironment();
+		generateItems();
+		generateEnemies();
+	}
+
 	public Set<Position> getPathWay() {
 		return pathWaySet;
 	}
@@ -53,10 +60,10 @@ public class GameMap {
 	public void createPathWay() {
 //		pathPoints
 		Position start = entrypoint;
-
-		for (int i = 0; i < pathPoints.size(); i++) {
-			generatePath(start, pathPoints.get(i));
-			start = pathPoints.get(i);
+		while (!pathPoints.isEmpty()) {
+			Position pos = checkNearestPoint(start);
+			generatePath(start, pos);
+			start = pos;
 		}
 		generatePath(start, exitpoint);
 
@@ -130,13 +137,12 @@ public class GameMap {
 			pathWaySet.add(pos);
 			x++;
 		}
+		Position pos = new Position(x, y);
+		emptySpots.remove(pos);
+		pathWaySet.add(pos);
 	}
 
-	public void generateMapContent() {
-		generateGameMapEnvironment();
-		generateItems();
-	}
-	//TODO gör till privat
+	// TODO gör till privat
 	public void generateGameMapEnvironment() {
 		int x = (int) (emptySpots.size() * PART_IMMOVABLEOBJECTS);
 		for (int i = x; i >= 0; i--) {
@@ -149,32 +155,32 @@ public class GameMap {
 	private ImmovableObject createImmovableObject(Position pos) {
 		return new ImmovableObject();
 	}
-	
-	//TODO gör till privat
+
+	// TODO gör till privat
 	public void generateItems() {
 		int x = (int) (emptySpots.size() * PART_ITEMS);
-		for(int i = x; i>=0; i--) {
+		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createItem(pos));
 			emptySpots.remove(0);
 		}
 	}
-	
+
 	private Item createItem(Position pos) {
 		return new Item("Name");
 	}
-	
+
 	public void generateEnemies() {
 		emptySpots.addAll(pathWaySet);
 		Collections.shuffle(emptySpots);
 		int x = (int) (emptySpots.size() * PART_ENEMIES);
-		for(int i = x; i>=0; i--) {
+		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createEnemy(pos));
 			emptySpots.remove(0);
 		}
 	}
-	
+
 	private Enemy createEnemy(Position pos) {
 		return new Enemy(pos, this);
 	}
@@ -212,7 +218,7 @@ public class GameMap {
 		return height;
 	}
 
-	public Map getGameMapObjects() {
+	public Map<Position, GameObject> getGameMapObjects() {
 		return mapObjects;
 	}
 
