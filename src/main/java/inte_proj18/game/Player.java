@@ -15,7 +15,7 @@ public class Player extends MovableObject{
 
 	public void enterMap(GameMap gameMap) {
 		setGameMap(gameMap);
-		setPosition(gameMap.placeMovableObject(this));
+		setPosition(gameMap.placePlayer(this));
 		//pos = gameMap.getEntryPoint();
 		//gameMap.placePlayer(this);
 		// increaseMaxHP(); bör ta ett värde för vilken nivå man är på.

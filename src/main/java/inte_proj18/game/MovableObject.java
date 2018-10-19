@@ -56,8 +56,4 @@ public class MovableObject extends GameObject {
 			HP = 0;
 	}
 	
-	public void enterMap(GameMap gameMap) {
-		
-	}
-
 }

@@ -3,6 +3,7 @@ package inte_proj18.game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,8 +13,8 @@ public class GameMap {
 	private static final int MAX_WIDTH = 256;
 	private static final int MAX_HEIGHT = 256;
 	private static final double PART_IMMOVABLEOBJECTS = 0.4;
-	private static final double PART_ITEMS = 0.2;
-	private static final double PART_ENEMIES = 0.2;
+	private static final double PART_ITEMS = 0.01;
+	private static final double PART_ENEMIES = 0.1;
 
 	private int width;
 	private int height;
@@ -21,6 +22,7 @@ public class GameMap {
 	private Position entrypoint;
 	private Position exitpoint;
 	private ArrayList<Position> emptySpots = new ArrayList<Position>();// kommer inte att motsvara tomma spots efter att
+	private Set<Position> pathWaySet = new HashSet<>();
 																		// saker har börjat röra på sig.
 	private ArrayList<Position> pathPoints = new ArrayList<Position>();
 
@@ -42,6 +44,10 @@ public class GameMap {
 		createPathWay();
 
 		generateMapContent();
+	}
+	
+	public Set<Position> getPathWay() {
+		return pathWaySet;
 	}
 
 	public void createPathWay() {
@@ -106,7 +112,9 @@ public class GameMap {
 
 		int y = a.getY();
 		while (b.getY() != y) {
-			emptySpots.remove(new Position(a.getX(), y));
+			Position pos = new Position(a.getX(), y);
+			emptySpots.remove(pos);
+			pathWaySet.add(pos);
 			y++;
 		}
 		if (a.getX() > b.getX()) {
@@ -117,18 +125,21 @@ public class GameMap {
 
 		int x = a.getX();
 		while (b.getX() != x) {
-			emptySpots.remove(new Position(x, y));
+			Position pos = new Position(x, y);
+			emptySpots.remove(pos);
+			pathWaySet.add(pos);
 			x++;
 		}
 	}
 
 	public void generateMapContent() {
-		generateImmovableObjects();
+		generateGameMapEnvironment();
+		generateItems();
 	}
-
-	private void generateImmovableObjects() {
+	//TODO gör till privat
+	public void generateGameMapEnvironment() {
 		int x = (int) (emptySpots.size() * PART_IMMOVABLEOBJECTS);
-		for (int i = x; i > x; i--) {
+		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createImmovableObject(pos));
 			emptySpots.remove(0);
@@ -138,6 +149,35 @@ public class GameMap {
 	private ImmovableObject createImmovableObject(Position pos) {
 		return new ImmovableObject();
 	}
+	
+	//TODO gör till privat
+	public void generateItems() {
+		int x = (int) (emptySpots.size() * PART_ITEMS);
+		for(int i = x; i>=0; i--) {
+			Position pos = emptySpots.get(0);
+			mapObjects.put(pos, createItem(pos));
+			emptySpots.remove(0);
+		}
+	}
+	
+	private Item createItem(Position pos) {
+		return new Item("Name");
+	}
+	
+//	public void generateEnemies() {
+//		emptySpots.addAll(pathWaySet);
+//		Collections.shuffle(emptySpots);
+//		int x = (int) (emptySpots.size() * PART_ENEMIES);
+//		for(int i = x; i>=0; i--) {
+//			Position pos = emptySpots.get(0);
+//			mapObjects.put(pos, createEnemy(pos));
+//			emptySpots.remove(0);
+//		}
+//	}
+//	
+//	private Enemy createEnemy() {
+//		Enemy e = new Enemy(emptySpots(0), this);
+//	}
 
 	public void fillEmptySpots() {
 		int x = 1;
@@ -192,15 +232,8 @@ public class GameMap {
 	}
 
 	// Stub för placeObject metod för enterMap GameObject
-	public Position placeMovableObject(MovableObject movableObject) {
-		Position movableObjectPosition;
-		if (movableObject instanceof Player)
-			movableObjectPosition = entrypoint;
-		else
-			movableObjectPosition = emptySpots.get(0);
-		
-		mapObjects.put(movableObjectPosition, movableObject);
-		return movableObjectPosition;
+	public Position placePlayer(Player player) {
+		return entrypoint;
 	}
 
 	// Stub för att fixa enterMap för olika gameObjects

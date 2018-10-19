@@ -10,10 +10,10 @@ public class EnemyTest {
 	public static final int INITIAL_HP = 100;
 	Enemy enemy;
 	
-	@BeforeEach
-	void setUp() {
-		enemy = new Enemy(VALID_NAME, INITIAL_HP);
-	}
+//	@BeforeEach
+//	void setUp() {
+//		enemy = new Enemy(VALID_NAME, INITIAL_HP);
+//	}
 	
 	@Test
 	void hitTest() {

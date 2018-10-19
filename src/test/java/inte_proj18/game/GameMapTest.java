@@ -137,14 +137,37 @@ public class GameMapTest {
 		gamemap.generatePath(a, b);
 		assertFalse(gamemap.getEmptySpots().contains(new Position(2,7)));
 	}
-
+	
 //	@Test
-//	public void checkCorrectAmountOfPlacedImmovableObjects() {
-//		gamemap.getGameMapObjects().clear();
+//	public void checkCorrectAmountEnemiesTest() {
+//		gamemap.getEmptySpots().clear();
+//		gamemap.getPathWay().clear();
+//		gamemap.fillEmptySpots();
+//		gamemap.createPathWay();
 //		int oldSize = gamemap.getEmptySpots().size();
-//		gamemap.generateMapContent();
-//		assertEquals((int)(oldSize*0.4), gamemap.getEmptySpots().size());
+//		int pathWaySize = gamemap.getPathWay().size();
+//		
+//		gamemap.generateEnemies();
+//		
+//		assertEquals((int)((oldSize+pathWaySize)*0.9), gamemap.getEmptySpots().size());
 //	}
+	
+	
+	
+	@Test
+	public void checkCorrectAmountOfEnvironmentTest() {
+		int oldSize = gamemap.getEmptySpots().size();
+		gamemap.generateGameMapEnvironment();
+		assertEquals((int)(oldSize*0.6), gamemap.getEmptySpots().size());
+	}
+	
+	@Test
+	public void checkCorrectAmountOfPlacedItemsTest() {
+		int oldSize = gamemap.getEmptySpots().size();
+		gamemap.generateItems();
+		assertEquals((int)(oldSize*0.99), gamemap.getEmptySpots().size());
+	}
+	
 	@Test
 	public void mapObjectNotInEmptySpotTest() {
 		Set<Position> keysList = gamemap.getGameMapObjects().keySet();
