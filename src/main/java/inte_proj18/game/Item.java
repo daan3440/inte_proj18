@@ -9,7 +9,7 @@ public class Item extends ImmovableObject{
 	}
 
 	public Item(String name) {
-		super("T");
+		super(name);
 	}
 	
 	public Item(String name, int value) {
