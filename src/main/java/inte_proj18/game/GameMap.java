@@ -14,7 +14,6 @@ public class GameMap {
 	private static final double PART_IMMOVABLEOBJECTS = 0.4;
 	private static final double PART_ITEMS = 0.2;
 	private static final double PART_ENEMIES = 0.2;
-	
 
 	private int width;
 	private int height;
@@ -31,7 +30,6 @@ public class GameMap {
 		}
 		this.width = width;
 		this.height = height;
-		
 
 		fillEmptySpots();
 		drawWallFrame();
@@ -40,29 +38,28 @@ public class GameMap {
 		emptySpots.remove(entrypoint);
 		emptySpots.remove(exitpoint);
 		removeMapObjectsFromEmptySpots();
-		
+
 		createPathWay();
 
 		generateMapContent();
 	}
-	
+
 	public void createPathWay() {
 //		pathPoints
 		Position start = entrypoint;
-		
-		for (int i = 0; i<pathPoints.size();i++ ) {
-		generatePath(start,pathPoints.get(i));
-		start = pathPoints.get(i);
+
+		for (int i = 0; i < pathPoints.size(); i++) {
+			generatePath(start, pathPoints.get(i));
+			start = pathPoints.get(i);
 		}
-		generatePath(start,exitpoint);
-		
-		
+		generatePath(start, exitpoint);
+
 	}
-	
+
 	public void setEntryPoint(Position pos) {
 		this.entrypoint = pos;
 	}
-	
+
 	public void setExitPoint(Position pos) {
 		this.exitpoint = pos;
 	}
@@ -130,20 +127,18 @@ public class GameMap {
 	}
 
 	private void generateImmovableObjects() {
-		int x = (int) (emptySpots.size()*PART_IMMOVABLEOBJECTS);
-		for(int i=x; i>x; i--) {
+		int x = (int) (emptySpots.size() * PART_IMMOVABLEOBJECTS);
+		for (int i = x; i > x; i--) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createImmovableObject(pos));
 			emptySpots.remove(0);
 		}
 	}
-	
+
 	private ImmovableObject createImmovableObject(Position pos) {
-		ImmovableObject io = new ImmovableObject();
-//		io.enterMap //Måste slutföra immovableobject
-		return io;
+		return new ImmovableObject();
 	}
-	
+
 	public void fillEmptySpots() {
 		int x = 1;
 		while (x <= width) {
@@ -196,15 +191,16 @@ public class GameMap {
 		mapObjects.put(newPos, go);
 	}
 
-	public Position placePlayer(Player p) {
-		mapObjects.put(entrypoint, p);
-		return entrypoint;
-	}
-
 	// Stub för placeObject metod för enterMap GameObject
-	public Position placeObject(GameObject gameObject) {
+	public Position placeMovableObject(MovableObject movableObject) {
+		Position movableObjectPosition;
+		if (movableObject instanceof Player)
+			movableObjectPosition = entrypoint;
+		else
+			movableObjectPosition = emptySpots.get(0);
 		
-		return new Position(21, 21);
+		mapObjects.put(movableObjectPosition, movableObject);
+		return movableObjectPosition;
 	}
 
 	// Stub för att fixa enterMap för olika gameObjects
