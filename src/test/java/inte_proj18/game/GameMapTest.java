@@ -161,7 +161,11 @@ public class GameMapTest {
 	public void checkCorrectAmountOfEnvironmentTest() {
 		int oldSize = gamemap.getEmptySpots().size();
 		gamemap.generateGameMapEnvironment();
-		assertEquals((int)(oldSize*0.6), gamemap.getEmptySpots().size());
+		double d =(oldSize*0.6);
+		System.out.println(d + "hola");
+		int x = (int)d;
+		System.out.println(x + "hola");
+		assertEquals(x, gamemap.getEmptySpots().size());
 	}
 	
 	@Test
