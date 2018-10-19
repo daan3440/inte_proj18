@@ -8,11 +8,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class GameMap {
-	private static final int MIN_WIDTH = 64;
-	private static final int MIN_HEIGHT = 64;
+	private static final int MIN_WIDTH = 16;
+	private static final int MIN_HEIGHT = 16;
 	private static final int MAX_WIDTH = 256;
 	private static final int MAX_HEIGHT = 256;
-	private static final double PART_IMMOVABLEOBJECTS = 0.4;
+	private static final double PART_IMMOVABLEOBJECTS = 0.6;
 	private static final double PART_ITEMS = 0.01;
 	private static final double PART_ENEMIES = 0.1;
 

@@ -18,7 +18,7 @@ public class GameMapTest {
 
 	@BeforeEach
 	void createGameMapTest() {
-		gamemap = new GameMap(64, 64);
+		gamemap = new GameMap(24	, 24);
 		player = new Player("Stina III", wallet, inventory);
 	}
 
@@ -252,19 +252,21 @@ public class GameMapTest {
 //		}
 //		System.out.println(gamemap.getPathPoints());
 //		System.out.println(gamemap.getPathWay());
-		for(int x =1;x<=64;x++) {
+		for(int x =1;x<=gamemap.getWidth();x++) {
 			
-			for(int y =1;y<=64;y++) {
+			for(int y =1;y<=gamemap.getHeight();y++) {
 				GameObject go = gamemap.getGameMapObjects().get(new Position(x,y));
 				if (go==null) {//(!gamemap.getPathWay().contains(pos)) {
 					if(gamemap.getEntryPoint().equals(new Position(x,y)))
-						System.out.print("S");
+						System.out.print("S ");
 					else if (gamemap.getExitPoint().equals(new Position(x,y)))
-						System.out.print("X");
+						System.out.print("X ");
+					else if (gamemap.getPathWay().contains(new Position(x,y)))
+						System.out.print("— ");
 					else
-					System.out.print(" ");
+					System.out.print("  ");
 				}else {
-					System.out.print(go.getName());
+					System.out.print(go.getName()+" ");
 				}
 			
 			}
@@ -278,8 +280,6 @@ public class GameMapTest {
 	
 	@Test
 	public void doesPathWayObjectExistInGameMapObjects() {
-//		System.out.println(gamemap.getPathPoints());
-//		System.out.println(gamemap.getPathWay());
 		boolean check = false; 
 		for (Position pos: gamemap.getPathWay()) {
 			check = gamemap.getGameMapObjects().containsKey(pos);
