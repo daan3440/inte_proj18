@@ -1,11 +1,9 @@
 package inte_proj18.game;
 
-public class Enemy extends MoveableObject {
+public class Enemy extends MovableObject {
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
+	public Enemy(String name, int HP) {
+		super(name, HP);
 	}
-
+	
 }

@@ -1,0 +1,14 @@
+language: java
+# use Java 8
+jdk:
+- oraclejdk8
+
+# faster builds
+sudo: false
+
+# cache the build tool's caches
+cache:
+  directories:
+  - $HOME/.m2
+  - $HOME/.gradle
+  

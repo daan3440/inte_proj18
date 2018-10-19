@@ -6,19 +6,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
-	Player player;
-	Position pos;
-	GameMap gamemap;
+
+	private Player player;
+	private Position pos;
+	private GameMap gamemap;
+
+	Wallet wallet;
+	Inventory inventory;
 
 	@BeforeEach
 	void setUp() {
-		pos = new Position(20, 20);
-		player = new Player("stina");
+		player = new Player("stina", wallet, inventory);
 		gamemap = new GameMap(64, 64);
 		player.enterMap(gamemap);
+		pos = player.getPosition();
 	}
 
 	@Test
+	
 	public void createPlayerCheckNullTest() {
 		assertNotNull(player);
 	}
@@ -27,6 +32,16 @@ public class PlayerTest {
 	public void playerNameTest() {
 		assertEquals(player.getName(), "stina");
 
+	}
+	
+	@Test
+	public void playerWalletTest() {
+		assertEquals(player.getWallet(), wallet);
+	}
+	
+	@Test
+	public void playerInventoryTest() {
+		assertEquals(player.getInventory(), inventory);
 	}
 
 	@Test
@@ -48,12 +63,20 @@ public class PlayerTest {
 		assertEquals(player.getPosition(), posUp);
 
 	}
-
 	@Test
 	public void playerMoveDownTest() {
+		player.moveLeft();
+		player.moveUp();
+		player.moveDown();
+		Position posLeftUpDown = new Position(pos.getX()-1, pos.getY());
+		assertEquals(player.getPosition(), posLeftUpDown);
+	}
+
+	@Test
+	public void playerCollisionDetectionTest() {
 		player.moveDown();
 		Position posDown = new Position(pos.getX(), pos.getY() + 1);
-		assertEquals(player.getPosition(), posDown);
+		assertNotEquals(player.getPosition(), posDown);
 	}
 
 	@Test
@@ -74,20 +97,20 @@ public class PlayerTest {
 	public void takeDamageTest() {
 		int oldhp = player.getHP();
 		int dmg = 10;
-		player.takeDmg(dmg);
+		player.takeDamage(dmg);
 		assertEquals(player.getHP(), oldhp - dmg);
 	}
 
 	@Test
 	public void takeMoreThanHPDamageTest() {
 		int dmg = 110;
-		player.takeDmg(dmg);
+		player.takeDamage(dmg);
 		assertEquals(player.getHP(), 0);
 	}
 
 	@Test
 	public void upHpTest() {
-		player.takeDmg(10);
+		player.takeDamage(10);
 		int oldhp = player.getHP();
 		int heal = 10;
 		player.heal(heal);
