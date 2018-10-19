@@ -7,7 +7,7 @@ public class Player extends MovableObject{
 	private Inventory inventory;
 
 	public Player(String name, Wallet wallet, Inventory inventory) {
-		super(name, INITIALHP);
+		super("@", INITIALHP);
 		maxHP = INITIALHP;
 		this.wallet = wallet;
 		this.inventory = inventory;
