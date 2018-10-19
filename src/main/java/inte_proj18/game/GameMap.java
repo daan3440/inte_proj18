@@ -13,8 +13,8 @@ public class GameMap {
 	private static final int MAX_WIDTH = 256;
 	private static final int MAX_HEIGHT = 256;
 	private static final double PART_IMMOVABLEOBJECTS = 0.4;
-	private static final double PART_ITEMS = 0.01;
-	private static final double PART_ENEMIES = 0.1;
+	private static final double PART_ITEMS = 0.1;
+	private static final double PART_ENEMIES = 0.01;
 
 	private int width;
 	private int height;
@@ -144,8 +144,12 @@ public class GameMap {
 
 	// TODO gör till privat
 	public void generateGameMapEnvironment() {
-		int x = (int) (emptySpots.size() * PART_IMMOVABLEOBJECTS);
-		for (int i = x; i >= 0; i--) {
+		double d =(emptySpots.size() * PART_IMMOVABLEOBJECTS);
+		System.out.println(d);
+		int x = (int) d;
+		System.out.println(x);
+
+		for (int i = 0; i <x; i++) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createImmovableObject(pos));
 			emptySpots.remove(0);
@@ -158,7 +162,7 @@ public class GameMap {
 
 	// TODO gör till privat
 	public void generateItems() {
-		int x = (int) (emptySpots.size() * PART_ITEMS);
+		int x = (int)(emptySpots.size() * PART_ITEMS);
 		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createItem(pos));
