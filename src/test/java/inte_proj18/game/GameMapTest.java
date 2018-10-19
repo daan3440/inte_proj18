@@ -18,7 +18,7 @@ public class GameMapTest {
 
 	@BeforeEach
 	void createGameMapTest() {
-		gamemap = new GameMap(24	, 24);
+		gamemap = new GameMap(64	, 64);
 		player = new Player("Stina III", wallet, inventory);
 	}
 
