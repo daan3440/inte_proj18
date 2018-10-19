@@ -164,20 +164,20 @@ public class GameMap {
 		return new Item("Name");
 	}
 	
-//	public void generateEnemies() {
-//		emptySpots.addAll(pathWaySet);
-//		Collections.shuffle(emptySpots);
-//		int x = (int) (emptySpots.size() * PART_ENEMIES);
-//		for(int i = x; i>=0; i--) {
-//			Position pos = emptySpots.get(0);
-//			mapObjects.put(pos, createEnemy(pos));
-//			emptySpots.remove(0);
-//		}
-//	}
-//	
-//	private Enemy createEnemy() {
-//		Enemy e = new Enemy(emptySpots(0), this);
-//	}
+	public void generateEnemies() {
+		emptySpots.addAll(pathWaySet);
+		Collections.shuffle(emptySpots);
+		int x = (int) (emptySpots.size() * PART_ENEMIES);
+		for(int i = x; i>=0; i--) {
+			Position pos = emptySpots.get(0);
+			mapObjects.put(pos, createEnemy(pos));
+			emptySpots.remove(0);
+		}
+	}
+	
+	private Enemy createEnemy(Position pos) {
+		return new Enemy(pos, this);
+	}
 
 	public void fillEmptySpots() {
 		int x = 1;
@@ -233,6 +233,7 @@ public class GameMap {
 
 	// Stub för placeObject metod för enterMap GameObject
 	public Position placePlayer(Player player) {
+		mapObjects.put(entrypoint, player);
 		return entrypoint;
 	}
 

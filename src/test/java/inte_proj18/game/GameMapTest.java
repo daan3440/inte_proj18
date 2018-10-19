@@ -138,19 +138,19 @@ public class GameMapTest {
 		assertFalse(gamemap.getEmptySpots().contains(new Position(2,7)));
 	}
 	
-//	@Test
-//	public void checkCorrectAmountEnemiesTest() {
-//		gamemap.getEmptySpots().clear();
-//		gamemap.getPathWay().clear();
-//		gamemap.fillEmptySpots();
-//		gamemap.createPathWay();
-//		int oldSize = gamemap.getEmptySpots().size();
-//		int pathWaySize = gamemap.getPathWay().size();
-//		
-//		gamemap.generateEnemies();
-//		
-//		assertEquals((int)((oldSize+pathWaySize)*0.9), gamemap.getEmptySpots().size());
-//	}
+	@Test
+	public void checkCorrectAmountEnemiesTest() {
+		gamemap.getEmptySpots().clear();
+		gamemap.getPathWay().clear();
+		gamemap.fillEmptySpots();
+		gamemap.createPathWay();
+		int oldSize = gamemap.getEmptySpots().size();
+		int pathWaySize = gamemap.getPathWay().size();
+		
+		gamemap.generateEnemies();
+		
+		assertEquals((int)((oldSize+pathWaySize)*0.9), gamemap.getEmptySpots().size());
+	}
 	
 	
 	
@@ -233,7 +233,6 @@ public class GameMapTest {
 	public void placePlayerTest() {
 		player.enterMap(gamemap);
 		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition()));
-
 	}
 
 	@Test
