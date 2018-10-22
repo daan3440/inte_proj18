@@ -19,6 +19,7 @@ public class InventoryTest {
 		itemsInInventory = new HashMap<Item, Integer>();
 		inventory = new Inventory(itemsInInventory);
 		item = new Item("Excalibur");
+		inventory.addItemToInventory(item);
 	}
 	
 	@Test 
@@ -28,10 +29,25 @@ public class InventoryTest {
 	
 	@Test
 	public void addItemToInventoryTest() {
-		inventory.addItemToInventory(item);
 		int quantity = itemsInInventory.get(item);
 		inventory.addItemToInventory(item);
 		assertTrue(itemsInInventory.get(item) == quantity + 1);
 	}
+	
+	@Test
+	public void removeItemFromInventoryTest() {
+		inventory.addItemToInventory(item);
+		int quantity = itemsInInventory.get(item);
+		inventory.removeItemFromInventory(item);
+		assertTrue(itemsInInventory.get(item) == quantity - 1);
+	}
+	
+	@Test
+	public void removeItemFromInventoryWithOneItemTest() {
+		inventory.removeItemFromInventory(item);
+		assertTrue(inventory.getItemsInInventory().isEmpty());
+	}
+	
+	
 }
  
