@@ -1,7 +1,8 @@
 package inte_proj18.game;
 
-public class Item extends ImmovableObject{
+public class Item {
 	
+	private String name;
 	private int value;
 	
 	public Item() {
@@ -9,12 +10,17 @@ public class Item extends ImmovableObject{
 	}
 
 	public Item(String name) {
-		super(name);
+		this.name = name;
 	}
 	
 	public Item(String name, int value) {
-		super(name);
+		this.name = name;
 		this.value = value;
+	}
+
+
+	public String getName() {
+		return name;
 	}
 	
 	public int getValue() {

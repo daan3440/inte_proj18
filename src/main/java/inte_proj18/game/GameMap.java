@@ -3,19 +3,14 @@ package inte_proj18.game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class GameMap {
-	private static final int MIN_WIDTH = 16;
-	private static final int MIN_HEIGHT = 16;
+	private static final int MIN_WIDTH = 64;
+	private static final int MIN_HEIGHT = 64;
 	private static final int MAX_WIDTH = 256;
 	private static final int MAX_HEIGHT = 256;
-
-	private static final double PART_IMMOVABLEOBJECTS = 0.4;
-	private static final double PART_ITEMS = 0.01;
-	private static final double PART_ENEMIES = 0.2;
 
 	private int width;
 	private int height;
@@ -23,8 +18,7 @@ public class GameMap {
 	private Position entrypoint;
 	private Position exitpoint;
 	private ArrayList<Position> emptySpots = new ArrayList<Position>();// kommer inte att motsvara tomma spots efter att
-	private Set<Position> pathWaySet = new HashSet<>();
-	// saker har börjat röra på sig.
+																		// saker har börjat röra på sig.
 	private ArrayList<Position> pathPoints = new ArrayList<Position>();
 
 	public GameMap(int width, int height) {
@@ -33,6 +27,7 @@ public class GameMap {
 		}
 		this.width = width;
 		this.height = height;
+		
 
 		fillEmptySpots();
 		drawWallFrame();
@@ -41,41 +36,29 @@ public class GameMap {
 		emptySpots.remove(entrypoint);
 		emptySpots.remove(exitpoint);
 		removeMapObjectsFromEmptySpots();
-		generatePathPoints();
-
+		
 		createPathWay();
 
 		generateMapContent();
 	}
-
-	public void generateMapContent() {
-		generateGameMapEnvironment();
-		emptySpots.addAll(pathWaySet);
-		Collections.shuffle(emptySpots);
-		generateItems();
-		generateEnemies();
-	}
-
-	public Set<Position> getPathWay() {
-		return pathWaySet;
-	}
-
+	
 	public void createPathWay() {
 //		pathPoints
 		Position start = entrypoint;
-		while (!pathPoints.isEmpty()) {
-			Position pos = checkNearestPoint(start);
-			generatePath(start, pos);
-			start = pos;
+		
+		for (int i = 0; i<pathPoints.size();i++ ) {
+		generatePath(start,pathPoints.get(i));
+		start = pathPoints.get(i);
 		}
-		generatePath(start, exitpoint);
-
+		generatePath(start,exitpoint);
+		
+		
 	}
-
+	
 	public void setEntryPoint(Position pos) {
 		this.entrypoint = pos;
 	}
-
+	
 	public void setExitPoint(Position pos) {
 		this.exitpoint = pos;
 	}
@@ -122,9 +105,7 @@ public class GameMap {
 
 		int y = a.getY();
 		while (b.getY() != y) {
-			Position pos = new Position(a.getX(), y);
-			emptySpots.remove(pos);
-			pathWaySet.add(pos);
+			emptySpots.remove(new Position(a.getX(), y));
 			y++;
 		}
 		if (a.getX() > b.getX()) {
@@ -135,57 +116,13 @@ public class GameMap {
 
 		int x = a.getX();
 		while (b.getX() != x) {
-			Position pos = new Position(x, y);
-			emptySpots.remove(pos);
-			pathWaySet.add(pos);
+			emptySpots.remove(new Position(x, y));
 			x++;
 		}
-		Position pos = new Position(x, y);
-		emptySpots.remove(pos);
-		pathWaySet.add(pos);
 	}
 
-	// TODO gör till privat
-	public void generateGameMapEnvironment() {
-		double d = (emptySpots.size() * PART_IMMOVABLEOBJECTS);
-		int x = (int) d;
-
-		for (int i = 0; i < x; i++) {
-			Position pos = emptySpots.get(0);
-			mapObjects.put(pos, createImmovableObject(pos));
-			emptySpots.remove(0);
-		}
-	}
-
-	private ImmovableObject createImmovableObject(Position pos) {
-		return new ImmovableObject();
-	}
-
-	// TODO gör till privat
-	public void generateItems() {
-		int x = (int) (emptySpots.size() * PART_ITEMS);
-		for (int i = x; i >= 0; i--) {
-			Position pos = emptySpots.get(0);
-			mapObjects.put(pos, createItem(pos));
-			emptySpots.remove(0);
-		}
-	}
-
-	private Item createItem(Position pos) {
-		return new Item("Name");
-	}
-
-	public void generateEnemies() {
-		int x = (int) (emptySpots.size() * PART_ENEMIES);
-		for (int i = x; i >= 0; i--) {
-			Position pos = emptySpots.get(0);
-			mapObjects.put(pos, createEnemy(pos));
-			emptySpots.remove(0);
-		}
-	}
-
-	private Enemy createEnemy(Position pos) {
-		return new Enemy(pos, this);
+	public void generateMapContent() {
+//TODO TLC
 	}
 
 	public void fillEmptySpots() {
@@ -221,7 +158,7 @@ public class GameMap {
 		return height;
 	}
 
-	public Map<Position, GameObject> getGameMapObjects() {
+	public Map getGameMapObjects() {
 		return mapObjects;
 	}
 
@@ -240,10 +177,14 @@ public class GameMap {
 		mapObjects.put(newPos, go);
 	}
 
-	// Stub för placeObject metod för enterMap GameObject
-	public Position placePlayer(Player player) {
-		mapObjects.put(entrypoint, player);
+	public Position placePlayer(Player p) {
+		mapObjects.put(entrypoint, p);
 		return entrypoint;
+	}
+
+	// Stub för placeObject metod för enterMap GameObject
+	public Position placeObject(GameObject gameObject) {
+		return new Position(21, 21);
 	}
 
 	// Stub för att fixa enterMap för olika gameObjects
