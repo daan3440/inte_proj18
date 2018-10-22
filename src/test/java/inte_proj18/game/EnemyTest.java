@@ -8,11 +8,15 @@ import org.junit.jupiter.api.Test;
 public class EnemyTest {
 	public static final String VALID_NAME = "ValidName";
 	public static final int INITIAL_HP = 100;
-	Enemy enemy;
+	private Enemy enemy;
+	private GameMap gameMap;
+	private Position pos;
 	
 	@BeforeEach
 	void setUp() {
-		enemy = new Enemy(VALID_NAME, INITIAL_HP);
+		gameMap = new GameMap(64,64);
+		pos = new Position(55,55);
+		enemy = new Enemy(pos, gameMap);
 	}
 	
 	@Test
