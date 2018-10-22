@@ -39,7 +39,9 @@ public class ShopTest {
 
 	@Test
 	public void moneyIncreasedTest() {
-		
+		inventory.addItemToInventory(item);
+		shop.sellProduct(player, item);
+		assertEquals(wallet.getMoney(), 200 + item.sellPrice());
 	}
 
 }
