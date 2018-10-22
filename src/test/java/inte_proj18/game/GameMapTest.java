@@ -306,7 +306,7 @@ public class GameMapTest {
 					else if (gamemap.getExitPoint().equals(new Position(x, y)))
 						System.out.print("X");
 					else if (gamemap.getPathWay().contains(new Position(x, y)))
-						System.out.print("P");
+						System.out.print(" ");
 					else
 						System.out.print(" ");
 				} else {
@@ -316,6 +316,8 @@ public class GameMapTest {
 						System.out.print("W");
 					if (go instanceof ImmovableObject && !(go instanceof Item))
 						System.out.print("#");
+					if (go instanceof Player)
+						System.out.print("M");
 				}
 
 			}
