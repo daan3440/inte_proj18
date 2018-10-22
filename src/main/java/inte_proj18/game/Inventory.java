@@ -23,7 +23,6 @@ public class Inventory {
 	}
 
 	public boolean addItem(Item item) {
-		items[0] = item;
 		for (int i = 0; i < ArraySize; i++) {
 			if (items[i] == null) {
 				items[i] = item;
@@ -43,7 +42,7 @@ public class Inventory {
 		}
 		return null;
 	}
-	
+
 	public String listItems() {
 		String output = "";
 		for (int i = 0; i < ArraySize; i++) {
@@ -53,12 +52,11 @@ public class Inventory {
 	}
 
 	public int getEmptyPlace() {
-		int emptyPlace = 0;
+		int emptyPlace = -1;
 
-		for(int i = 0; i < ArraySize; i++) {
-			if(items[i] == null){
-				emptyPlace = i;
-				break;
+		for (int i = 0; i < ArraySize; i++) {
+			if (items[i] == null) {
+				return i;
 			}
 		}
 		return emptyPlace;
