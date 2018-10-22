@@ -9,11 +9,14 @@ public class MovableObjectTest {
 	public static final String VALID_NAME = "ValidName";
 	public static final int INITIAL_HP = 100;
 	
+	private GameMap gameMap;
+	
 	private MovableObject movableObject;
 	
 	@BeforeEach
 	void setUp() {
 		movableObject = new MovableObject(VALID_NAME, 100);
+		gameMap = new GameMap(64,64);
 	}
 
 	@Test
@@ -63,5 +66,25 @@ public class MovableObjectTest {
 
 		});
 	}
+	
+	@Test
+	void setPositionTest() {
+		Position pos = new Position(1, 1);
+		movableObject.setPosition(pos);
+		assertEquals(movableObject.getPosition(), pos);
+
+	}
+	
+//	@Test
+//	void gameObjectEnterMapTest() {
+//		movableObject.enterMap(gameMap);
+//		assertEquals(movableObject.getPosition(), pos);
+//	}
+	
+//	@Test
+//	void getGameMapTest() {
+//		movableObject.enterMap(gameMap);
+//		assertEquals(gameMap, movableObject.getGameMap());
+//	}
 
 }
