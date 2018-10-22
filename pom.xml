@@ -26,18 +26,24 @@
 			<version>5.3.1</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>2.23.0</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 	<build>
-		
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.22.0</version>
-					
-				</plugin>
-			</plugins>
-		
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.0</version>
+
+			</plugin>
+		</plugins>
+
 	</build>
 	<reporting>
 		<plugins>
@@ -66,11 +72,11 @@
 
 		</plugins>
 	</reporting>
-<!-- More Project Information -->
-  <name>inte_proj18</name>
-  <description>Rougue-like project</description>
-  <url>https://github.com/daan3440/inte_proj18</url>
-  <inceptionYear>2018</inceptionYear>
- 
-  
+	<!-- More Project Information -->
+	<name>inte_proj18</name>
+	<description>Rougue-like project</description>
+	<url>https://github.com/daan3440/inte_proj18</url>
+	<inceptionYear>2018</inceptionYear>
+
+
 </project>
