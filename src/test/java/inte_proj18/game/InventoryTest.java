@@ -58,5 +58,21 @@ public class InventoryTest {
 		}
 		assertFalse(inventory.addItem(new Item()));
 	}
+	
+	@Test
+	public void emptyPlaceTest() {
+		Inventory inventory = new Inventory();
+		inventory.addItem(new Item(itemName));
+		assertEquals(inventory.getEmptyPlace(), 1);
+	}
+	
+	@Test
+	public void noEmptyPlaceTest() {
+		Inventory inventory = new Inventory();
+		for (int i = 0; i < 10; i++) {
+			inventory.addItem(new Item(itemName));
+		}
+		assertEquals(inventory.getEmptyPlace(),-1);
+	}
 
 }
