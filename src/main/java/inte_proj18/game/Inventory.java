@@ -52,16 +52,16 @@ public class Inventory {
 		return output;
 	}
 
-//	public int getEmptyPlace() {
-//		int emptyPlace = 0;
-//
-//		for(int i = 0; i < ArraySize; i++) {
-//			if(items[i] == null){
-//				emptyPlace = i;
-//				break;
-//			}
-//		}
-//		return emptyPlace;
-//	}
+	public int getEmptyPlace() {
+		int emptyPlace = 0;
+
+		for(int i = 0; i < ArraySize; i++) {
+			if(items[i] == null){
+				emptyPlace = i;
+				break;
+			}
+		}
+		return emptyPlace;
+	}
 
 }
