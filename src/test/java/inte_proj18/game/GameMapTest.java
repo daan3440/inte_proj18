@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -56,89 +57,121 @@ public class GameMapTest {
 		Position sevenFive = new Position(7, 5);
 		gamemap.getPathPoints().clear();
 		ArrayList<Position> testPositionDifference = new ArrayList<>(
-				Arrays.asList(new Position(1,1), new Position(8, 5), sevenFive, new Position(3, 3)));
+				Arrays.asList(new Position(1, 1), new Position(8, 5), sevenFive, new Position(3, 3)));
 		gamemap.getPathPoints().addAll(testPositionDifference);
-		assertEquals(gamemap.checkNearestPoint(new Position(7,6)), sevenFive);
+		assertEquals(gamemap.checkNearestPoint(new Position(7, 6)), sevenFive);
 	}
-	
+
 	@Test
 	public void checkPathRemovalFromEmptySpotsTest() {
-		Position a = new Position(1,1);
-		Position b = new Position(8,7);
+		Position a = new Position(1, 1);
+		Position b = new Position(8, 7);
 		gamemap.getEmptySpots().clear();
 		gamemap.fillEmptySpots();
 		int epsize = gamemap.getEmptySpots().size();
 		gamemap.getEmptySpots().remove(a);
 		gamemap.getEmptySpots().remove(b);
 		gamemap.generatePath(a, b);
-		assertEquals(gamemap.getEmptySpots().size(),epsize-14);
+		assertEquals(gamemap.getEmptySpots().size(), epsize - 14);
 	}
-	
+
 	@Test
 	public void checkPathRemovalFromEmptySpotsNewValuesTest() {
-		Position a = new Position(1,1);
-		Position b = new Position(3,2);
+		Position a = new Position(1, 1);
+		Position b = new Position(3, 2);
 		gamemap.getEmptySpots().clear();
 		gamemap.fillEmptySpots();
 		int epsize = gamemap.getEmptySpots().size();
 		gamemap.getEmptySpots().remove(a);
 		gamemap.getEmptySpots().remove(b);
 		gamemap.generatePath(a, b);
-		assertEquals(gamemap.getEmptySpots().size(),epsize-4);
+		assertEquals(gamemap.getEmptySpots().size(), epsize - 4);
 	}
-	
+
 	@Test
 	public void setEntryPointTest() {
-		Position pos = new Position(10,10);
+		Position pos = new Position(10, 10);
 		gamemap.setEntryPoint(pos);
-		assertEquals(gamemap.getEntryPoint(),pos);
-		
+		assertEquals(gamemap.getEntryPoint(), pos);
+
 	}
-	
+
 	@Test
 	public void setExitPointTest() {
-		Position pos = new Position(10,10);
+		Position pos = new Position(10, 10);
 		gamemap.setExitPoint(pos);
-		assertEquals(gamemap.getExitPoint(),pos);
-		
+		assertEquals(gamemap.getExitPoint(), pos);
+
 	}
-	
+
 	@Test
 	public void createPathWayTest() {
-		Position a = new Position(1,1);
-		Position b = new Position(3,2);
-		Position c = new Position(5,4);
-		Position d = new Position(6,7);
+		Position a = new Position(1, 1);
+		Position b = new Position(3, 2);
+		Position c = new Position(5, 4);
+		Position d = new Position(6, 7);
 		gamemap.getEmptySpots().clear();
 		gamemap.fillEmptySpots();
 		gamemap.getEmptySpots().remove(a);
 		gamemap.getEmptySpots().remove(b);
 		gamemap.getEmptySpots().remove(c);
 		gamemap.getEmptySpots().remove(d);
-		int preSize =  gamemap.getEmptySpots().size();
+		int preSize = gamemap.getEmptySpots().size();
 		gamemap.getPathPoints().clear();
 		gamemap.setEntryPoint(a);
 		gamemap.getPathPoints().add(b);
 		gamemap.getPathPoints().add(c);
 		gamemap.setExitPoint(d);
-		
+		gamemap.getPathWay().clear();
 		gamemap.createPathWay();
-		assertEquals(gamemap.getEmptySpots().size(), preSize-8);
+		assertEquals(gamemap.getEmptySpots().size(), preSize - 8);
 	}
-		
+
 	@Test
 	public void checkCorrectPathPositionRemovedFromEmptySpotsTest() {
-		Position a = new Position(1,1);
-		Position b = new Position(8,7);
+		Position a = new Position(1, 1);
+		Position b = new Position(8, 7);
 		gamemap.getEmptySpots().clear();
 		gamemap.fillEmptySpots();
 		gamemap.getEmptySpots().remove(a);
 		gamemap.getEmptySpots().remove(b);
 		gamemap.generatePath(a, b);
-		assertFalse(gamemap.getEmptySpots().contains(new Position(2,7)));
+		assertFalse(gamemap.getEmptySpots().contains(new Position(2, 7)));
 	}
 
-	
+	@Test
+	public void checkCorrectAmountEnemiesTest() {
+		gamemap.getEmptySpots().clear();
+		gamemap.getPathWay().clear();
+		gamemap.fillEmptySpots();
+		gamemap.createPathWay();
+		int oldSize = gamemap.getEmptySpots().size();
+		int pathWaySize = gamemap.getPathWay().size();
+		gamemap.getEmptySpots().addAll(gamemap.getPathWay());
+		Collections.shuffle(gamemap.getEmptySpots());
+
+		gamemap.generateEnemies();
+
+		assertEquals((int) ((oldSize + pathWaySize) * 0.8), gamemap.getEmptySpots().size());
+	}
+
+	@Test
+	public void checkCorrectAmountOfEnvironmentTest() {
+		// Vi såg en Fail men lyckade inte återskapa problemet.
+		gamemap.getEmptySpots().clear();
+		int oldSize = gamemap.getEmptySpots().size();
+		gamemap.generateGameMapEnvironment();
+		int x = (int) (oldSize * 0.6);
+		assertEquals(x, gamemap.getEmptySpots().size());
+	}
+
+	@Test
+	public void checkCorrectAmountOfPlacedItemsTest() {
+		int oldSize = gamemap.getEmptySpots().size();
+		gamemap.generateItems();
+		assertEquals((int) (oldSize * 0.99), gamemap.getEmptySpots().size());
+	}
+
 	@Test
 	public void mapObjectNotInEmptySpotTest() {
 		Set<Position> keysList = gamemap.getGameMapObjects().keySet();
@@ -163,7 +196,7 @@ public class GameMapTest {
 	@Test
 	public void underMinWidthTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(50, 78);
+			gamemap = new GameMap(1, 16);
 		});
 	}
 
@@ -188,6 +221,49 @@ public class GameMapTest {
 			gamemap = new GameMap(230, 789);
 		});
 	}
+	
+	@Test
+	public void overMaxPartImmovableObjectsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.9,0.2,0.01);
+		});
+	}
+	
+	@Test
+	public void underMinPartImmovableObjectsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.01,0.2,0.01);
+		});
+	}
+	
+
+	@Test
+	public void overMaxPartEnemiesTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.6,0.01);
+		});
+	}
+	
+	@Test
+	public void underMinPartEnemiesTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.00,0.01);
+		});
+	}
+	
+	@Test
+	public void overMaxPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.2,0.1);
+		});
+	}
+	
+	@Test
+	public void underMinPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.2,0.0);
+		});
+	}
 
 	@Test
 	public void createGameMapCheckHeightTest() {
@@ -204,7 +280,6 @@ public class GameMapTest {
 	public void placePlayerTest() {
 		player.enterMap(gamemap);
 		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition()));
-
 	}
 
 	@Test
@@ -214,17 +289,56 @@ public class GameMapTest {
 		assertTrue(gamemap.getGameMapObjects().containsKey(pos));
 	}
 
+	//Utkommenterat pga jobbigt att se men kvar som referens vid behov
+//	@Test
+//	public void printGameMapTest() {
+////		for (Position p: gamemap.getPathWay()) {
+////			System.out.println(p.getX()+","+ p.getY());
+////		}
+//
+//		for (int x = 1; x <= gamemap.getWidth(); x++) {
+//
+//			for (int y = 1; y <= gamemap.getHeight(); y++) {
+//				GameObject go = gamemap.getGameMapObjects().get(new Position(x, y));
+//				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
+//					if (gamemap.getEntryPoint().equals(new Position(x, y)))
+//						System.out.print("S ");
+//					else if (gamemap.getExitPoint().equals(new Position(x, y)))
+//						System.out.print("X ");
+//					else if (gamemap.getPathWay().contains(new Position(x, y)))
+//						System.out.print("— ");
+//					else
+//						System.out.print("  ");
+//				} else {
+//					System.out.print(go.getName() + " ");
+//				}
+//
+//			}
+//			System.out.println();
+//
+//		}
+//
+//	}
+
 	@Test
-	public void fillMapTest() {
+	public void doesPathWayObjectExistInGameMapObjects() {
+		boolean check = false;
+		for (Position pos : gamemap.getPathWay()) {
+			if (gamemap.getGameMapObjects().containsKey(pos)) {
+				check = !(gamemap.getGameMapObjects().get(pos) instanceof Enemy
+						|| gamemap.getGameMapObjects().get(pos) instanceof Item);
+			}
+		}
+		assertFalse(check);
 
 	}
 
 	@Test
 	public void removeOldPositionTest() {
+		gamemap.getGameMapObjects().clear();
 		player.enterMap(gamemap);
-		Position pos = player.getPosition();
 		player.moveUp();
-		assertFalse(gamemap.getGameMapObjects().containsKey(pos));
+		assertFalse(gamemap.getGameMapObjects().containsKey(gamemap.getEntryPoint()));
 	}// Ekvivalensklasser tillämpades här
 
 	@Test
