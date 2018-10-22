@@ -290,35 +290,40 @@ public class GameMapTest {
 	}
 
 	//Utkommenterat pga jobbigt att se men kvar som referens vid behov
-//	@Test
-//	public void printGameMapTest() {
-////		for (Position p: gamemap.getPathWay()) {
-////			System.out.println(p.getX()+","+ p.getY());
-////		}
-//
-//		for (int x = 1; x <= gamemap.getWidth(); x++) {
-//
-//			for (int y = 1; y <= gamemap.getHeight(); y++) {
-//				GameObject go = gamemap.getGameMapObjects().get(new Position(x, y));
-//				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
-//					if (gamemap.getEntryPoint().equals(new Position(x, y)))
-//						System.out.print("S ");
-//					else if (gamemap.getExitPoint().equals(new Position(x, y)))
-//						System.out.print("X ");
-//					else if (gamemap.getPathWay().contains(new Position(x, y)))
-//						System.out.print("— ");
-//					else
-//						System.out.print("  ");
-//				} else {
-//					System.out.print(go.getName() + " ");
-//				}
-//
-//			}
-//			System.out.println();
-//
+	@Test
+	public void printGameMapTest() {
+//		for (Position p: gamemap.getPathWay()) {
+//			System.out.println(p.getX()+","+ p.getY());
 //		}
-//
-//	}
+
+
+			for (int y = 1; y <= gamemap.getHeight(); y++) {
+					for (int x = 1; x <= gamemap.getWidth(); x++) {
+				GameObject go = gamemap.getGameMapObjects().get(new Position(x, y));
+				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
+					if (gamemap.getEntryPoint().equals(new Position(x, y)))
+						System.out.print("S");
+					else if (gamemap.getExitPoint().equals(new Position(x, y)))
+						System.out.print("X");
+					else if (gamemap.getPathWay().contains(new Position(x, y)))
+						System.out.print("P");
+					else
+						System.out.print(" ");
+				} else {
+					if (go instanceof Item)
+					System.out.print("*");
+					if (go instanceof Enemy)
+						System.out.print("W");
+					if (go instanceof ImmovableObject && !(go instanceof Item))
+						System.out.print("#");
+				}
+
+			}
+			System.out.println();
+
+		}
+
+	}
 
 	@Test
 	public void doesPathWayObjectExistInGameMapObjects() {
