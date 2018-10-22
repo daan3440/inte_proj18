@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ImmovableObjectTest {
-	static final String VALIDNAME = "#";
+	static final String VALIDNAME = "ImmovableO";
 	ImmovableObject io;
 	@BeforeEach
 	void setUp() {
