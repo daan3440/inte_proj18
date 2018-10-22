@@ -2,12 +2,73 @@ package inte_proj18.game;
 
 import java.util.HashMap;
 
-
 public class Inventory {
 
+	private final int ArraySize = 10;
+	private Item[] items;
+	
+
 	private HashMap<Item, Integer> itemsInInventory = new HashMap<Item, Integer>();
+	
+	public Inventory() {
+		items = new Item[ArraySize];
+	}
+	
+	public Item[] getItemsArray() {
+		return items;
+	}
+	
+	public Item getItem(String itemName) {
+		for (int i = 0; i < ArraySize; i++) {
+			if (items[i] != null && items[i].getName().equals(itemName)) {
+				return items[i];
+			}
+		}
+		return null;
+	}
+	
+	public boolean addItem(Item item) {
+		for (int i = 0; i < ArraySize; i++) {
+			if (items[i] == null) {
+				items[i] = item;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Item removeItem(String itemName) {
+		for (int i = 0; i < ArraySize; i++) {
+			if (items[i] != null && items[i].getName().equals(itemName)) {
+				Item temp = items[i];
+				items[i] = null;
+				return temp;
+			}
+		}
+		return null;
+	}
+	
+	
+	public String listItems() {
+		String output = "";
+		for (int i = 0; i < ArraySize; i++) {
+			output = output + "\n" + items[i];
+		}
+		return output;
+	}
+	
+	public int getEmptyPlace() {
+		int emptyPlace = -1;
 
-
+		for (int i = 0; i < ArraySize; i++) {
+			if (items[i] == null) {
+				return i;
+			}
+		}
+		return emptyPlace;
+	}
+	
+	
 	public Inventory(HashMap<Item, Integer> inventory) {
 		this.itemsInInventory = inventory;
 	}
@@ -18,20 +79,31 @@ public class Inventory {
 
 	public void addItemToInventory(Item item) {
 		int quantity = 1;
-		if(itemsInInventory.containsKey(item)) {
+		if (itemsInInventory.containsKey(item)) {
 			quantity += itemsInInventory.get(item);
 		}
 		itemsInInventory.put(item, quantity);
 	}
 
 	public void removeItemFromInventory(Item item) {
-		if(itemsInInventory.containsKey(item)) {
+		if (itemsInInventory.containsKey(item)) {
 			int quantity = itemsInInventory.get(item);
-			if(quantity == 1) 
+			if (quantity == 1)
 				itemsInInventory.remove(item);
 			else
 				itemsInInventory.put(item, quantity - 1);
 		}
 	}
 
+
+
+
+
+
+
+	
+
 }
+
+
+
