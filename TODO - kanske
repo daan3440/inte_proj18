@@ -1,8 +1,6 @@
 Player
 	enterMap
-	
-GameMap
-	ta bort public på get metoder för listorna. Prio: 5(vid färdigställande).	
+		
 		
 Game
 	generateGameMap
@@ -23,11 +21,5 @@ GameObject
 	behöver göras för att bara kunna ändras av subclass. 
 	Bör inte vara public. Prioritet: medel, när de klasserna 
 	görs abstrakta.
-	
-	!!! Måste skriva om enterMap för olika object.
-	
-	items kanske ska in som subklass som immovableObject
-	
-	boolean för vad som händer om man går in i en immovableObject
 	
 	
