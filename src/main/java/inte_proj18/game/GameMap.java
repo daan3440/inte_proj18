@@ -8,15 +8,24 @@ import java.util.Map;
 import java.util.Set;
 
 public class GameMap {
+	private static final double MAX_PART_IMMOVABLEOBJECTS = 0.6;
+	private static final double MIN_PART_IMMOVABLEOBJECTS = 0.1;
+	private static final double MAX_PART_ENEMIES = 0.3;
+	private static final double MIN_PART_ENEMIES = 0.01;
+	private static final double MAX_PART_ITEMS = 0.05;
+	private static final double MIN_PART_ITEMS = 0.005;
 	private static final int MIN_WIDTH = 16;
 	private static final int MIN_HEIGHT = 16;
 	private static final int MAX_WIDTH = 256;
 	private static final int MAX_HEIGHT = 256;
 
-	private static final double PART_IMMOVABLEOBJECTS = 0.4;
-	private static final double PART_ITEMS = 0.01;
-	private static final double PART_ENEMIES = 0.2;
+	private static final double DEFAULT_PART_IMMOVABLEOBJECTS = 0.4;
+	private static final double DEFAULT_PART_ITEMS = 0.01;
+	private static final double DEFAULT_PART_ENEMIES = 0.2;
 
+	private double partImmovableObjects;
+	private double partEnemies;
+	private double partItems;
 	private int width;
 	private int height;
 	private Map<Position, GameObject> mapObjects = new HashMap<Position, GameObject>();
@@ -28,11 +37,21 @@ public class GameMap {
 	private ArrayList<Position> pathPoints = new ArrayList<Position>();
 
 	public GameMap(int width, int height) {
+		this(width,height,DEFAULT_PART_IMMOVABLEOBJECTS,DEFAULT_PART_ENEMIES,DEFAULT_PART_ITEMS);
+			}
+	
+	public GameMap(int width, int height, double partImmovableObjects, double partEnemies, double partItems) {
+		if(immovableObjectsOutOfRange(partImmovableObjects)||enemiesOutOfRange(partEnemies)||itemsOutOfRange(partItems)) {
+			throw new IllegalArgumentException("Map Object parts invalid!");	
+		}
 		if (width < MIN_WIDTH || width > MAX_WIDTH || height < MIN_HEIGHT || height > MAX_HEIGHT) {
 			throw new IllegalArgumentException("Map size invalid");
 		}
 		this.width = width;
 		this.height = height;
+		this.partImmovableObjects = partImmovableObjects;
+		this.partEnemies = partEnemies;
+		this.partItems = partItems;
 
 		fillEmptySpots();
 		drawWallFrame();
@@ -46,6 +65,19 @@ public class GameMap {
 		createPathWay();
 
 		generateMapContent();
+
+	}
+	
+	public boolean immovableObjectsOutOfRange(double d) {
+		return d < MIN_PART_IMMOVABLEOBJECTS|| d > MAX_PART_IMMOVABLEOBJECTS;
+	}
+	
+	public boolean enemiesOutOfRange(double d) {
+		return d < MIN_PART_ENEMIES || d > MAX_PART_ENEMIES;
+	}
+
+	public boolean itemsOutOfRange(double d) {
+		return d < MIN_PART_ITEMS || d > MAX_PART_ITEMS;
 	}
 
 	public void generateMapContent() {
@@ -147,7 +179,7 @@ public class GameMap {
 
 	// TODO gör till privat
 	public void generateGameMapEnvironment() {
-		double d = (emptySpots.size() * PART_IMMOVABLEOBJECTS);
+		double d = (emptySpots.size() * partImmovableObjects);
 		int x = (int) d;
 
 		for (int i = 0; i < x; i++) {
@@ -163,7 +195,7 @@ public class GameMap {
 
 	// TODO gör till privat
 	public void generateItems() {
-		int x = (int) (emptySpots.size() * PART_ITEMS);
+		int x = (int) (emptySpots.size() * partItems);
 		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createItem(pos));
@@ -176,7 +208,7 @@ public class GameMap {
 	}
 
 	public void generateEnemies() {
-		int x = (int) (emptySpots.size() * PART_ENEMIES);
+		int x = (int) (emptySpots.size() * partEnemies);
 		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createEnemy(pos));

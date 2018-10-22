@@ -221,6 +221,49 @@ public class GameMapTest {
 			gamemap = new GameMap(230, 789);
 		});
 	}
+	
+	@Test
+	public void overMaxPartImmovableObjectsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.9,0.2,0.01);
+		});
+	}
+	
+	@Test
+	public void underMinPartImmovableObjectsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.01,0.2,0.01);
+		});
+	}
+	
+
+	@Test
+	public void overMaxPartEnemiesTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.6,0.01);
+		});
+	}
+	
+	@Test
+	public void underMinPartEnemiesTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.00,0.01);
+		});
+	}
+	
+	@Test
+	public void overMaxPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.2,0.1);
+		});
+	}
+	
+	@Test
+	public void underMinPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.2,0.0);
+		});
+	}
 
 	@Test
 	public void createGameMapCheckHeightTest() {
