@@ -113,4 +113,10 @@ public class InventoryTest {
 		}
 		assertEquals(inventory.getEmptyPlace(), -1);
 	}
+	
+	@Test
+	public void removeNonExistingItemHashTest() { // Rename title maybe
+		Inventory inventory = new Inventory();
+		assertEquals(inventory.removeItemFromInventory(new Item()) , false);
+	}
 }
