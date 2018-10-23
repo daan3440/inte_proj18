@@ -108,20 +108,21 @@ public class MapGeneration {
 	public Position checkNearestPoint(Position pos) {
 		Position nPoint = pathPoints.get(0);
 		for (Position p : pathPoints) {
-			if (pos.getDifference(nPoint) > pos.getDifference(p))
+			if (pos.getDistance(nPoint) > pos.getDistance(p))
 				nPoint = p;
 		}
 		pathPoints.remove(nPoint);
 		return nPoint;
 	}
-	
+
+
 	public void generatePath(Position a, Position b) {
 		if (a.getY() > b.getY()) {
 			Position temp = a;
 			a = b;
 			b = temp;
 		}
-
+		
 		int y = a.getY();
 		while (b.getY() != y) {
 			Position pos = new Position(a.getX(), y);
@@ -155,7 +156,6 @@ public class MapGeneration {
 		generateEnemies();
 	}
 	
-	// TODO gör till privat
 	public void generateGameMapEnvironment() {
 		double d = (emptySpots.size() * partImmovableObjects);
 		int x = (int) d;
