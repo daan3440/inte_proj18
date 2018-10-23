@@ -12,7 +12,7 @@ public class PositionTest {
 	}
 	
 	@Test
-	void getDifferenceTest(){
+	void getDistanceTest(){
 		Position pos = new Position(1,1);
 		Position posTwo = new Position(2,2);
 		assertEquals(pos.getDistance(posTwo), 2);
