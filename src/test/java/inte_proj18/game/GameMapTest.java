@@ -221,6 +221,49 @@ public class GameMapTest {
 			gamemap = new GameMap(230, 789);
 		});
 	}
+	
+	@Test
+	public void overMaxPartImmovableObjectsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.9,0.2,0.01);
+		});
+	}
+	
+	@Test
+	public void underMinPartImmovableObjectsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.01,0.2,0.01);
+		});
+	}
+	
+
+	@Test
+	public void overMaxPartEnemiesTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.6,0.01);
+		});
+	}
+	
+	@Test
+	public void underMinPartEnemiesTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.00,0.01);
+		});
+	}
+	
+	@Test
+	public void overMaxPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.2,0.1);
+		});
+	}
+	
+	@Test
+	public void underMinPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789,0.45,0.2,0.0);
+		});
+	}
 
 	@Test
 	public void createGameMapCheckHeightTest() {
@@ -246,36 +289,34 @@ public class GameMapTest {
 		assertTrue(gamemap.getGameMapObjects().containsKey(pos));
 	}
 
-////	Utkommenterat pga jobbigt att se men kvar som referens vid behov
-//	@Test
+	
+//	@Test //Utkommenterat pga jobbigt att se men kvar som referens vid behov
 //	public void printGameMapTest() {
 ////		for (Position p: gamemap.getPathWay()) {
 ////			System.out.println(p.getX()+","+ p.getY());
 ////		}
 //
-//		for (int y = 1; y <= gamemap.getHeight(); y++) {
 //
-//			for (int x = 1; x <= gamemap.getWidth(); x++) {
-//				GameObject go = gamemap.getGameMapObjects().get(new Position(x, y));
+//		GameObject go = null;
+//			for (int y = 1; y <= gamemap.getHeight(); y++) {
+//					for (int x = 1; x <= gamemap.getWidth(); x++) {
+//					go  = gamemap.getGameMapObjects().get(new Position(x, y));	
 //				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
 //					if (gamemap.getEntryPoint().equals(new Position(x, y)))
-//						System.out.print("S");
+//						System.out.print("@");
 //					else if (gamemap.getExitPoint().equals(new Position(x, y)))
-//						System.out.print("E");
+//						System.out.print("Ω");
 //					else if (gamemap.getPathWay().contains(new Position(x, y)))
 //						System.out.print(" ");
 //					else
 //						System.out.print(" ");
 //				} else {
-//					if (go instanceof Item) {
-//						System.out.print("T");
-//					}
-//					if (go instanceof ImmovableObject && !(go instanceof Item)) {
-//					System.out.print("#");
-//					}
-//					if (go instanceof Enemy) {
-//						System.out.print("X");
-//					}
+//					if (go instanceof Item)
+//					System.out.print("*");
+//					if (go instanceof Enemy)
+//						System.out.print("W");
+//					if (go instanceof ImmovableObject && !(go instanceof Item))
+//						System.out.print("#");
 //				}
 //
 //			}
