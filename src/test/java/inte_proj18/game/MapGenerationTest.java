@@ -1,0 +1,182 @@
+package inte_proj18.game;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Set;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class MapGenerationTest {
+
+	MapGeneration mg;
+	GameMap gameMap;
+	
+	@BeforeEach
+	void setUp() {
+		mg = new MapGeneration(64,64, 0.4,0.2,0.01);
+		
+	}
+	
+	@Test
+	public void mapObjectNotInEmptySpotTest() {
+		Set<Position> keysList = mg.getMapObjectsKeySet();
+		boolean mapObjectInEmptySpot = false;
+		for (Position pos : keysList) {
+			mapObjectInEmptySpot = mg.emptySpotsContains(pos);
+		}
+		assertFalse(mapObjectInEmptySpot);
+
+	}
+	
+	@Test
+	public void createGameMapCheckWidthTest() {
+		assertEquals(mg.getWidth(), 64);
+	}
+	
+	@Test
+	public void createGameMapCheckHeightTest() {
+		assertEquals(mg.getHeight(), 64);
+
+	}
+	
+	
+	
+	//kommer aldrig misslyckas
+	@Test
+	public void checkPathPointsInEmptySpotsTest() {
+		boolean pathPointInEmptySpot = false;
+		for (Position pos : mg.getPathPoints()) {
+			pathPointInEmptySpot = mg.emptySpotsContains(pos);
+		}
+		assertFalse(pathPointInEmptySpot);
+	}
+
+	
+	@Test
+	public void fillEmptySpotsArrayListTest() {
+		mg.clearEmptySpots();
+		mg.fillEmptySpots();
+		int emptySpotsSize = mg.getEmptySpotsSize();
+		assertEquals(emptySpotsSize, mg.getHeight() * mg.getWidth());
+	}
+	
+
+	@Test
+	public void makePathPointsTest() {
+		mg.clearPathPoints();
+		mg.generatePathPoints();
+		assertFalse(mg.isPathPointsEmpty());
+	}
+	
+	@Test
+	public void createPathWayTest() {
+		Position a = new Position(1, 1);
+		Position b = new Position(3, 2);
+		Position c = new Position(5, 4);
+		Position d = new Position(6, 7);
+		mg.clearEmptySpots();
+		mg.fillEmptySpots();
+		mg.removeFromEmptySpots(a);
+		mg.removeFromEmptySpots(b);
+		mg.removeFromEmptySpots(c);
+		mg.removeFromEmptySpots(d);
+		int preSize = mg.getEmptySpotsSize();
+		mg.clearPathPoints();
+		mg.setEntryPoint(a);
+		mg.addPathPoints(b);
+		mg.addPathPoints(c);
+		mg.setExitPoint(d);
+		mg.clearPathWay();
+		mg.createPathWay();
+		assertEquals(mg.getEmptySpotsSize(), preSize - 8);
+	}
+	
+	@Test
+	public void checkPathRemovalFromEmptySpotsTest() {
+		Position a = new Position(1, 1);
+		Position b = new Position(8, 7);
+		mg.clearEmptySpots();;
+		mg.fillEmptySpots();
+		int epsize = mg.getEmptySpotsSize();
+		mg.removeFromEmptySpots(a);
+		mg.removeFromEmptySpots(b);
+		mg.generatePath(a, b);
+		assertEquals(mg.getEmptySpotsSize(), epsize - 14);
+	}
+	
+	@Test
+	public void checkCorrectPathPositionRemovedFromEmptySpotsTest() {
+		Position a = new Position(1, 1);
+		Position b = new Position(8, 7);
+		mg.clearEmptySpots();
+		mg.fillEmptySpots();
+		mg.removeFromEmptySpots(a);
+		mg.removeFromEmptySpots(b);
+		mg.generatePath(a, b);
+		assertFalse(mg.emptySpotsContains(new Position(2, 7)));
+	}
+	
+	@Test
+	public void checkCorrectAmountOfEnvironmentTest() {
+		// Vi såg en Fail men lyckade inte återskapa problemet.
+		mg.clearEmptySpots();
+		int oldSize = mg.getEmptySpotsSize();
+		mg.generateGameMapEnvironment();
+		int x = (int) (oldSize * 0.6);
+		assertEquals(x, mg.getEmptySpotsSize());
+	}
+	
+	@Test
+	public void doesPathWayObjectExistInGameMapObjects() {
+		boolean check = false;
+		for (Position pos : mg.getPathWay()) {
+			if (mg.mapObjectsContainsKey(pos)) {
+				check = !(mg.getMapObjectsEntry(pos) instanceof Enemy
+						|| mg.getMapObjectsEntry(pos) instanceof Item);
+			}
+		}
+		assertFalse(check);
+
+	}
+	
+	@Test
+	public void checkCorrectAmountOfPlacedItemsTest() {
+		int oldSize = mg.getEmptySpotsSize();
+		mg.generateItems();
+		assertEquals((int) (oldSize * 0.99), mg.getEmptySpotsSize());
+	}
+	
+	@Test
+	public void checkCorrectAmountEnemiesTest() {
+		mg.clearEmptySpots();
+		mg.clearPathWay();
+		mg.fillEmptySpots();
+		int oldSize = mg.getEmptySpotsSize();
+		mg.generateEnemies();
+
+		assertEquals((int) (oldSize * 0.8), mg.getEmptySpotsSize());
+	}
+
+	
+	@Test
+	public void checkPointsWithLowestDifferenceTest() {
+		Position sevenFive = new Position(7, 5);
+		mg.clearPathPoints();
+		ArrayList<Position> testPositionDifference = new ArrayList<>(
+				Arrays.asList(new Position(1, 1), new Position(8, 5), sevenFive, new Position(3, 3)));
+		mg.addArrayListToPathPoints(testPositionDifference);
+		assertEquals(mg.checkNearestPoint(new Position(7, 6)), sevenFive);
+	}
+	
+	//borde göras om?
+	@Test
+	public void frameOfMapTest() {
+		Position pos = new Position(mg.getWidth(), mg.getHeight());
+		assertTrue(mg.mapObjectsContainsKey(pos));
+	}
+
+
+}
