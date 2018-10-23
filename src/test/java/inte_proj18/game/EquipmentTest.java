@@ -7,45 +7,83 @@ import org.junit.jupiter.api.Test;
 
 class EquipmentTest {
 	Equipment eq;
+	TwoHandedWeapon tHW;
+	BodyArmor ba;
+	Helmet h; 
+	Shield s;
+	OneHandedWeapon oHW;
+	FootWear fW;
 	
 	@BeforeEach
 	void setUp() {
 		eq = new Equipment();
+		tHW =new TwoHandedWeapon("TwoHandedWeapon");
+		ba = new BodyArmor("BodyArmor");
+		h = new Helmet("Helmet");
+		s= new Shield("Shield");
+		oHW= new OneHandedWeapon("OneHandedWeapon");
+		fW= new FootWear("FootWear");
 	}
 
 	@Test
 	void setFoorWeartest() {
-		FootWear fw = new FootWear("Shoe");
-		eq.setFootWear(fw);
-		assertEquals(eq.getFootWear(), fw);
+		
+		eq.setFootWear(fW);
+		assertEquals(eq.getFootWear(), fW);
+		
 	}
 	
 	@Test
 	void setOneHandedWeapontest() {
-		OneHandedWeapon oHW = new OneHandedWeapon("OneHandedWeapon");
+		
 		eq.setOneHandedWeapon(oHW);
 		assertEquals(eq.getOneHandedWeapon(), oHW);
 	}
 	
 	@Test
 	void setShieldtest() {
-		Shield s = new Shield("Shield");
+		
 		eq.setShield(s);
 		assertEquals(eq.getShield(), s);
 	}
 	
 	@Test
 	void setHelmettest() {
-		Helmet h = new Helmet("Helmet");
+		
 		eq.setHelmet(h);
 		assertEquals(eq.getHelmet(), h);
 	}
 	
 	@Test
 	void setBodyArmortest() {
-		BodyArmor ba = new BodyArmor("BodyArmor");
+		
 		eq.setBodyArmor(ba);
 		assertEquals(eq.getBodyArmor(), ba);
 	}
+	
+	@Test
+	void setTwoHandedWeapon() {
+		eq.setTwoHandedWeapon(tHW);
+		assertEquals(eq.getTwoHandedWeapon(), tHW);
+	}
+	@Test
+	void getAttackModifierWhenTwoHandedEquipedTest() {
+		eq.setTwoHandedWeapon(tHW);
+		assertEquals(eq.getAttackModifier(),1.15);
+	}
+	@Test
+	void getAttackModifierWhenTwoHandedNotEquipedTest() {
+		assertEquals(eq.getAttackModifier(),1);
+	}
+	@Test
+	void getPerceptionModifierWhenHelmetEquipedTest() {
+		eq.setHelmet(h);
+		assertEquals(eq.getPerceptionModifier(),1);
+	}
+	@Test
+	void getPerceptionModifierWhenHelmetNotEquipedTest() {
+		assertEquals(eq.getPerceptionModifier(),1.10);
+	}
+	
 
 }
