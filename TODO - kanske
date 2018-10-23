@@ -1,25 +1,28 @@
 Player
-	enterMap
+1	√ enterMap
 		
 		
 Game
-	generateGameMap
+1	√ generateGameMap
 		
-		// increaseMaxHP(); bör ta ett värde för vilken nivå man är på.
+3	increaseMaxHP(); bör ta ett värde för vilken nivå man är på.
 		
-	//TODO lägg till defense
-	//TODO lägg till för död
+2	lägg till defense
+3	lägg till för död
 	
-	Till profiling
-	Hash vs Matris
-	
-		
-Klass för BattleSystem
+2	Klass för BattleSystem
+
 
 GameObject
-	metodern get och set för både position och gameMap 
+2	metodern get och set för både position och gameMap 
 	behöver göras för att bara kunna ändras av subclass. 
 	Bör inte vara public. Prioritet: medel, när de klasserna 
 	görs abstrakta.
 	
 	
+ÖVRIGT:
+Till profiling
+	Hash vs Matris
+	
+	
+	Legend: 1,2,3 Viktigt, Medel, Oviktigt
