@@ -47,13 +47,13 @@ public class Inventory {
 		return null;
 	}
 
-	public String listItems() {
-		String output = "";
-		for (int i = 0; i < ArraySize; i++) {
-			output = output + "\n" + items[i];
-		}
-		return output;
-	}
+//	public String listItems() {
+//		String output = "";
+//		for (int i = 0; i < ArraySize; i++) {
+//			output = output + "\n" + items[i];
+//		}
+//		return output;
+//	}
 
 	public int getEmptyPlace() {
 		int emptyPlace = -1;

@@ -17,7 +17,6 @@ public class GameMapTest {
 		player = new Player("Stina III", wallet, inventory);
 	}
 
-
 	@Test
 	public void underMinWidthTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -46,50 +45,48 @@ public class GameMapTest {
 			gamemap = new GameMap(230, 789);
 		});
 	}
-	
+
 	@Test
 	public void overMaxPartImmovableObjectsTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.9,0.2,0.01);
+			gamemap = new GameMap(230, 789, 0.9, 0.2, 0.01);
 		});
 	}
-	
+
 	@Test
 	public void underMinPartImmovableObjectsTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.01,0.2,0.01);
+			gamemap = new GameMap(230, 789, 0.01, 0.2, 0.01);
 		});
 	}
-	
 
 	@Test
 	public void overMaxPartEnemiesTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.45,0.6,0.01);
-		});
-	}
-	
-	@Test
-	public void underMinPartEnemiesTest() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.45,0.00,0.01);
-		});
-	}
-	
-	@Test
-	public void overMaxPartItemsTest() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.45,0.2,0.1);
-		});
-	}
-	
-	@Test
-	public void underMinPartItemsTest() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.45,0.2,0.0);
+			gamemap = new GameMap(230, 789, 0.45, 0.6, 0.01);
 		});
 	}
 
+	@Test
+	public void underMinPartEnemiesTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789, 0.45, 0.00, 0.01);
+		});
+	}
+
+	@Test
+	public void overMaxPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789, 0.45, 0.2, 0.1);
+		});
+	}
+
+	@Test
+	public void underMinPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(230, 789, 0.45, 0.2, 0.0);
+		});
+	}
 
 	@Test
 	public void isHashMapNotEmptyTest() {
@@ -102,46 +99,12 @@ public class GameMapTest {
 		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition()));
 	}
 
-
-	//Utkommenterat pga jobbigt att se men kvar som referens vid behov
 //	@Test
-//	public void printGameMapTest() {
-////		for (Position p: gamemap.getPathWay()) {
-////			System.out.println(p.getX()+","+ p.getY());
-////		}
-//
-//
-//			for (int y = 1; y <= gamemap.getHeight(); y++) {
-//					for (int x = 1; x <= gamemap.getWidth(); x++) {
-//				GameObject go = gamemap.getGameMapObjects().get(new Position(x, y));
-//				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
-//					if (gamemap.getEntryPoint().equals(new Position(x, y)))
-//						System.out.print("S");
-//					else if (gamemap.getExitPoint().equals(new Position(x, y)))
-//						System.out.print("X");
-//					else if (gamemap.getPathWay().contains(new Position(x, y)))
-//						System.out.print(" ");
-//					else
-//						System.out.print(" ");
-//				} else {
-//					if (go instanceof Item)
-//					System.out.print("*");
-//					if (go instanceof Enemy)
-//						System.out.print("W");
-//					if (go instanceof ImmovableObject && !(go instanceof Item))
-//						System.out.print("#");
-//					if (go instanceof Player)
-//						System.out.print("M");
-//				}
-//
-//			}
-//			System.out.println();
-//
-//		}
-//
+//	public void getExitPointTest() {
+//		Position pos = gamemap.getExitPoint();
+//		assertEquals(pos, new Position(64 / 2, 1 + 1));
 //	}
 
-	
 	@Test
 	public void removeOldPositionTest() {
 		gamemap.getGameMapObjects().clear();

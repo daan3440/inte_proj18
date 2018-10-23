@@ -13,13 +13,13 @@ class MapGenerationTest {
 
 	MapGeneration mg;
 	GameMap gameMap;
-	
+
 	@BeforeEach
 	void setUp() {
-		mg = new MapGeneration(64,64, 0.4,0.2,0.01);
-		
+		mg = new MapGeneration(64, 64, 0.4, 0.2, 0.01);
+
 	}
-	
+
 	@Test
 	public void mapObjectNotInEmptySpotTest() {
 		Set<Position> keysList = mg.getMapObjectsKeySet();
@@ -30,21 +30,19 @@ class MapGenerationTest {
 		assertFalse(mapObjectInEmptySpot);
 
 	}
-	
+
 	@Test
 	public void createGameMapCheckWidthTest() {
 		assertEquals(mg.getWidth(), 64);
 	}
-	
+
 	@Test
 	public void createGameMapCheckHeightTest() {
 		assertEquals(mg.getHeight(), 64);
 
 	}
-	
-	
-	
-	//kommer aldrig misslyckas
+
+	// kommer aldrig misslyckas
 	@Test
 	public void checkPathPointsInEmptySpotsTest() {
 		boolean pathPointInEmptySpot = false;
@@ -54,7 +52,6 @@ class MapGenerationTest {
 		assertFalse(pathPointInEmptySpot);
 	}
 
-	
 	@Test
 	public void fillEmptySpotsArrayListTest() {
 		mg.clearEmptySpots();
@@ -62,7 +59,6 @@ class MapGenerationTest {
 		int emptySpotsSize = mg.getEmptySpotsSize();
 		assertEquals(emptySpotsSize, mg.getHeight() * mg.getWidth());
 	}
-	
 
 	@Test
 	public void makePathPointsTest() {
@@ -70,7 +66,7 @@ class MapGenerationTest {
 		mg.generatePathPoints();
 		assertFalse(mg.isPathPointsEmpty());
 	}
-	
+
 	@Test
 	public void createPathWayTest() {
 		Position a = new Position(1, 1);
@@ -93,12 +89,13 @@ class MapGenerationTest {
 		mg.createPathWay();
 		assertEquals(mg.getEmptySpotsSize(), preSize - 8);
 	}
-	
+
 	@Test
 	public void checkPathRemovalFromEmptySpotsTest() {
 		Position a = new Position(1, 1);
 		Position b = new Position(8, 7);
-		mg.clearEmptySpots();;
+		mg.clearEmptySpots();
+		;
 		mg.fillEmptySpots();
 		int epsize = mg.getEmptySpotsSize();
 		mg.removeFromEmptySpots(a);
@@ -106,7 +103,7 @@ class MapGenerationTest {
 		mg.generatePath(a, b);
 		assertEquals(mg.getEmptySpotsSize(), epsize - 14);
 	}
-	
+
 	@Test
 	public void checkCorrectPathPositionRemovedFromEmptySpotsTest() {
 		Position a = new Position(1, 1);
@@ -118,7 +115,7 @@ class MapGenerationTest {
 		mg.generatePath(a, b);
 		assertFalse(mg.emptySpotsContains(new Position(2, 7)));
 	}
-	
+
 	@Test
 	public void checkCorrectAmountOfEnvironmentTest() {
 		// Vi såg en Fail men lyckade inte återskapa problemet.
@@ -128,27 +125,26 @@ class MapGenerationTest {
 		int x = (int) (oldSize * 0.6);
 		assertEquals(x, mg.getEmptySpotsSize());
 	}
-	
+
 	@Test
 	public void doesPathWayObjectExistInGameMapObjects() {
 		boolean check = false;
 		for (Position pos : mg.getPathWay()) {
 			if (mg.mapObjectsContainsKey(pos)) {
-				check = !(mg.getMapObjectsEntry(pos) instanceof Enemy
-						|| mg.getMapObjectsEntry(pos) instanceof Item);
+				check = !(mg.getMapObjectsEntry(pos) instanceof Enemy || mg.getMapObjectsEntry(pos) instanceof Item);
 			}
 		}
 		assertFalse(check);
 
 	}
-	
+
 	@Test
 	public void checkCorrectAmountOfPlacedItemsTest() {
 		int oldSize = mg.getEmptySpotsSize();
 		mg.generateItems();
 		assertEquals((int) (oldSize * 0.99), mg.getEmptySpotsSize());
 	}
-	
+
 	@Test
 	public void checkCorrectAmountEnemiesTest() {
 		mg.clearEmptySpots();
@@ -160,7 +156,6 @@ class MapGenerationTest {
 		assertEquals((int) (oldSize * 0.8), mg.getEmptySpotsSize());
 	}
 
-	
 	@Test
 	public void checkPointsWithLowestDifferenceTest() {
 		Position sevenFive = new Position(7, 5);
@@ -170,13 +165,75 @@ class MapGenerationTest {
 		mg.addArrayListToPathPoints(testPositionDifference);
 		assertEquals(mg.checkNearestPoint(new Position(7, 6)), sevenFive);
 	}
-	
-	//borde göras om?
+
+	// borde göras om?
 	@Test
 	public void frameOfMapTest() {
 		Position pos = new Position(mg.getWidth(), mg.getHeight());
 		assertTrue(mg.mapObjectsContainsKey(pos));
 	}
+	
+	@Test
+	public void createEntryPointTest(){
+		mg.createEntryPoint();
+		assertTrue(mg.emptySpotsContains(mg.getEntryPoint()));
+	}
+	@Test
+	public void createExitPointTest(){
+		mg.createExitPoint();
+		assertTrue(mg.emptySpotsContains(mg.getExitPoint()));
+	}
+	
+//	@Test
+//	public void checkDistanceLongEnoughForEntryAndExit() {
+//		Position pos1 = mg.createEntryPoint();//new Position(33, 34);
+//		Position pos2 = mg.createExitPoint();//new Position(44, 45);
+//		
+//		assertTrue((Math.abs(pos1.getX() - pos2.getX())
+//				+ (Math.abs(pos1.getY() - pos2.getY()))) > (Math.abs(1 - mg.getWidth())
+//						+ Math.abs(1 - mg.getHeight()) * ((int) 0.8)));
+		
+//		assertTrue(Math.abs(mg.createEntryPoint().getX() - mg.createExitPoint().getX())
+//				+ (Math.abs(mg.createEntryPoint().getY() - mg.createExitPoint().getY())) > (Math.abs(1 - mg.getWidth())
+//						+ Math.abs(1 - mg.getHeight()) * ((int) 0.8))&& mg.checkDistanceLongEnough());
+//	}
 
+	// Utkommenterat pga jobbigt att se men kvar som referens vid behov
+	@Test
+	public void printGameMapTest() {
+//				for (Position p: gamemap.getPathWay()) {
+//					System.out.println(p.getX()+","+ p.getY());
+//				}
+		GameMap gamemap;
+
+		for (int y = 1; y <= mg.getHeight(); y++) {
+			for (int x = 1; x <= mg.getWidth(); x++) {
+				GameObject go = mg.getMapObjectsEntry(new Position(x, y));
+				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
+					if (mg.getEntryPoint().equals(new Position(x, y)))
+						System.out.print("S");
+					else if (mg.getExitPoint().equals(new Position(x, y)))
+						System.out.print("X");
+					else if (mg.getPathWay().contains(new Position(x, y)))
+						System.out.print("P");
+					else
+						System.out.print(" ");
+				} else {
+					if (go instanceof Item)
+						System.out.print("*");
+					if (go instanceof Enemy)
+						System.out.print("W");
+					if (go instanceof ImmovableObject && !(go instanceof Item))
+						System.out.print("#");
+					if (go instanceof Player)
+						System.out.print("M");
+				}
+
+			}
+			System.out.println();
+
+		}
+
+	}
 
 }

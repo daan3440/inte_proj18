@@ -24,7 +24,7 @@ public class Equipment {
 		return oneHandedWeapon;
 	}
 
-	private boolean isOneHandedWeaponEquiped() {
+	private boolean isOneHandedWeaponEquipped() {
 		return oneHandedWeapon != null;
 	}
 
@@ -37,12 +37,12 @@ public class Equipment {
 		return shield;
 	}
 
-	private boolean isShieldEquiped() {
+	private boolean isShieldEquipped() {
 		return shield != null;
 	}
 
 	private void unEquipTwoHandedWeapon() {
-		if (isTwoHandedWeaponEquiped())
+		if (isTwoHandedWeaponEquipped())
 			// Behöver metod för att lägga i in i inventory
 			twoHandedWeapon = null;
 	}
@@ -55,7 +55,7 @@ public class Equipment {
 		return helmet;
 	}
 
-	private boolean isHelmetEquiped() {
+	private boolean isHelmetEquipped() {
 		return helmet != null;
 	}
 
@@ -67,7 +67,7 @@ public class Equipment {
 		return bodyArmor;
 	}
 
-	private boolean isBodyArmorEquiped() {
+	private boolean isBodyArmorEquipped() {
 		return bodyArmor != null;
 	}
 
@@ -79,7 +79,7 @@ public class Equipment {
 		return footWear;
 	}
 
-	private boolean isFootWearEquiped() {
+	private boolean isFootWearEquipped() {
 		return footWear != null;
 	}
 
@@ -88,15 +88,15 @@ public class Equipment {
 		this.twoHandedWeapon = twoHandedWeapon;
 	}
 
-	private boolean isTwoHandedWeaponEquiped() {
+	private boolean isTwoHandedWeaponEquipped() {
 		return twoHandedWeapon != null;
 	}
 
 	private void unEquipOneHandedWeaponAndShield() {
-		if (isOneHandedWeaponEquiped())
+		if (isOneHandedWeaponEquipped())
 			// Behöver metod för att lägga i in i inventory
 			oneHandedWeapon = null;
-		if (isShieldEquiped())
+		if (isShieldEquipped())
 			// Behöver metod för att lägga i in i inventory
 			shield = null;
 	}
@@ -106,35 +106,35 @@ public class Equipment {
 	}
 
 	public double getAttackModifier() {
-		return isTwoHandedWeaponEquiped() ? DEFAULT_ATTRIBUTE_MODIFIER + TWOHANDED_ATTACK_MODIFIER
+		return isTwoHandedWeaponEquipped() ? DEFAULT_ATTRIBUTE_MODIFIER + TWOHANDED_ATTACK_MODIFIER
 				: DEFAULT_ATTRIBUTE_MODIFIER;
 	}
 
 	public double getPerceptionModifier() {
-		return !isHelmetEquiped() ? DEFAULT_ATTRIBUTE_MODIFIER + NO_HELMET_PERCEPTION_MODIFIER
+		return !isHelmetEquipped() ? DEFAULT_ATTRIBUTE_MODIFIER + NO_HELMET_PERCEPTION_MODIFIER
 				: DEFAULT_ATTRIBUTE_MODIFIER;
 	}
 
 	public double getSpeedModifier() {
-		return (isFootWearEquiped() ? SPEED_MODIFIER + getSpeedModifierForNoArmor() + DEFAULT_ATTRIBUTE_MODIFIER
+		return (isFootWearEquipped() ? SPEED_MODIFIER + getSpeedModifierForNoArmor() + DEFAULT_ATTRIBUTE_MODIFIER
 				: DEFAULT_ATTRIBUTE_MODIFIER);
 	}
 
 	private double getSpeedModifierForNoArmor() {
-		return !isAnyArmorEquiped() ? SPEED_MODIFIER : 0;
+		return !isAnyArmorEquipped() ? SPEED_MODIFIER : 0;
 	}
 
-	private boolean isAnyArmorEquiped() {
-		return isBodyArmorEquiped() || isHelmetEquiped();
+	private boolean isAnyArmorEquipped() {
+		return isBodyArmorEquipped() || isHelmetEquipped();
 	}
 
 	public double getDefenceModifier() {
-		return (isShieldEquiped() ? SHIELD_DEFENCE_MODIFIER : 0)
-				+ (isFullArmorEquiped() ? FULL_ARMOR_DEFENCE_MODIFIER : 0) + DEFAULT_ATTRIBUTE_MODIFIER;
+		return (isShieldEquipped() ? SHIELD_DEFENCE_MODIFIER : 0)
+				+ (isFullArmorEquipped() ? FULL_ARMOR_DEFENCE_MODIFIER : 0) + DEFAULT_ATTRIBUTE_MODIFIER;
 	}
 
-	private boolean isFullArmorEquiped() {
-		return isBodyArmorEquiped() && isFootWearEquiped() && isHelmetEquiped();
+	private boolean isFullArmorEquipped() {
+		return isBodyArmorEquipped() && isFootWearEquipped() && isHelmetEquipped();
 	}
 
 }

@@ -6,13 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class EquipmentTest {
-	Equipment eq;
-	TwoHandedWeapon tHW;
-	BodyArmor ba;
-	Helmet h;
-	Shield s;
-	OneHandedWeapon oHW;
-	FootWear fW;
+	private Equipment eq;
+	private TwoHandedWeapon tHW;
+	private BodyArmor ba;
+	private Helmet h;
+	private Shield s;
+	private OneHandedWeapon oHW;
+	private FootWear fW;
 
 	@BeforeEach
 	void setUp() {
@@ -26,7 +26,7 @@ class EquipmentTest {
 	}
 
 	@Test
-	void setFoorWeartest() {
+	void setFootWeartest() {
 		eq.setFootWear(fW);
 		assertEquals(eq.getFootWear(), fW);
 
@@ -63,54 +63,54 @@ class EquipmentTest {
 	}
 
 	@Test
-	void getAttackModifierWhenTwoHandedEquipedTest() {
+	void getAttackModifierWhenTwoHandedEquippedTest() {
 		eq.setTwoHandedWeapon(tHW);
 		assertEquals(eq.getAttackModifier(), 1.15);
 	}
 
 	@Test
-	void getAttackModifierWhenTwoHandedNotEquipedTest() {
+	void getAttackModifierWhenTwoHandedNotEquippedTest() {
 		assertEquals(eq.getAttackModifier(), 1);
 	}
 
 	@Test
-	void getPerceptionModifierWhenHelmetEquipedTest() {
+	void getPerceptionModifierWhenHelmetEquippedTest() {
 		eq.setHelmet(h);
 		assertEquals(eq.getPerceptionModifier(), 1);
 	}
 
 	@Test
-	void getPerceptionModifierWhenHelmetNotEquipedTest() {
+	void getPerceptionModifierWhenHelmetNotEquippedTest() {
 		assertEquals(eq.getPerceptionModifier(), 1.10);
 	}
 
 	@Test
-	void getSpeedModifierWhenOnlyFootWearEquipedTest() {
+	void getSpeedModifierWhenOnlyFootWearEquippedTest() {
 		eq.setFootWear(fW);
 		assertEquals(eq.getSpeedModifier(), 1.2);
 	}
 
 	@Test
-	void getSpeedModifierWhenFootWearAndBodyArmorEquipedTest() {
+	void getSpeedModifierWhenFootWearAndBodyArmorEquippedTest() {
 		eq.setFootWear(fW);
 		eq.setBodyArmor(ba);
 		assertEquals(eq.getSpeedModifier(), 1.1);
 	}
 	
 	@Test
-	void getSpeedModifierWhenFootWearAndHelmetEquipedTest() {
+	void getSpeedModifierWhenFootWearAndHelmetEquippedTest() {
 		eq.setFootWear(fW);
 		eq.setHelmet(h);
 		assertEquals(eq.getSpeedModifier(), 1.1);
 	}
 	
 	@Test
-	void getSpeedModifierWhenFootWearNotEquipedTest() {
+	void getSpeedModifierWhenFootWearNotEquippedTest() {
 		assertEquals(eq.getSpeedModifier(), 1);
 	}
 	
 	@Test
-	void getDefenceModifierWhenShieldAndFullArmorEquipedTest() {
+	void getDefenceModifierWhenShieldAndFullArmorEquippedTest() {
 		eq.setFootWear(fW);
 		eq.setHelmet(h);
 		eq.setBodyArmor(ba);
@@ -119,55 +119,55 @@ class EquipmentTest {
 	}
 	
 	@Test
-	void getDefenceModifierWhenNoShieldAndFullArmorEquipedTest() {
+	void getDefenceModifierWhenNoShieldAndFullArmorEquippedTest() {
 		eq.setFootWear(fW);
 		eq.setHelmet(h);
 		eq.setBodyArmor(ba);
 		assertEquals(eq.getDefenceModifier(), 1.3);
 	}
 	@Test
-	void getDefenceModifierWhenOnlyShieldEquipedTest() {
+	void getDefenceModifierWhenOnlyShieldEquippedTest() {
 		eq.setShield(s);
 		assertEquals(eq.getDefenceModifier(), 1.1);
 	}
 	
 	@Test
-	void getDefenceModifierWhenNoShieldAndNoFootWearEquipedTest() {
+	void getDefenceModifierWhenNoShieldAndNoFootWearEquippedTest() {
 		eq.setHelmet(h);
 		eq.setBodyArmor(ba);
 		assertEquals(eq.getDefenceModifier(), 1);
 	}
 	
 	@Test
-	void getDefenceModifierWhenNoShieldAndNoHelmetEquipedTest() {
+	void getDefenceModifierWhenNoShieldAndNoHelmetEquippedTest() {
 		eq.setFootWear(fW);
 		eq.setBodyArmor(ba);
 		assertEquals(eq.getDefenceModifier(), 1);
 	}
 	
 	@Test
-	void equipOneHandedWeaponWhenTwoHandedEquiped() {
+	void equipOneHandedWeaponWhenTwoHandedEquipped() {
 		eq.setTwoHandedWeapon(tHW);
 		eq.setOneHandedWeapon(oHW);
 		assertNull(eq.getTwoHandedWeapon());
 	}
 	
 	@Test
-	void equipShieldWhenTwoHandedEquiped() {
+	void equipShieldWhenTwoHandedEquipped() {
 		eq.setTwoHandedWeapon(tHW);
 		eq.setShield(s);
 		assertNull(eq.getTwoHandedWeapon());
 	}
 	
 	@Test
-	void equipTwoHandedWeapoWhenOneHandedEquipedTest() {
+	void equipTwoHandedWeapoWhenOneHandedEquippedTest() {
 		eq.setOneHandedWeapon(oHW);
 		eq.setTwoHandedWeapon(tHW);
 		assertNull(eq.getOneHandedWeapon());
 	}
 	
 	@Test
-	void equipTwoHandedWeapoWhenShieldEquipedTest() {
+	void equipTwoHandedWeapoWhenShieldEquippedTest() {
 		eq.setShield(s);
 		eq.setTwoHandedWeapon(tHW);
 		assertNull(eq.getShield());

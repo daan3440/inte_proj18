@@ -1,11 +1,6 @@
 package inte_proj18.game;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class GameMap {
 	private static final double MAX_PART_IMMOVABLEOBJECTS = 0.6;
@@ -27,38 +22,54 @@ public class GameMap {
 	private Position entrypoint;
 	private Position exitPoint;
 
-
 	public GameMap(int width, int height) {
-		this(width,height,DEFAULT_PART_IMMOVABLEOBJECTS,DEFAULT_PART_ENEMIES,DEFAULT_PART_ITEMS);
-			}
-	
+		this(width, height, DEFAULT_PART_IMMOVABLEOBJECTS, DEFAULT_PART_ENEMIES, DEFAULT_PART_ITEMS);
+	}
+
 	public GameMap(int width, int height, double partImmovableObjects, double partEnemies, double partItems) {
-		if(immovableObjectsOutOfRange(partImmovableObjects)||enemiesOutOfRange(partEnemies)||itemsOutOfRange(partItems)) {
-			throw new IllegalArgumentException("Map Object parts invalid!");	
+		if (immovableObjectsOutOfRange(partImmovableObjects) || enemiesOutOfRange(partEnemies)
+				|| itemsOutOfRange(partItems)) {
+			throw new IllegalArgumentException("Map Object parts invalid!");
 		}
 		if (width < MIN_WIDTH || width > MAX_WIDTH || height < MIN_HEIGHT || height > MAX_HEIGHT) {
 			throw new IllegalArgumentException("Map size invalid");
 		}
-		
-		MapGeneration mg = new MapGeneration(width,height,partImmovableObjects,partEnemies,partItems);
+
+		MapGeneration mg = new MapGeneration(width, height, partImmovableObjects, partEnemies, partItems);
 		mapObjects = mg.getMapObjects();
 		this.entrypoint = mg.getEntryPoint();
 		this.exitPoint = mg.getExitPoint();
 
-
 	}
-	
+
 	public boolean immovableObjectsOutOfRange(double d) {
 		return d < MIN_PART_IMMOVABLEOBJECTS || d > MAX_PART_IMMOVABLEOBJECTS;
 	}
-	
+
 	public boolean enemiesOutOfRange(double d) {
 		return d < MIN_PART_ENEMIES || d > MAX_PART_ENEMIES;
 	}
 
 	public boolean itemsOutOfRange(double d) {
 		return d < MIN_PART_ITEMS || d > MAX_PART_ITEMS;
-	}	
+	}
+
+	public boolean mapDimensionsOutOfRange(int width, int height) {
+		return width < MIN_WIDTH || width > MAX_WIDTH || height < MIN_HEIGHT || height > MAX_HEIGHT;
+	}
+	
+	public int getMinWidth() {
+		return MIN_WIDTH;
+	}
+	public int getMaxWidth() {
+		return MAX_WIDTH;
+	}
+	public int getMinHeight() {
+		return MIN_HEIGHT;
+	}
+	public int getMaxHeight() {
+		return MAX_HEIGHT;
+	}
 
 	public Position getEntryPoint() {
 		return entrypoint;
@@ -72,7 +83,6 @@ public class GameMap {
 		return mapObjects;
 	}
 
-	// Stub för move i player.
 	public boolean checkPosition(Position pos) {
 		return !mapObjects.containsKey(pos);
 	}
@@ -83,11 +93,9 @@ public class GameMap {
 		mapObjects.put(newPos, go);
 	}
 
-	// Stub för placeObject metod för enterMap GameObject
 	public Position placePlayer(Player player) {
 		mapObjects.put(entrypoint, player);
 		return entrypoint;
 	}
-
 
 }
