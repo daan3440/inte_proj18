@@ -21,15 +21,18 @@ public class ShopTest {
 		item = new Item("Excalibur", 100);
 		HashMap<Item, Integer> itemsInInventory = new HashMap<Item, Integer>();
 		inventory = new Inventory(itemsInInventory);
+		inventory.addItemToInventory(item);
 		wallet = new Wallet(200);
 		player = new Player("Eva", wallet, inventory);
 		shop = new Shop();
 	}
 
-//	@Test
-//	public void addItemToInventoryTest(){
-//
-//	}
+	@Test
+	public void addItemToInventoryTest(){
+		int quantity = inventory.getItemsInInventory().get(item);
+		shop.buyProduct(player, item);
+		assertTrue(inventory.getItemsInInventory().get(item) == quantity + 1);
+	}
 
 	@Test
 	public void moneyReducedTest() {
@@ -39,9 +42,17 @@ public class ShopTest {
 
 	@Test
 	public void moneyIncreasedTest() {
-		inventory.addItemToInventory(item);
 		shop.sellProduct(player, item);
 		assertEquals(wallet.getMoney(), 200 + item.sellPrice());
 	}
-
+	
+	@Test
+	public void itemRemovedFromInventoryTest() {
+		inventory.addItemToInventory(item);
+		int quantity = inventory.getItemsInInventory().get(item);
+		shop.sellProduct(player, item);
+		assertTrue(inventory.getItemsInInventory().get(item) == quantity - 1);
+	}
+	
+	
 }

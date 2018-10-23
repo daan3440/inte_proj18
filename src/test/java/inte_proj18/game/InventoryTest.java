@@ -18,7 +18,7 @@ public class InventoryTest {
 	public void createInventoryTest() {
 		itemsInInventory = new HashMap<Item, Integer>();
 		inventory = new Inventory(itemsInInventory);
-		item = new Item("Excalibur");
+		item = new Item(itemName);
 		inventory.addItemToInventory(item);
 	}
 
