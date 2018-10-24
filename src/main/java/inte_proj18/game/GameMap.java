@@ -1,11 +1,6 @@
 package inte_proj18.game;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class GameMap {
 	private static final double MAX_PART_IMMOVABLEOBJECTS = 0.6;

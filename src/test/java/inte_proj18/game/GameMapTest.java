@@ -128,6 +128,10 @@ public class GameMapTest {
 		player.enterMap(gamemap);
 		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition()));
 	}
+	@Test
+	public void getExitPointTest() {
+		assertEquals(gamemap.getExitPoint(), new Position(64/ 2, 1 + 1));
+	}
 
 	// Utkommenterat pga jobbigt att se men kvar som referens vid behov
 //	@Test
