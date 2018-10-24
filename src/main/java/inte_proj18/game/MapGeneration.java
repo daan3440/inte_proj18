@@ -46,7 +46,7 @@ public class MapGeneration {
 		emptySpots.remove(exitPoint);
 		removeMapObjectsFromEmptySpots();
 		createPath();
-		
+		generateMapContent();
 	}
 
 	public void fillEmptySpots() {
@@ -63,7 +63,7 @@ public class MapGeneration {
 	}
 	
 	public void drawWallFrame() {
-		ImmovableObject io = new ImmovableObject(); // TODO
+		ImmovableObject io = new ImmovableObject(); 
 		for (int x = 1; x <= width; x++) {
 			mapObjects.put(new Position(x, 1), io);
 			mapObjects.put(new Position(x, height), io);
@@ -121,12 +121,13 @@ public class MapGeneration {
 
 
 	public void generatePath(Position a, Position b) {
+		//Byter så a är positionen som är högst upp (lägst y-värde).
 		if (a.getY() > b.getY()) {
 			Position temp = a;
 			a = b;
 			b = temp;
 		}
-		
+		//Skapar en väg mellan as och bs y-värde.
 		int y = a.getY();
 		while (b.getY() != y) {
 			Position pos = new Position(a.getX(), y);
@@ -134,12 +135,13 @@ public class MapGeneration {
 			pathWay.add(pos);
 			y++;
 		}
+		//Byter så a är positionen som är längst till vänster (lägst x-värde).
 		if (a.getX() > b.getX()) {
 			Position temp = a;
 			a = b;
 			b = temp;
 		}
-
+		//Skapar en väg mellan as och bs x-värde.
 		int x = a.getX();
 		while (b.getX() != x) {
 			Position pos = new Position(x, y);
@@ -147,6 +149,7 @@ public class MapGeneration {
 			pathWay.add(pos);
 			x++;
 		}
+		//Tar bort punkten där x- och y-ledet korsas.
 		Position pos = new Position(x, y);
 		emptySpots.remove(pos);
 		pathWay.add(pos);
@@ -161,8 +164,7 @@ public class MapGeneration {
 	}
 	
 	public void generateGameMapEnvironment() {
-		double d = (emptySpots.size() * partImmovableObjects);
-		int x = (int) d;
+		int x = (int) (emptySpots.size() * partImmovableObjects);
 
 		for (int i = 0; i < x; i++) {
 			Position pos = emptySpots.get(0);
@@ -185,7 +187,7 @@ public class MapGeneration {
 	}
 
 	private Item createItem(Position pos) {
-		return new Item("Name");
+		return new Item();
 	}
 
 	public void generateEnemies() {
