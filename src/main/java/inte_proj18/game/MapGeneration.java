@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class MapGeneration {
+	
+	private final static int NUMBER_OF_PATH_POINTS = 8;
 		
 	private ArrayList<Position> emptySpots = new ArrayList<Position>();
 	private int height;
@@ -21,9 +23,9 @@ public class MapGeneration {
 	private Set<Position> pathWay = new HashSet<>();
 	private GameMap gameMap;
 	
-	private double partImmovableObjects = 0.4;
-	private double partEnemies = 0.2;
-	private double partItems = 0.01;
+	private double partImmovableObjects;
+	private double partEnemies;
+	private double partItems;
 	
 	
 	public MapGeneration(int height, int width, double partImmovableObjects, double partEnemies, double partItems) {
@@ -88,8 +90,8 @@ public class MapGeneration {
 	}
 	
 	public void generatePathPoints() {
-		int countPoints = 8; // TODO - make smart algoritm for amount of points (int) MAX_WIDTH-
-		for (int i = 0; i < countPoints; i++) {
+		int countPoints = NUMBER_OF_PATH_POINTS;
+				for (int i = 0; i < countPoints; i++) {
 			pathPoints.add(getEmptyAndRemoveSpot());
 		}
 
@@ -173,7 +175,6 @@ public class MapGeneration {
 		return new ImmovableObject();
 	}
 	
-	// TODO gör till privat
 	public void generateItems() {
 		int x = (int) (emptySpots.size() * partItems);
 		for (int i = x; i >= 0; i--) {
@@ -205,6 +206,8 @@ public class MapGeneration {
 		emptySpots.remove(0);
 		return pos;
 	}
+	
+	//Metoderna här under är get metoder och metoder som används av testklassen
 	
 	protected void clearEmptySpots(){
 		emptySpots.clear();
