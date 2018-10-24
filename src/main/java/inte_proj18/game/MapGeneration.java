@@ -9,19 +9,23 @@ import java.util.Set;
 
 public class MapGeneration {
 	
-	
+	private final static int NUMBER_OF_PATH_POINTS = 8;
+		
 	private ArrayList<Position> emptySpots = new ArrayList<Position>();
 	private int height;
 	private int width;
+	
 	private Position entryPoint;
 	private Position exitPoint;
+	
 	private Map<Position, GameObject> mapObjects = new HashMap<Position, GameObject>();
 	private ArrayList<Position> pathPoints = new ArrayList<Position>();
 	private Set<Position> pathWay = new HashSet<>();
 	private GameMap gameMap;
-	private double partImmovableObjects = 0.4;
-	private double partEnemies = 0.2;
-	private double partItems = 0.01;
+	
+	private double partImmovableObjects;
+	private double partEnemies;
+	private double partItems;
 	
 	
 	public MapGeneration(int height, int width, double partImmovableObjects, double partEnemies, double partItems) {
@@ -86,8 +90,8 @@ public class MapGeneration {
 	}
 	
 	public void generatePathPoints() {
-		int countPoints = 8; // TODO - make smart algoritm for amount of points (int) MAX_WIDTH-
-		for (int i = 0; i < countPoints; i++) {
+		int countPoints = NUMBER_OF_PATH_POINTS;
+				for (int i = 0; i < countPoints; i++) {
 			pathPoints.add(getEmptyAndRemoveSpot());
 		}
 
@@ -171,7 +175,6 @@ public class MapGeneration {
 		return new ImmovableObject();
 	}
 	
-	// TODO gör till privat
 	public void generateItems() {
 		int x = (int) (emptySpots.size() * partItems);
 		for (int i = x; i >= 0; i--) {
@@ -204,89 +207,89 @@ public class MapGeneration {
 		return pos;
 	}
 	
-	public void clearEmptySpots(){
+	//Metoderna här under är get metoder och metoder som används av testklassen
+	
+	protected void clearEmptySpots(){
 		emptySpots.clear();
 	}
 		
-	public int getEmptySpotsSize() {
+	protected int getEmptySpotsSize() {
 		return emptySpots.size();
 	}
 	
-	public int getWidth() {
+	protected int getWidth() {
 		return width;
 	}
 
-	public int getHeight() {
+	protected int getHeight() {
 		return height;
 	}
 	
-	public boolean mapObjectsContainsKey(Position pos) {
+	protected boolean mapObjectsContainsKey(Position pos) {
 		return mapObjects.containsKey(pos);
 	}
 	
-	public boolean emptySpotsContains(Position pos) {
+	protected boolean emptySpotsContains(Position pos) {
 		return emptySpots.contains(pos);
 	}
 	
-	public Set<Position> getMapObjectsKeySet(){
+	protected Set<Position> getMapObjectsKeySet(){
 		return mapObjects.keySet();
 	}
 	
-	public ArrayList<Position> getPathPoints(){
+	protected ArrayList<Position> getPathPoints(){
 		return pathPoints;
 	}
 	
-	public void clearPathPoints() {
+	protected void clearPathPoints() {
 		pathPoints.clear();
 	}
 	
-	public boolean isPathPointsEmpty() {
+	protected boolean isPathPointsEmpty() {
 		return pathPoints.isEmpty();
 	}
 	
-	public void removeFromEmptySpots(Position pos) {
+	protected void removeFromEmptySpots(Position pos) {
 		emptySpots.remove(pos);
 	}
 	
-	public void addPathPoints(Position pos) {
+	protected void addPathPoints(Position pos) {
 		pathPoints.add(pos);
 	}
 	
-	public void setEntryPoint(Position pos) {
+	protected void setEntryPoint(Position pos) {
 		this.entryPoint = pos;
 	}
 
-	public void setExitPoint(Position pos) {
+	protected void setExitPoint(Position pos) {
 		this.exitPoint = pos;
 	}
 	
-	public void clearPathWay() {
+	protected void clearPathWay() {
 		pathWay.clear();
 	}
 	
-	public Set<Position> getPathWay(){
+	protected Set<Position> getPathWay(){
 		return pathWay;
 	}
 	
-	public GameObject getMapObjectsEntry(Position pos) {
+	protected GameObject getMapObjectsEntry(Position pos) {
 		return mapObjects.get(pos);
 	}
 	
-	public void addArrayListToPathPoints(ArrayList<Position> list) {
+	protected void addArrayListToPathPoints(ArrayList<Position> list) {
 		pathPoints.addAll(list);
 	}
 	
-	public Map<Position,GameObject> getMapObjects(){
+	protected Map<Position,GameObject> getMapObjects(){
 		return mapObjects;
 	}
 	
-	public Position getEntryPoint() {
+	protected Position getEntryPoint() {
 		return entryPoint;
 	}
 
-	public Position getExitPoint() {
+	protected Position getExitPoint() {
 		return exitPoint;
 	}
-
-
 }
