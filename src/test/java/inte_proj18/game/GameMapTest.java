@@ -10,25 +10,54 @@ public class GameMapTest {
 	Player player;
 	Wallet wallet;
 	Inventory inventory;
+	String name = "ValidGameMapName";
 
 	@BeforeEach
 	void setUpGameMap() {
-		gamemap = new GameMap(64, 64);
+		gamemap = new GameMap(name, 64, 64);
 		player = new Player("Stina III", wallet, inventory);
 	}
 
+	@Test
+	public void checkInvalidLongNameTest() {
+		String nameLong = "ThisNameIsInvalidAndTooLongTwiceThisNameIsInvalidAndTooLongTwice";
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(nameLong, 64, 64);
+		});
+	}
+
+	@Test
+	public void checkInvalidShortNameTest() {
+		String nameShort = "No";
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(nameShort, 64, 64);
+		});
+	}
+
+	@Test
+	public void checkAspectOutOfRangeWidthTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(name, 16, 65);
+		});
+	}
+	@Test
+	public void checkAspectOutOfRangeHeightTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(name, 65, 16);
+		});
+	}
 
 	@Test
 	public void underMinWidthTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(1, 16);
+			gamemap = new GameMap(name, 1, 16);
 		});
 	}
 
 	@Test
 	public void underMinHeightTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(64, 2);
+			gamemap = new GameMap(name, 64, 2);
 		});
 
 	}
@@ -36,60 +65,58 @@ public class GameMapTest {
 	@Test
 	public void overMaxWidthTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(789, 230);
+			gamemap = new GameMap(name, 789, 230);
 		});
 	}
 
 	@Test
 	public void overMaxHeightTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789);
+			gamemap = new GameMap(name, 230, 789);
 		});
 	}
-	
+
 	@Test
 	public void overMaxPartImmovableObjectsTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.9,0.2,0.01);
+			gamemap = new GameMap(name, 230, 789, 0.9, 0.2, 0.01);
 		});
 	}
-	
+
 	@Test
 	public void underMinPartImmovableObjectsTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.01,0.2,0.01);
+			gamemap = new GameMap(name, 230, 789, 0.01, 0.2, 0.01);
 		});
 	}
-	
 
 	@Test
 	public void overMaxPartEnemiesTest() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.45,0.6,0.01);
-		});
-	}
-	
-	@Test
-	public void underMinPartEnemiesTest() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.45,0.00,0.01);
-		});
-	}
-	
-	@Test
-	public void overMaxPartItemsTest() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.45,0.2,0.1);
-		});
-	}
-	
-	@Test
-	public void underMinPartItemsTest() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			gamemap = new GameMap(230, 789,0.45,0.2,0.0);
+			gamemap = new GameMap(name, 230, 789, 0.45, 0.6, 0.01);
 		});
 	}
 
+	@Test
+	public void underMinPartEnemiesTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(name, 230, 789, 0.45, 0.00, 0.01);
+		});
+	}
+
+	@Test
+	public void overMaxPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(name, 230, 789, 0.45, 0.2, 0.1);
+		});
+	}
+
+	@Test
+	public void underMinPartItemsTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			gamemap = new GameMap(name, 230, 789, 0.45, 0.2, 0.0);
+		});
+	}
 
 	@Test
 	public void isHashMapNotEmptyTest() {
@@ -102,8 +129,7 @@ public class GameMapTest {
 		assertTrue(gamemap.getGameMapObjects().containsKey(player.getPosition()));
 	}
 
-
-	//Utkommenterat pga jobbigt att se men kvar som referens vid behov
+	// Utkommenterat pga jobbigt att se men kvar som referens vid behov
 //	@Test
 //	public void printGameMapTest() {
 ////		for (Position p: gamemap.getPathWay()) {
@@ -141,7 +167,6 @@ public class GameMapTest {
 //
 //	}
 
-	
 	@Test
 	public void removeOldPositionTest() {
 		gamemap.getGameMapObjects().clear();

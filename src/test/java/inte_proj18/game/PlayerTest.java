@@ -10,6 +10,7 @@ public class PlayerTest {
 	private Player player;
 	private Position pos;
 	private GameMap gamemap;
+	private String name = "ValidGameMapName";
 
 	Wallet wallet;
 	Inventory inventory;
@@ -17,13 +18,12 @@ public class PlayerTest {
 	@BeforeEach
 	void setUp() {
 		player = new Player("stina", wallet, inventory);
-		gamemap = new GameMap(64, 64);
+		gamemap = new GameMap(name, 64, 64);
 		player.enterMap(gamemap);
 		pos = player.getPosition();
 	}
 
 	@Test
-	
 	public void createPlayerCheckNullTest() {
 		assertNotNull(player);
 	}
@@ -33,17 +33,40 @@ public class PlayerTest {
 		assertEquals(player.getName(), "stina");
 
 	}
-	
+
 	@Test
 	public void playerWalletTest() {
 		assertEquals(player.getWallet(), wallet);
 	}
-	
+
 	@Test
 	public void playerInventoryTest() {
 		assertEquals(player.getInventory(), inventory);
 	}
 
+	@Test
+	public void getPerceptionTest() {
+		assertEquals(player.getPerception(), 10);
+	}
+	@Test
+	public void getSpeedTest() {
+		assertEquals(player.getSpeed(), 10);
+	}
+	@Test
+	public void getDefTest() {
+		assertEquals(player.getDef(), 10);
+	}
+	@Test
+	public void getAttackTest() {
+		assertEquals(player.getAttack(), 10);
+	}
+	@Test
+	public void chedkEquipmentNotNullTest() {
+	
+		assertNotNull(player.getEquipment());
+	}
+
+	
 	@Test
 	public void enteredGameMapWithPositionTest() {
 		assertEquals(player.getPosition(), pos);
@@ -64,11 +87,12 @@ public class PlayerTest {
 		assertEquals(player.getPosition(), posUp);
 
 	}
+
 	@Test
 	public void playerMoveDownTest() {
 		gamemap.getGameMapObjects().clear();
 		player.moveDown();
-		Position posDown = new Position(pos.getX(), pos.getY()+1);
+		Position posDown = new Position(pos.getX(), pos.getY() + 1);
 		assertEquals(player.getPosition(), posDown);
 	}
 
@@ -87,7 +111,7 @@ public class PlayerTest {
 		Position posLeft = new Position(pos.getX() - 1, pos.getY());
 		assertEquals(player.getPosition(), posLeft);
 	}
-	
+
 	@Test
 	public void playerCollisionDetectionTest() {
 		player.moveDown();
@@ -126,11 +150,4 @@ public class PlayerTest {
 		assertEquals(player.getHP(), player.getMaxHP());
 	}
 
-//	@Test
-//	public void increaseMaxHPTest() {
-//		int oldMaxHP = player.getMaxHP();
-//		player.enterMap(pos, gamemap);
-//		int newMaxHP = (int) (oldMaxHP*1.1);
-//		assertEquals(player.getMaxHP(), newMaxHP );
-//	}
 }

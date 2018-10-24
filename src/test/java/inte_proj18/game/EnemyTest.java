@@ -11,10 +11,11 @@ public class EnemyTest {
 	private Enemy enemy;
 	private GameMap gameMap;
 	private Position pos;
+	private String name = "ValidGameMapName";
 	
 	@BeforeEach
 	void setUp() {
-		gameMap = new GameMap(64,64);
+		gameMap = new GameMap(name, 64,64);
 		pos = new Position(55,55);
 		enemy = new Enemy(pos, gameMap);
 	}
