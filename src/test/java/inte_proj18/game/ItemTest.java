@@ -40,5 +40,22 @@ public class ItemTest {
 	public void itemSellPriceTest() {
 		assertEquals(item.sellPrice(), item.getValue() * 0.8);
 	}
+	
+	@Test
+	public void itemBuyRateTest() {
+		Item item = new Item("", 100, 1.21d, 0.5d);
+		assertEquals(item.getBuyRate() , 1.21d);
+	}
+	
+	@Test
+	public void itemSellRateTest() {
+		Item item = new Item("", 100, 1.21d, 0.5d);
+		assertEquals(item.getSellRate() , 0.5d);
+	}
+	
+	@Test
+	public void itemCompareToNonItem() {
+		assertEquals(item.equals(null) , false);
+	}
 
 }
