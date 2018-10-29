@@ -172,17 +172,17 @@ class MapGenerationTest {
 		Position pos = new Position(mg.getWidth(), mg.getHeight());
 		assertTrue(mg.mapObjectsContainsKey(pos));
 	}
-	
-	@Test
-	public void createEntryPointTest(){
-		mg.createEntryPoint();
-		assertTrue(mg.emptySpotsContains(mg.getEntryPoint()));
-	}
-	@Test
-	public void createExitPointTest(){
-		mg.createExitPoint();
-		assertTrue(mg.emptySpotsContains(mg.getExitPoint()));
-	}
+//utkommenterade	
+//	@Test
+//	public void createEntryPointTest(){
+//		mg.createEntryAndExitPoints();
+//		assertTrue(mg.emptySpotsContains(mg.getEntryPoint()));
+//	}
+//	@Test
+//	public void createExitPointTest(){
+//		mg.createEntryAndExitPoints();
+//		assertTrue(mg.emptySpotsContains(mg.getExitPoint()));
+//	}
 	
 //	@Test
 //	public void checkDistanceLongEnoughForEntryAndExit() {
