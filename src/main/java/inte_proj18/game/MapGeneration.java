@@ -31,23 +31,29 @@ public class MapGeneration {
 		this.partImmovableObjects = partImmovableObjects;
 		this.partEnemies = partEnemies;
 		this.partItems = partItems;
+		createEntryAndExitPoints();
+	
+		fillEmptySpots();
+		drawWallFrame();
+
+	
+		removeMapObjectsFromEmptySpots();
+		createPath();
+		generateMapContent();
+
+	}
+	
+	public void createEntryAndExitPoints() {
 		boolean checkDistance = false;
 		while (!checkDistance) {
 			entryPoint = createEntryPoint();// new Position(width / 2, height - 1);
 			exitPoint = createExitPoint();// new Position(width / 2, 1 + 1);
 			if (checkDistanceLongEnough()) {
 				checkDistance = true;
+				emptySpots.remove(entryPoint);
+				emptySpots.remove(exitPoint);
 			}
 		}
-		fillEmptySpots();
-		drawWallFrame();
-
-		emptySpots.remove(entryPoint);
-		emptySpots.remove(exitPoint);
-		removeMapObjectsFromEmptySpots();
-		createPath();
-		generateMapContent();
-
 	}
 
 	public void fillEmptySpots() {
@@ -69,7 +75,7 @@ public class MapGeneration {
 			mapObjects.put(new Position(x, 1), io);
 			mapObjects.put(new Position(x, height), io);
 		}
-		for (int x = 1; x <= width; x++) {
+		for (int x = 1; x <= height; x++) {
 			mapObjects.put(new Position(1, x), io);
 			mapObjects.put(new Position(width, x), io);
 
