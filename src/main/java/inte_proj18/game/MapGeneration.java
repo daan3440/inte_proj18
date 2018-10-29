@@ -63,14 +63,14 @@ public class MapGeneration {
 	}
 	
 	public void drawWallFrame() {
-		ImmovableObject io = new ImmovableObject(); 
-		for (int x = 1; x <= width; x++) {
-			mapObjects.put(new Position(x, 1), io);
-			mapObjects.put(new Position(x, height), io);
+		ImmovableObject immovableObj = new ImmovableObject(); 
+		for (int x = 1; x <= height; x++) {
+			mapObjects.put(new Position(x, 1), immovableObj);
+			mapObjects.put(new Position(x, height), immovableObj);
 		}
 		for (int x = 1; x <= width; x++) {
-			mapObjects.put(new Position(1, x), io);
-			mapObjects.put(new Position(width, x), io);
+			mapObjects.put(new Position(1, x), immovableObj);
+			mapObjects.put(new Position(width, x), immovableObj);
 
 		}
 	}
@@ -90,8 +90,8 @@ public class MapGeneration {
 	}
 	
 	public void generatePathPoints() {
-		int countPoints = NUMBER_OF_PATH_POINTS;
-				for (int i = 0; i < countPoints; i++) {
+		//int countPoints = NUMBER_OF_PATH_POINTS;
+				for (int i = 0; i < NUMBER_OF_PATH_POINTS; i++) {
 			pathPoints.add(getEmptyAndRemoveSpot());
 		}
 
@@ -100,7 +100,7 @@ public class MapGeneration {
 	public void createPathWay() {
 		Position start = entryPoint;
 		while (!pathPoints.isEmpty()) {
-			Position pos = checkNearestPoint(start);
+			Position pos = getNearestPoint(start);
 			generatePath(start, pos);
 			start = pos;
 		}
@@ -109,7 +109,7 @@ public class MapGeneration {
 	}
 
 	
-	public Position checkNearestPoint(Position pos) {
+	public Position getNearestPoint(Position pos) {
 		Position nPoint = pathPoints.get(0);
 		for (Position p : pathPoints) {
 			if (pos.getDistance(nPoint) > pos.getDistance(p))
@@ -168,12 +168,12 @@ public class MapGeneration {
 
 		for (int i = 0; i < x; i++) {
 			Position pos = emptySpots.get(0);
-			mapObjects.put(pos, createImmovableObject(pos));
+			mapObjects.put(pos, createImmovableObject());
 			emptySpots.remove(0);
 		}
 	}
 	
-	private ImmovableObject createImmovableObject(Position pos) {
+	private ImmovableObject createImmovableObject() {
 		return new ImmovableObject();
 	}
 	
@@ -181,12 +181,12 @@ public class MapGeneration {
 		int x = (int) (emptySpots.size() * partItems);
 		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
-			mapObjects.put(pos, createItem(pos));
+			mapObjects.put(pos, createItem());
 			emptySpots.remove(0);
 		}
 	}
 
-	private Item createItem(Position pos) {
+	private Item createItem() {
 		return new Item();
 	}
 

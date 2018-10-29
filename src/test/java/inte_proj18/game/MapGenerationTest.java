@@ -168,7 +168,7 @@ class MapGenerationTest {
 		ArrayList<Position> testPositionDifference = new ArrayList<>(
 				Arrays.asList(new Position(1, 1), new Position(8, 5), sevenFive, new Position(3, 3)));
 		mg.addArrayListToPathPoints(testPositionDifference);
-		assertEquals(mg.checkNearestPoint(new Position(7, 6)), sevenFive);
+		assertEquals(mg.getNearestPoint(new Position(7, 6)), sevenFive);
 	}
 	
 	//borde göras om?
