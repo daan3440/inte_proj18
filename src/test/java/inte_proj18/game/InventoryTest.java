@@ -90,7 +90,7 @@ public class InventoryTest {
 	}
 
 	@Test
-	public void addToManyItemsTest() {
+	public void addTooManyItemsTest() {
 		Inventory inventory = new Inventory();
 		for (int i = 0; i < 10; i++) {
 			inventory.addItem(new Item());

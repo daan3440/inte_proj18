@@ -64,7 +64,7 @@ public class MapGeneration {
 	
 	public void drawWallFrame() {
 		ImmovableObject io = new ImmovableObject(); 
-		for (int x = 1; x <= width; x++) {
+		for (int x = 1; x <= height; x++) {
 			mapObjects.put(new Position(x, 1), io);
 			mapObjects.put(new Position(x, height), io);
 		}
