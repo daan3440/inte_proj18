@@ -27,11 +27,7 @@ public class MovableObject extends GameObject {
 	public Position getPosition() {
 		return pos;
 	}
-	
-	public void enterMap(Position pos) {
-		this.pos = pos;
-	}
-	
+
 	public void setGameMap(GameMap gameMap) {
 		this.gameMap = gameMap;
 	}
