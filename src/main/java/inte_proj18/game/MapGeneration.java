@@ -68,9 +68,10 @@ public class MapGeneration {
 			mapObjects.put(new Position(x, 1), immovableObj);
 			mapObjects.put(new Position(x, height), immovableObj);
 		}
-		for (int x = 1; x <= width; x++) {
-			mapObjects.put(new Position(1, x), immovableObj);
-			mapObjects.put(new Position(width, x), immovableObj);
+
+		for (int x = 1; x <= height; x++) {
+			mapObjects.put(new Position(1, x), io);
+			mapObjects.put(new Position(width, x), io);
 
 		}
 	}

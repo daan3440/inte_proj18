@@ -55,7 +55,7 @@ public class MovableObjectTest {
 	}
 
 	@Test
-	void hitCeckInputTest() {
+	void hitCheckInputTest() {
 
 		//movableObject.takeDamage(10) behövs för att inte setHPs kolla av indata ska kasta undantag.
 		movableObject.takeDamage(10); 
