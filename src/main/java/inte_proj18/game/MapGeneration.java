@@ -21,19 +21,18 @@ public class MapGeneration {
 	private Map<Position, GameObject> mapObjects = new HashMap<Position, GameObject>();
 	private ArrayList<Position> pathPoints = new ArrayList<Position>();
 	private Set<Position> pathWay = new HashSet<>();
-	private GameMap gameMap;
 	
 	private double partImmovableObjectsOnMap;
 	private double partEnemiesOnMap;
 	private double partItemsOnMap;
 	
 	
-	public MapGeneration(int height, int width, double partImmovableObjects, double partEnemies, double partItems) {
+	public MapGeneration(int height, int width, double partImmovableObjectsOnMap, double partEnemiesOnMap, double partItemsOnMap) {
 		this.height = height;
 		this.width = width;
-		this.partImmovableObjectsOnMap = partImmovableObjects;
-		this.partEnemiesOnMap = partEnemies;
-		this.partItemsOnMap = partItems;
+		this.partImmovableObjectsOnMap = partImmovableObjectsOnMap;
+		this.partEnemiesOnMap = partEnemiesOnMap;
+		this.partItemsOnMap = partItemsOnMap;
 		entryPoint = new Position(width / 2, height - 1);
 		exitPoint = new Position(width / 2, 1 + 1);
 		
@@ -49,25 +48,15 @@ public class MapGeneration {
 		generateMapContent();
 	}
 
-	public void fillEmptySpots() {
-//		for(int x=1; 1<=width;x++) {
-//			for(int y = 1; 1<=height; y++) 
-//				emptySpots.add(new Position(x,y));
-//		}
-			
-		int x = 1;
-		while (x <= width) {
-			int y = 1;
-			while (y <= height) {
-				emptySpots.add(new Position(x, y));
-				y++;
-			}
-			x++;
+	protected void fillEmptySpots() {
+		for(int x = 1; x <=width;x++) {
+			for(int y = 1; y <=height; y++) 
+				emptySpots.add(new Position(x,y));
 		}
 		Collections.shuffle(emptySpots);
 	}
 	
-	public void drawWallFrame() {
+	protected void drawWallFrame() {
 		ImmovableObject immovableObj = new ImmovableObject(); 
 		for (int x = 1; x <= width; x++) {
 			mapObjects.put(new Position(x, 1), immovableObj);
@@ -90,20 +79,19 @@ public class MapGeneration {
 		}
 	}
 	
-	public void createPath() {
+	protected void createPath() {
 		generatePathPoints();
 		createPathWay();
 	}
 	
-	public void generatePathPoints() {
-		//int countPoints = NUMBER_OF_PATH_POINTS;
-				for (int i = 0; i < NUMBER_OF_PATH_POINTS; i++) {
-			pathPoints.add(getEmptyAndRemoveSpot());
+	protected void generatePathPoints() {
+		for (int i = 0; i < NUMBER_OF_PATH_POINTS; i++) {
+			pathPoints.add(getEmptySpotAndRemoveSpot());
 		}
 
 	}
 	
-	public void createPathWay() {
+	protected void createPathWay() {
 		Position start = entryPoint;
 		while (!pathPoints.isEmpty()) {
 			Position pos = getNearestPoint(start);
@@ -115,7 +103,7 @@ public class MapGeneration {
 	}
 
 	
-	public Position getNearestPoint(Position pos) {
+	protected Position getNearestPoint(Position pos) {
 		Position nPoint = pathPoints.get(0);
 		for (Position p : pathPoints) {
 			if (pos.getDistance(nPoint) > pos.getDistance(p))
@@ -126,21 +114,33 @@ public class MapGeneration {
 	}
 
 
-	public void generatePath(Position a, Position b) {
+	protected void generatePath(Position a, Position b) {
+		int y = buildYAxisPath(a,b);
+		int x = buildXAxisPath(a,b,y);
+		//Tar bort punkten där x- och y-ledet korsas.
+		Position pos = new Position(x, y);
+		emptySpots.remove(pos);
+		pathWay.add(pos);
+	}
+	
+	private int buildYAxisPath(Position a, Position b) {
 		//Byter så a är positionen som är högst upp (lägst y-värde).
-		if (a.getY() > b.getY()) {
-			Position temp = a;
-			a = b;
-			b = temp;
-		}
-		//Skapar en väg mellan as och bs y-värde.
-		int y = a.getY();
-		while (b.getY() != y) {
-			Position pos = new Position(a.getX(), y);
-			emptySpots.remove(pos);
-			pathWay.add(pos);
-			y++;
-		}
+				if (a.getY() > b.getY()) {
+					Position temp = a;
+					a = b;
+					b = temp;
+				}
+				//Skapar en väg mellan as och bs y-värde.
+				int y = a.getY();
+				while (b.getY() != y) {
+					Position pos = new Position(a.getX(), y);
+					emptySpots.remove(pos);
+					pathWay.add(pos);
+					y++;
+				}
+				return y;
+	}
+	private int buildXAxisPath(Position a, Position b, int y) {
 		//Byter så a är positionen som är längst till vänster (lägst x-värde).
 		if (a.getX() > b.getX()) {
 			Position temp = a;
@@ -155,13 +155,10 @@ public class MapGeneration {
 			pathWay.add(pos);
 			x++;
 		}
-		//Tar bort punkten där x- och y-ledet korsas.
-		Position pos = new Position(x, y);
-		emptySpots.remove(pos);
-		pathWay.add(pos);
+	return x;
 	}
 	
-	public void generateMapContent() {
+	protected void generateMapContent() {
 		generateGameMapEnvironment();
 		emptySpots.addAll(pathWay);
 		Collections.shuffle(emptySpots);
@@ -169,7 +166,7 @@ public class MapGeneration {
 		generateEnemies();
 	}
 	
-	public void generateGameMapEnvironment() {
+	protected void generateGameMapEnvironment() {
 		int x = (int) (emptySpots.size() * partImmovableObjectsOnMap);
 
 		for (int i = 0; i < x; i++) {
@@ -183,7 +180,7 @@ public class MapGeneration {
 		return new ImmovableObject();
 	}
 	
-	public void generateItems() {
+	protected void generateItems() {
 		int x = (int) (emptySpots.size() * partItemsOnMap);
 		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
@@ -196,7 +193,7 @@ public class MapGeneration {
 		return new Item();
 	}
 
-	public void generateEnemies() {
+	protected void generateEnemies() {
 		int x = (int) (emptySpots.size() * partEnemiesOnMap);
 		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
@@ -206,10 +203,10 @@ public class MapGeneration {
 	}
 
 	private Enemy createEnemy(Position pos) {
-		return new Enemy(pos, gameMap);
+		return new Enemy(pos);
 	}
 
-	private Position getEmptyAndRemoveSpot() {
+	private Position getEmptySpotAndRemoveSpot() {
 		Position pos = emptySpots.get(0);
 		emptySpots.remove(0);
 		return pos;
