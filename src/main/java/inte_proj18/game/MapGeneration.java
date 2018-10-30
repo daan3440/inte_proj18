@@ -23,17 +23,17 @@ public class MapGeneration {
 	private Set<Position> pathWay = new HashSet<>();
 	private GameMap gameMap;
 	
-	private double partImmovableObjects;
-	private double partEnemies;
-	private double partItems;
+	private double partImmovableObjectsOnMap;
+	private double partEnemiesOnMap;
+	private double partItemsOnMap;
 	
 	
 	public MapGeneration(int height, int width, double partImmovableObjects, double partEnemies, double partItems) {
 		this.height = height;
 		this.width = width;
-		this.partImmovableObjects = partImmovableObjects;
-		this.partEnemies = partEnemies;
-		this.partItems = partItems;
+		this.partImmovableObjectsOnMap = partImmovableObjects;
+		this.partEnemiesOnMap = partEnemies;
+		this.partItemsOnMap = partItems;
 		entryPoint = new Position(width / 2, height - 1);
 		exitPoint = new Position(width / 2, 1 + 1);
 		
@@ -50,6 +50,11 @@ public class MapGeneration {
 	}
 
 	public void fillEmptySpots() {
+//		for(int x=1; 1<=width;x++) {
+//			for(int y = 1; 1<=height; y++) 
+//				emptySpots.add(new Position(x,y));
+//		}
+			
 		int x = 1;
 		while (x <= width) {
 			int y = 1;
@@ -164,7 +169,7 @@ public class MapGeneration {
 	}
 	
 	public void generateGameMapEnvironment() {
-		int x = (int) (emptySpots.size() * partImmovableObjects);
+		int x = (int) (emptySpots.size() * partImmovableObjectsOnMap);
 
 		for (int i = 0; i < x; i++) {
 			Position pos = emptySpots.get(0);
@@ -178,7 +183,7 @@ public class MapGeneration {
 	}
 	
 	public void generateItems() {
-		int x = (int) (emptySpots.size() * partItems);
+		int x = (int) (emptySpots.size() * partItemsOnMap);
 		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createItem());
@@ -191,7 +196,7 @@ public class MapGeneration {
 	}
 
 	public void generateEnemies() {
-		int x = (int) (emptySpots.size() * partEnemies);
+		int x = (int) (emptySpots.size() * partEnemiesOnMap);
 		for (int i = x; i >= 0; i--) {
 			Position pos = emptySpots.get(0);
 			mapObjects.put(pos, createEnemy(pos));
