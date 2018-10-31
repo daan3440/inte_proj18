@@ -47,14 +47,6 @@ public class Inventory {
 		return null;
 	}
 
-	public String listItems() {
-		String output = "";
-		for (int i = 0; i < ArraySize; i++) {
-			output = output + "\n" + items[i];
-		}
-		return output;
-	}
-
 	public int getEmptyPlace() {
 		int emptyPlace = -1;
 
@@ -82,14 +74,19 @@ public class Inventory {
 		itemsInInventory.put(item, quantity);
 	}
 
-	public void removeItemFromInventory(Item item) {
+	public boolean removeItemFromInventory(Item item) {
 		if (itemsInInventory.containsKey(item)) {
 			int quantity = itemsInInventory.get(item);
-			if (quantity == 1)
+			if (quantity == 1) {
 				itemsInInventory.remove(item);
-			else
+				return true;
+			}
+			else {
 				itemsInInventory.put(item, quantity - 1);
+				return true;
+			}
 		}
+		return false;
 	}
 
 }

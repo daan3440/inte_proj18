@@ -1,1 +1,4 @@
 /target/
+*.log
+/inte_proj18_diagram.png
+/inte_proj18_diagram.ucls
