@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
-
 public class MapGeneration {
 	private double partImmovableObjectsOnMap;
 	private double partEnemiesOnMap;
