@@ -8,12 +8,9 @@ import org.junit.jupiter.api.Test;
 class GameObjectTest {
 	public static final String VALID_NAME = "ValidForObject";
 	private GameObject gameObject;
-	private GameMap gameMap;
-
 	@BeforeEach
 	void setUp() {
 		gameObject = new GameObject(VALID_NAME);
-		gameMap = new GameMap(64, 64);
 	}
 
 	@Test

@@ -163,7 +163,7 @@ class MapGenerationTest {
 		ArrayList<Position> testPositionDifference = new ArrayList<>(
 				Arrays.asList(new Position(1, 1), new Position(8, 5), sevenFive, new Position(3, 3)));
 		mg.addArrayListToPathPoints(testPositionDifference);
-		assertEquals(mg.checkNearestPoint(new Position(7, 6)), sevenFive);
+		assertEquals(mg.getNearestPoint(new Position(7, 6)), sevenFive);
 	}
 
 	// borde göras om?
@@ -172,61 +172,34 @@ class MapGenerationTest {
 		Position pos = new Position(mg.getWidth(), mg.getHeight());
 		assertTrue(mg.mapObjectsContainsKey(pos));
 	}
-//utkommenterade	
-//	@Test
-//	public void createEntryPointTest(){
-//		mg.createEntryAndExitPoints();
-//		assertTrue(mg.emptySpotsContains(mg.getEntryPoint()));
-//	}
-//	@Test
-//	public void createExitPointTest(){
-//		mg.createEntryAndExitPoints();
-//		assertTrue(mg.emptySpotsContains(mg.getExitPoint()));
-//	}
 	
-//	@Test
-//	public void checkDistanceLongEnoughForEntryAndExit() {
-//		Position pos1 = mg.createEntryPoint();//new Position(33, 34);
-//		Position pos2 = mg.createExitPoint();//new Position(44, 45);
-//		
-//		assertTrue((Math.abs(pos1.getX() - pos2.getX())
-//				+ (Math.abs(pos1.getY() - pos2.getY()))) > (Math.abs(1 - mg.getWidth())
-//						+ Math.abs(1 - mg.getHeight()) * ((int) 0.8)));
-		
-//		assertTrue(Math.abs(mg.createEntryPoint().getX() - mg.createExitPoint().getX())
-//				+ (Math.abs(mg.createEntryPoint().getY() - mg.createExitPoint().getY())) > (Math.abs(1 - mg.getWidth())
-//						+ Math.abs(1 - mg.getHeight()) * ((int) 0.8))&& mg.checkDistanceLongEnough());
-//	}
-
-	// Utkommenterat pga jobbigt att se men kvar som referens vid behov
 	@Test
 	public void printGameMapTest() {
 //				for (Position p: gamemap.getPathWay()) {
 //					System.out.println(p.getX()+","+ p.getY());
 //				}
-		GameMap gamemap;
 
 		for (int y = 1; y <= mg.getHeight(); y++) {
 			for (int x = 1; x <= mg.getWidth(); x++) {
 				GameObject go = mg.getMapObjectsEntry(new Position(x, y));
 				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
 					if (mg.getEntryPoint().equals(new Position(x, y)))
-						System.out.print("S");
+						System.out.print("\033[33m S");
 					else if (mg.getExitPoint().equals(new Position(x, y)))
-						System.out.print("X");
+						System.out.print("\033[34m X");
 					else if (mg.getPathWay().contains(new Position(x, y)))
-						System.out.print("P");
+						System.out.print("\033[32m P");
 					else
-						System.out.print(" ");
+						System.out.print("\033[0m  ");
 				} else {
 					if (go instanceof Item)
-						System.out.print("*");
+						System.out.print("\033[35m *");
 					if (go instanceof Enemy)
-						System.out.print("W");
+						System.out.print("\033[31m W");
 					if (go instanceof ImmovableObject && !(go instanceof Item))
-						System.out.print("#");
+						System.out.print("\033[0m #");
 					if (go instanceof Player)
-						System.out.print("M");
+						System.out.print("\033[36m M");
 				}
 
 			}
@@ -235,5 +208,44 @@ class MapGenerationTest {
 		}
 
 	}
+
+
+	// Utkommenterat pga jobbigt att se men kvar som referens vid behov
+//	@Test
+//	public void printGameMapTest() {
+////				for (Position p: gamemap.getPathWay()) {
+////					System.out.println(p.getX()+","+ p.getY());
+////				}
+//		GameMap gamemap;
+//
+//		for (int y = 1; y <= mg.getHeight(); y++) {
+//			for (int x = 1; x <= mg.getWidth(); x++) {
+//				GameObject go = mg.getMapObjectsEntry(new Position(x, y));
+//				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
+//					if (mg.getEntryPoint().equals(new Position(x, y)))
+//						System.out.print("S");
+//					else if (mg.getExitPoint().equals(new Position(x, y)))
+//						System.out.print("X");
+//					else if (mg.getPathWay().contains(new Position(x, y)))
+//						System.out.print("P");
+//					else
+//						System.out.print(" ");
+//				} else {
+//					if (go instanceof Item)
+//						System.out.print("*");
+//					if (go instanceof Enemy)
+//						System.out.print("W");
+//					if (go instanceof ImmovableObject && !(go instanceof Item))
+//						System.out.print("#");
+//					if (go instanceof Player)
+//						System.out.print("M");
+//				}
+//
+//			}
+//			System.out.println();
+//
+//		}
+//
+//	}
 
 }

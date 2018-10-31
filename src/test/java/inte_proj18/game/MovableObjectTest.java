@@ -9,8 +9,6 @@ public class MovableObjectTest {
 	public static final String VALID_NAME = "ValidName";
 	public static final int INITIAL_HP = 100;
 
-	
-
 	private MovableObject movableObject;
 
 	@BeforeEach
@@ -57,9 +55,12 @@ public class MovableObjectTest {
 	}
 
 	@Test
-	void hitCeckInputTest() {
-		// enemy.hit(10) behövs för att inte setHPs kolla av indata ska kasta undantag.
+
+	void hitCheckInputTest() {
+		// movableObject.takeDamage(10) behövs för att inte setHPs kolla av indata ska
+		// kasta undantag.
 		movableObject.takeDamage(10);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			movableObject.takeDamage(-1);
 
@@ -73,17 +74,5 @@ public class MovableObjectTest {
 		assertEquals(movableObject.getPosition(), pos);
 
 	}
-
-//	@Test
-//	void gameObjectEnterMapTest() {
-//		movableObject.enterMap(gameMap);
-//		assertEquals(movableObject.getPosition(), pos);
-//	}
-
-//	@Test
-//	void getGameMapTest() {
-//		movableObject.enterMap(gameMap);
-//		assertEquals(gameMap, movableObject.getGameMap());
-//	}
 
 }

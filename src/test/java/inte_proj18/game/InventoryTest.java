@@ -90,7 +90,7 @@ public class InventoryTest {
 	}
 
 	@Test
-	public void addToManyItemsTest() {
+	public void addTooManyItemsTest() {
 		Inventory inventory = new Inventory();
 		for (int i = 0; i < 10; i++) {
 			inventory.addItem(new Item());
@@ -119,4 +119,22 @@ public class InventoryTest {
 		Inventory inventory = new Inventory();
 		assertEquals(inventory.removeItemFromInventory(new Item()) , false);
 	}
+	
+	@Test
+	public void removingItemWithNewInstanceTest() {
+		Inventory inventory = new Inventory();
+		inventory.addItemToInventory(new Item(itemName, 100));
+		inventory.addItemToInventory(new Item(itemName, 100));
+		assertTrue(inventory.removeItemFromInventory(new Item(itemName, 100)));
+	}
+	
+	@Test
+	public void correctQuantityWithNewInstanceTest() {
+		Inventory inventory = new Inventory();
+		inventory.addItemToInventory(new Item(itemName, 100));
+		inventory.addItemToInventory(new Item(itemName, 100));
+		inventory.removeItemFromInventory(new Item(itemName, 100));
+		assertEquals(inventory.getItemsInInventory().get(new Item(itemName, 100)).intValue() , 1);
+	}
+	
 }

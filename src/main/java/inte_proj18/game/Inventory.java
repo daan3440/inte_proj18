@@ -47,14 +47,6 @@ public class Inventory {
 		return null;
 	}
 
-//	public String listItems() {
-//		String output = "";
-//		for (int i = 0; i < ArraySize; i++) {
-//			output = output + "\n" + items[i];
-//		}
-//		return output;
-//	}
-
 	public int getEmptyPlace() {
 		int emptyPlace = -1;
 
@@ -88,8 +80,7 @@ public class Inventory {
 			if (quantity == 1) {
 				itemsInInventory.remove(item);
 				return true;
-			}
-			else {
+			} else {
 				itemsInInventory.put(item, quantity - 1);
 				return true;
 			}
