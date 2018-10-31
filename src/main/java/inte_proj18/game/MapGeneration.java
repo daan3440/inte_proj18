@@ -161,6 +161,8 @@ public class MapGeneration {
 	protected void generateMapContent() {
 		generateGameMapEnvironment();
 		emptySpots.addAll(pathWay);
+		emptySpots.remove(entryPoint);
+		emptySpots.remove(exitPoint);
 		Collections.shuffle(emptySpots);
 		generateItems();
 		generateEnemies();
