@@ -117,62 +117,14 @@ public class PlayerTest {
 
 	@Test
 	public void playerCollisionDetectionTest() {
-//		Position posDown = new Position(pos.getX(), pos.getY() + 1);
-		Position posDown = new Position(gamemap.getEntryPoint().getX()+44, gamemap.getEntryPoint().getY());
-//		boolean makeMoveDown = false;
-//		ImmovableObject tmpObject = new ImmovableObject();
-//
-//		if (!gamemap.getGameMapObjects().containsKey(posDown)) {
-////			GameObject tempGameObject = gamemap.getGameMapObjects().get(posDown);
-//			gamemap.getGameMapObjects().put(posDown, tmpObject.(posDown));
-//		}
-		//Many steps för possible collision
-		
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();		
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		player.moveRight();
-		
+		int moveAmountOfTimes = Math.abs(gamemap.getEntryPoint().getX()-gamemap.getMaxWidth());
+		Position posDown = new Position(gamemap.getEntryPoint().getX() + moveAmountOfTimes,
+				gamemap.getEntryPoint().getY());
+		// Many steps for certain possible collision
+		for (int moveRight = 0; moveRight < moveAmountOfTimes; moveRight++) {
+			player.moveRight();
+		}
+
 		assertNotEquals(player.getPosition(), posDown);
 	}
 

@@ -39,21 +39,18 @@ public class MapGeneration {
 		fillEmptySpots();
 		drawWallFrame();
 		createEntryAndExitPoints();
-
-//		emptySpots.remove(entryPoint);
-//		emptySpots.remove(exitPoint);
 		removeMapObjectsFromEmptySpots();
 		createPath();
 		generateMapContent();
 
 	}
 
-	protected void createEntryAndExitPoints() {
+	private void createEntryAndExitPoints() {
 		boolean checkDistance = false;
 		while (!checkDistance) {
-			entryPoint = createEntryPoint();// new Position(width / 2, height - 1);
-			exitPoint = createExitPoint();// new Position(width / 2, 1 + 1);
-			if (checkDistanceLongEnough()) {
+			entryPoint = generatePoint();// new Position(width / 2, height - 1);
+			exitPoint = generatePoint();// new Position(width / 2, 1 + 1);
+			if (checkDistanceIsWithinLimit()) {
 				checkDistance = true;
 				emptySpots.remove(entryPoint);
 				emptySpots.remove(exitPoint);
@@ -116,15 +113,7 @@ public class MapGeneration {
 
 	}
 
-	public Position createEntryPoint() {
-		int checkInt = 1;
-		int x = generateRandomNumberInRange(checkInt);
-		int y = generateRandomNumberInRange(0);
-		return new Position(x, y);
-
-	}
-
-	public Position createExitPoint() {
+	protected Position generatePoint() {
 		int checkInt = 1;
 		int x = generateRandomNumberInRange(checkInt);
 		int y = generateRandomNumberInRange(0);
@@ -136,21 +125,20 @@ public class MapGeneration {
 		Random rnd = new Random();
 		int i;
 		if (checkInt == 1) {
-			i = rnd.nextInt(((width-2) - 2) + 1) + 2;
-//			i = rnd.nextInt((int) (((int) width - 2) - ((int) width -2) + 1)) + width;
+			i = rnd.nextInt(((width - 2) - 2) + 1) + 2;
 			return i;
 		} else {
-			i = rnd.nextInt(((height-2) - 2) + 1) + 2;
-//			i = rnd.nextInt((int) (((int) height -2) - ((int) height -2) + 1)) + height;
+			i = rnd.nextInt(((height - 2) - 2) + 1) + 2;
 		}
 		return i;
 	}
 
-	public boolean checkDistanceLongEnough() {
-//		return entryPoint.getDistance(exitPoint) > Math.abs((int)width*.8) ;
-		return (Math.abs(entryPoint.getX() - exitPoint.getX())
-				+ (Math.abs(entryPoint.getY() - exitPoint.getY())) > (Math.abs(1 - width)
-						+ Math.abs(1 - height) * ((int) 0.8)));
+	protected boolean checkDistanceIsWithinLimit() {
+		int distancePoints = Math.abs(entryPoint.getX() - exitPoint.getX())
+				+ (Math.abs(entryPoint.getY() - exitPoint.getY()));
+		double innerLimit = (Math.abs(1 - width) + Math.abs(1 - height)) * 0.8;
+		int outerLimit = (Math.abs(2 - width) + Math.abs(2 - height));
+		return (distancePoints > innerLimit) && !(distancePoints > outerLimit);
 	}
 
 	protected Position getNearestPoint(Position pos) {

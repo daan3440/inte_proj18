@@ -172,7 +172,28 @@ class MapGenerationTest {
 		Position pos = new Position(mg.getWidth(), mg.getHeight());
 		assertTrue(mg.mapObjectsContainsKey(pos));
 	}
-	
+	@Test
+	public void checkDistanceIsLongEnoughBetweenEntryAndExitPoint() {
+		mg.setEntryPoint(new Position(1,1));
+		mg.setExitPoint(new Position(52,52));
+		assertTrue(mg.checkDistanceIsWithinLimit());
+	}
+	@Test
+	public void checkDistanceNotTooShortBetweenEntryAndExitPoint() {
+		mg.setEntryPoint(new Position(1,1));
+		mg.setExitPoint(new Position(3,5));
+		assertFalse(mg.checkDistanceIsWithinLimit());
+	}
+	@Test
+	public void checkDistanceNotTooLongBetweenEntryAndExitPoint() {
+		// set Point that are Too far Apart
+		mg.setEntryPoint(new Position(1,1));
+		mg.setExitPoint(new Position(64,64));
+		//assert
+		assertFalse(mg.checkDistanceIsWithinLimit());
+	}
+		
+	//Bara som referens
 	@Test
 	public void printGameMapTest() {
 //				for (Position p: gamemap.getPathWay()) {
@@ -186,7 +207,7 @@ class MapGenerationTest {
 					if (mg.getEntryPoint().equals(new Position(x, y)))
 						System.out.print("\033[33m @"); //[33m yellow
 					else if (mg.getExitPoint().equals(new Position(x, y)))
-						System.out.print("\033[34m X"); //[34m blue
+						System.out.print("\033[34m Ω"); //[34m blue
 					else if (mg.getPathWay().contains(new Position(x, y)))
 						System.out.print("\033[32m ·"); //[32m green
 					else
@@ -208,44 +229,5 @@ class MapGenerationTest {
 		}
 
 	}
-
-
-	// Utkommenterat pga jobbigt att se men kvar som referens vid behov
-//	@Test
-//	public void printGameMapTest() {
-////				for (Position p: gamemap.getPathWay()) {
-////					System.out.println(p.getX()+","+ p.getY());
-////				}
-//		GameMap gamemap;
-//
-//		for (int y = 1; y <= mg.getHeight(); y++) {
-//			for (int x = 1; x <= mg.getWidth(); x++) {
-//				GameObject go = mg.getMapObjectsEntry(new Position(x, y));
-//				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
-//					if (mg.getEntryPoint().equals(new Position(x, y)))
-//						System.out.print("S");
-//					else if (mg.getExitPoint().equals(new Position(x, y)))
-//						System.out.print("X");
-//					else if (mg.getPathWay().contains(new Position(x, y)))
-//						System.out.print("P");
-//					else
-//						System.out.print(" ");
-//				} else {
-//					if (go instanceof Item)
-//						System.out.print("*");
-//					if (go instanceof Enemy)
-//						System.out.print("W");
-//					if (go instanceof ImmovableObject && !(go instanceof Item))
-//						System.out.print("#");
-//					if (go instanceof Player)
-//						System.out.print("M");
-//				}
-//
-//			}
-//			System.out.println();
-//
-//		}
-//
-//	}
 
 }
