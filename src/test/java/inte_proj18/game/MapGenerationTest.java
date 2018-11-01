@@ -184,22 +184,22 @@ class MapGenerationTest {
 				GameObject go = mg.getMapObjectsEntry(new Position(x, y));
 				if (go == null) {// (!gamemap.getPathWay().contains(pos)) {
 					if (mg.getEntryPoint().equals(new Position(x, y)))
-						System.out.print("\033[33m S");
+						System.out.print("\033[33m @"); //[33m yellow
 					else if (mg.getExitPoint().equals(new Position(x, y)))
-						System.out.print("\033[34m X");
+						System.out.print("\033[34m X"); //[34m blue
 					else if (mg.getPathWay().contains(new Position(x, y)))
-						System.out.print("\033[32m P");
+						System.out.print("\033[32m ·"); //[32m green
 					else
-						System.out.print("\033[0m  ");
+						System.out.print("\033[0m  "); //[0m clears all - default
 				} else {
 					if (go instanceof Item)
-						System.out.print("\033[35m *");
+						System.out.print("\033[35m $"); //[35m magenta
 					if (go instanceof Enemy)
-						System.out.print("\033[31m W");
+						System.out.print("\033[31m †"); //[31m red
 					if (go instanceof ImmovableObject && !(go instanceof Item))
-						System.out.print("\033[0m #");
+						System.out.print("\033[0m #"); //[0m clears all - default
 					if (go instanceof Player)
-						System.out.print("\033[36m M");
+						System.out.print("\033[36m M"); //[36m cyan
 				}
 
 			}

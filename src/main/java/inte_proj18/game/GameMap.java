@@ -14,7 +14,7 @@ public class GameMap {
 	private static final int MAX_WIDTH = 256;
 	private static final int MAX_HEIGHT = 256;
 
-	private static final double DEFAULT_PART_IMMOVABLEOBJECTS = 0.4;
+	private static final double DEFAULT_PART_IMMOVABLEOBJECTS = 0.6;
 	private static final double DEFAULT_PART_ITEMS = 0.01;
 	private static final double DEFAULT_PART_ENEMIES = 0.2;
 

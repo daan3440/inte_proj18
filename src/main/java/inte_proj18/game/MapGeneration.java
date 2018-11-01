@@ -13,7 +13,7 @@ public class MapGeneration {
 	private double partEnemiesOnMap;
 	private double partItemsOnMap;
 
-	private final static int NUMBER_OF_PATH_POINTS = 8;
+	private final static int NUMBER_OF_PATH_POINTS = 9;
 
 	private ArrayList<Position> emptySpots = new ArrayList<Position>();
 	private int height;
@@ -136,11 +136,11 @@ public class MapGeneration {
 		Random rnd = new Random();
 		int i;
 		if (checkInt == 1) {
-			i = rnd.nextInt(((width-2) - 1) + 1) + 1;
+			i = rnd.nextInt(((width-2) - 2) + 1) + 2;
 //			i = rnd.nextInt((int) (((int) width - 2) - ((int) width -2) + 1)) + width;
 			return i;
 		} else {
-			i = rnd.nextInt(((height-2) - 1) + 1) + 1;
+			i = rnd.nextInt(((height-2) - 2) + 1) + 2;
 //			i = rnd.nextInt((int) (((int) height -2) - ((int) height -2) + 1)) + height;
 		}
 		return i;
